@@ -2,36 +2,11 @@
 
 Frontend starter for the Salair public site built with Astro and Tailwind CSS.
 
-## Project setup
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Build for production:
-
-```bash
-npm run build
-```
-
-Preview the production build:
-
-```bash
-npm run preview
-```
-
 ## Stack
 
 - Astro
 - Tailwind CSS (via @tailwindcss/vite)
+- React
 - Node.js
 
 ## Project structure
@@ -44,5 +19,7 @@ npm run preview
 
 ## Notes
 
-- Custom Tailwind theme configuration is stored in `tailwind.config.js`.
-- SVG assets are imported as URLs when used in image tags.
+- Atomic Design
+- Alias para importaciones mas simples con '@'
+- Tailwind theme config en styles/global.css
+
