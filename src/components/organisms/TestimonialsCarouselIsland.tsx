@@ -102,7 +102,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
 
   return (
     <section
-      className="rounded-2xl  bg-white p-6 sm:p-8 md:mx-auto md:max-w-3xl"
+      className="rounded-2xl  bg-white md:mx-auto md:max-w-3xl"
       aria-label="Carrusel de testimonios de clientes"
     >
       <div className="relative">

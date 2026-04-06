@@ -8,9 +8,11 @@ import InfoPanelCard from "@molecules/InfoPanelCard.astro";
 
 <section id="contacto" class=" bg-primary-500 py-20 lg:py-28">
   <div class="container">
+    <SectionHeading title="Contacto" tone="dark" align="center"  />
     <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+      
       <div>
-        <SectionHeading title="Contacto" tone="dark" align="left" />
+        
         <p class="mt-6 text-lg text-primary-100">
           Cuéntenos su requerimiento y le responderemos con una evaluación inicial en hasta 24 horas hábiles.
         </p>
@@ -44,17 +46,10 @@ import InfoPanelCard from "@molecules/InfoPanelCard.astro";
         </p>
       </div>
 
-      <div class="rounded-2xl border border-primary-200/60 bg-white p-8 shadow-[0_24px_44px_-30px_rgba(0,0,0,0.45)] lg:p-10">
-        <SectionHeading
-          as="h3"
-          compact
-          align="left"
-          title="Formulario"
-          description="Complete estos datos y le contactaremos a la brevedad."
-          class="mb-6"
-        />
+      <div class="rounded-2xl border border-primary-200/60 bg-white p-8 shadow-[0_24px_44px_-30px_rgba(0,0,0,0.45)]">
 
-        <form id="contact-form" class="mt-8 space-y-5" novalidate>
+
+        <form id="contact-form" class="space-y-5" novalidate>
           <FormField
             id="company"
             name="company"
@@ -109,7 +104,7 @@ import InfoPanelCard from "@molecules/InfoPanelCard.astro";
           </Button>
 
           <p class="text-xs text-secondary-300">
-            Al enviar este formulario aceptás que usemos estos datos para contactarte y preparar una propuesta.
+            Al enviar este formulario acepta que usemos estos datos para contactarlo y preparar una propuesta.
           </p>
 
           <div id="success-msg" class="hidden rounded-md border border-primary-300 bg-primary-100 p-4 text-center text-sm text-primary-700">

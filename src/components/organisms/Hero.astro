@@ -1,7 +1,6 @@
 ---
 import Button from "@atoms/Button.astro";
 import heroVideo from "@assets/videos/hero-video.mp4";
-import heroPoster from "@assets/images/equipos/aire-acondicionado-industrial.webp";
 ---
 
 <section class="relative min-h-[90dvh] overflow-hidden pt-24 py-20 lg:pt-32 lg:py-28 content-center">
@@ -10,8 +9,7 @@ import heroPoster from "@assets/images/equipos/aire-acondicionado-industrial.web
     muted
     loop
     playsinline
-    preload="metadata"
-    poster={heroPoster.src}
+    preload="auto"
     aria-hidden="true"
     class="absolute inset-0 h-full w-full object-cover"
   >
@@ -27,14 +25,12 @@ import heroPoster from "@assets/images/equipos/aire-acondicionado-industrial.web
       </h1>
 
       <p class="text-sm mt-6 max-w-3xl sm:text-lg/6">
-        Nos hacemos cargo de instalaciones, mantenciones y reparaciones en climatización y refrigeración para que tu
+        Nos hacemos cargo de instalaciones, mantenciones y reparaciones en climatización y refrigeración para que su
         operación siga funcionando.
       </p>
 
       <div class="mt-10 flex flex-row gap-3 ">
-        <Button href="#contacto" variant="accent" size="lg">
-          Contactar
-        </Button>
+        <Button href="#contacto" variant="accent" size="lg">Solicitar contacto</Button>
         <Button href="#servicios" variant="primary" size="lg">
           Ver servicios
         </Button>

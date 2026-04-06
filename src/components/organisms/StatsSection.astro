@@ -1,32 +1,29 @@
 ---
 import StatCard from "@molecules/StatCard.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
+import Button from "@atoms/Button.astro";
 
 const stats = [
   {
-    value: "15+",
-    label: "Años en terreno",
-    iconName: "clock",
+    value: "30+",
+    label: "Años de experiencia",
   },
   {
-    value: "4.800+",
-    label: "Equipos intervenidos",
-    iconName: "thermometer",
+    value: "6000+",
+    label: "Emergencias solucionadas",
   },
   {
-    value: "2.500+",
-    label: "Atenciones realizadas",
-    iconName: "users",
+    value: "100+",
+    label: "Proyectos realizados",
   },
   {
-    value: "98%",
-    label: "Satisfacción reportada",
-    iconName: "award",
+    value: "10+",
+    label: "Empresas multinacionales confían en nosotros",
   },
 ];
 ---
 
-<section class="bg-primary-500 py-20 lg:py-28">
+<section id="resultados" class="bg-primary-500 py-20 lg:py-28">
   <div class="container">
     <SectionHeading
       title="Resultados"
@@ -36,8 +33,86 @@ const stats = [
 
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (
-        <StatCard value={stat.value} label={stat.label} iconName={stat.iconName} />
+        <StatCard value={stat.value} label={stat.label} />
       ))}
+    </div>
+
+    <div class="mt-10 flex justify-center">
+      <Button href="#contacto" variant="accent" size="lg">Solicitar evaluación inicial</Button>
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from "gsap";
+
+  const section = document.getElementById("resultados");
+  const statNodes = Array.from(document.querySelectorAll<HTMLElement>("#resultados .js-stat-value"));
+
+  if (section instanceof HTMLElement && statNodes.length > 0) {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let hasAnimated = false;
+
+    const formatValue = (raw: string, value: number) => {
+      const hasPlus = raw.includes("+");
+      const hasPercent = raw.includes("%");
+      const rounded = Math.round(value);
+      const formatted = rounded.toLocaleString("es-CL");
+
+      if (hasPercent) return `${formatted}%`;
+      if (hasPlus) return `${formatted}+`;
+      return formatted;
+    };
+
+    const animateCounters = () => {
+      if (hasAnimated) return;
+      hasAnimated = true;
+
+      const timingByValue: Record<string, { duration: number; delay: number }> = {
+        "30+": { duration: 1.4, delay: 0.0 },
+        "6000+": { duration: 2.2, delay: 0.12 },
+        "100+": { duration: 1.6, delay: 0.24 },
+        "10+": { duration: 1.2, delay: 0.36 },
+      };
+
+      statNodes.forEach((node, index) => {
+        const raw = node.dataset.statValue?.trim() ?? node.textContent?.trim() ?? "0";
+        const target = Number.parseInt(raw.replace(/[^\d]/g, ""), 10);
+        const fallbackTiming = { duration: 1.5, delay: index * 0.1 };
+        const timing = timingByValue[raw] ?? fallbackTiming;
+
+        if (!Number.isFinite(target)) return;
+
+        if (prefersReducedMotion) {
+          node.textContent = formatValue(raw, target);
+          return;
+        }
+
+        const counter = { value: 0 };
+
+        gsap.to(counter, {
+          value: target,
+          duration: timing.duration,
+          delay: timing.delay,
+          ease: "power3.out",
+          onUpdate: () => {
+            node.textContent = formatValue(raw, counter.value);
+          },
+        });
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry?.isIntersecting) {
+          animateCounters();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(section);
+  }
+</script>
