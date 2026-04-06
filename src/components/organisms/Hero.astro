@@ -3,6 +3,7 @@ import Button from "@atoms/Button.astro";
 import TrustedCompaniesMarquee from "@organisms/TrustedCompaniesMarquee.astro";
 import TrustBadge from "@molecules/TrustBadge.astro";
 import heroVideo from "@assets/videos/hero-video.mp4";
+import heroPoster from "@assets/images/equipos/aire-acondicionado-industrial.webp";
 ---
 
 <section class="relative min-h-[90dvh] overflow-hidden pt-24 py-20 lg:pt-32 lg:py-28 content-center">
@@ -12,6 +13,7 @@ import heroVideo from "@assets/videos/hero-video.mp4";
     loop
     playsinline
     preload="metadata"
+    poster={heroPoster.src}
     aria-hidden="true"
     class="absolute inset-0 h-full w-full object-cover"
   >
@@ -21,14 +23,14 @@ import heroVideo from "@assets/videos/hero-video.mp4";
   <div class="absolute inset-0 bg-linear-to-b from-secondary-900/80 from-50% to-neutral-100 to-100% "></div>
 
   <div class="container relative z-10 text-neutral-100">
-    <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
-      <h1 class="text-4xl font-extrabold   sm:text-5xl lg:text-6xl">
+    <div class="mx-auto flex max-w-6xl flex-col items-center text-center">
+      <h1 class="text-4xl font-bold  sm:text-5xl lg:text-7xl">
         Soluciones de climatización y refrigeración industrial
       </h1>
 
       <p class="mt-6 max-w-3xl leading-relaxed sm:text-lg">
-        Instalamos, mantenemos y reparamos tus sistemas de climatización y refrigeración con foco en continuidad
-        operativa, eficiencia energética y trazabilidad técnica.
+        Instalaciones, mantenciones y repararaciones de tus sistemas de climatización y refrigeración con foco en continuidad
+        operativa y calidad de servicio.
       </p>
 
       <div class="mt-10 flex flex-row gap-3 ">
@@ -51,4 +53,3 @@ import heroVideo from "@assets/videos/hero-video.mp4";
 
   
 </section>
-

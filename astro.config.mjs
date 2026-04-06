@@ -2,9 +2,13 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+  // TODO: ajustar este dominio si cambia el dominio canónico del sitio.
+  site: 'https://www.salair.cl',
+
   fonts: [{
     provider: fontProviders.fontsource(),
     name: "Montserrat",
@@ -31,5 +35,5 @@ export default defineConfig({
 
 
 
-  integrations: [react()]
+  integrations: [react(), sitemap()]
 });
