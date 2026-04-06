@@ -1,0 +1,74 @@
+﻿---
+import BenefitItem from "@molecules/BenefitItem.astro";
+
+const benefits = [
+  {
+    number: "01",
+    title: "Ingeniería Especializada",
+    description: "Equipo técnico certificado con experiencia en proyectos de climatización para operaciones de alta exigencia.",
+  },
+  {
+    number: "02",
+    title: "SLA Contractual",
+    description: "Compromisos formales de atención con indicadores de respuesta y seguimiento operativo.",
+  },
+  {
+    number: "03",
+    title: "Presupuesto Transparente",
+    description: "Propuestas detalladas con alcance, plazos y entregables claramente definidos desde el inicio.",
+  },
+  {
+    number: "04",
+    title: "Garantía Extendida",
+    description: "Cobertura técnica en repuestos y mano de obra para resguardar la inversión de cada proyecto.",
+  },
+  {
+    number: "05",
+    title: "Gestión de Repuestos",
+    description: "Planificación de inventario crítico para reducir riesgos de detención por fallas inesperadas.",
+  },
+  {
+    number: "06",
+    title: "Cobertura Nacional",
+    description: "Atención para clientes industriales y comerciales en la Región Metropolitana y principales ciudades.",
+  },
+];
+
+const stats = [
+  { value: "15+", label: "Años de experiencia" },
+  { value: "500+", label: "Proyectos B2B" },
+  { value: "50+", label: "Contratos activos" },
+  { value: "98%", label: "Satisfacción de clientes" },
+];
+---
+
+<section id="nosotros" class="border-y border-secondary-200 bg-white py-20 lg:py-28">
+  <div class="container">
+    <div class="grid items-start gap-14 lg:grid-cols-2">
+      <div>
+        <h2 class="mt-4 text-3xl font-black text-secondary-500 sm:text-4xl lg:text-5xl">
+          Un socio técnico para infraestructura crítica
+        </h2>
+        <p class="mt-6 text-lg text-secondary-300">
+          Acompañamos a su organización con una metodología de trabajo orientada a prevención,
+          continuidad de servicio y mejora de desempeño energético.
+        </p>
+
+        <div class="mt-10 grid grid-cols-2 gap-4">
+          {stats.map((stat) => (
+            <article class="rounded-2xl border border-secondary-300 bg-secondary-500 p-5">
+              <p class="text-2xl font-black text-white sm:text-3xl">{stat.value}</p>
+              <p class="mt-1 text-sm text-secondary-100/90">{stat.label}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        {benefits.map((benefit) => (
+          <BenefitItem number={benefit.number} title={benefit.title} description={benefit.description} />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

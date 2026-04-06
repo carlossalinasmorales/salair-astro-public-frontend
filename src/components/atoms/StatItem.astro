@@ -1,0 +1,26 @@
+---
+import Icon from "@atoms/Icon.astro";
+
+interface Props {
+  value: string;
+  label: string;
+  iconName?: string;
+  class?: string;
+}
+
+const { value, label, iconName, class: className = "" } = Astro.props;
+---
+
+<article class={`h-full rounded-2xl border border-secondary-200/80 bg-white p-7 text-center shadow-[0_14px_28px_-22px_rgba(9,26,56,0.65)] ${className}`}>
+  {iconName && (
+    <div class="mx-auto mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-secondary-500 text-white">
+      <Icon name={iconName} class="h-5 w-5" />
+    </div>
+  )}
+  <div class="mb-2 text-3xl font-black text-secondary-500 sm:text-4xl">
+    {value}
+  </div>
+  <div class="text-sm font-medium text-secondary-300">
+    {label}
+  </div>
+</article>

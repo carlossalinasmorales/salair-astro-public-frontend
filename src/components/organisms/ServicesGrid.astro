@@ -1,0 +1,58 @@
+﻿---
+import ServiceCard from "@molecules/ServiceCard.astro";
+
+const services = [
+  {
+    iconName: "building",
+    title: "HVAC Industrial",
+    description: "Diseño y montaje de climatización centralizada para plantas productivas, centros logísticos y grandes superficies.",
+  },
+  {
+    iconName: "snowflake",
+    title: "Refrigeración Comercial",
+    description: "Implementación de cámaras frigoríficas y sistemas de cadena de frío para retail, alimentos y logística.",
+  },
+  {
+    iconName: "document",
+    title: "Proyecto Llave en Mano",
+    description: "Gestión integral desde la ingeniería de detalle hasta la puesta en marcha y documentación técnica final.",
+  },
+  {
+    iconName: "wrench",
+    title: "Mantenimiento Contractual",
+    description: "Planes preventivos con métricas de desempeño, reportes periódicos y atención correctiva prioritaria.",
+  },
+  {
+    iconName: "zap",
+    title: "Atención de Emergencias",
+    description: "Intervención técnica para eventos críticos con protocolos de continuidad operativa y trazabilidad.",
+  },
+  {
+    iconName: "award",
+    title: "Auditoría Técnica",
+    description: "Diagnóstico de eficiencia energética, estado de activos y recomendaciones para optimizar costos operativos.",
+  },
+];
+---
+
+<section id="servicios" class="bg-neutral-100 py-20 lg:py-28">
+  <div class="container">
+    <div class="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
+      <h2 class="text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">Servicios HVAC para industria y comercio</h2>
+      <p class="mt-5 text-base text-secondary-300 sm:text-lg">
+        Ejecutamos proyectos con foco en continuidad operacional, eficiencia energética y cumplimiento técnico.
+      </p>
+    </div>
+
+    <div class="mb-9 rounded-2xl border border-dashed border-secondary-300/80 bg-linear-to-br from-neutral-100 to-white p-6 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.13em] text-secondary-400">Franja de casos de proyecto</p>
+      <p class="mt-2 text-sm text-secondary-300">Sugerencia: 3-6 imágenes reales 4:3 (mínimo 1400 x 1050 px), priorizando salas de máquinas e instalaciones en operación.</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {services.map((service) => (
+        <ServiceCard title={service.title} description={service.description} iconName={service.iconName} />
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+---
+import TestimonialsCarouselIsland from "./TestimonialsCarouselIsland";
+
+const testimonials = [
+  {
+    quote: "Implementaron un sistema centralizado de climatización para nuestra planta de 5.000 m². El proyecto se entregó en plazo y el consumo energético se redujo un 23% durante el primer año.",
+    name: "Roberto Méndez",
+    role: "Director de Operaciones",
+    company: "Industrial Foods Chile",
+    location: "Quilicura, Santiago",
+    avatar: "RM",
+  },
+  {
+    quote: "Contratamos un plan anual de mantenimiento para 12 locales. La reducción de incidencias fue del 85% y hoy contamos con reportes técnicos que facilitan la toma de decisiones.",
+    name: "Patricia Vega",
+    role: "Gerente de Facilities",
+    company: "Grupo Comercial Sur",
+    location: "Región Metropolitana",
+    avatar: "PV",
+  },
+  {
+    quote: "Tuvimos una contingencia crítica en cámara de frío durante un fin de semana. El equipo llegó en menos de seis horas y evitamos pérdidas de mercadería.",
+    name: "Carlos Ruiz",
+    role: "Supply Chain Manager",
+    company: "Logística Andes SpA",
+    location: "Pudahuel, Santiago",
+    avatar: "CR",
+  },
+];
+---
+
+<section id="testimonios" class="bg-white py-20 lg:py-28">
+  <div class="container">
+    <div class="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
+      <h2 class="text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">Experiencias de clientes industriales y comerciales</h2>
+      <p class="mt-5 text-base text-secondary-300 sm:text-lg">Empresas de distintos sectores validan nuestra capacidad para sostener operaciones críticas.</p>
+    </div>
+
+    <div class="mb-8 rounded-2xl border border-dashed border-secondary-300/80 bg-linear-to-br from-neutral-100 to-white p-6 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.13em] text-secondary-400">Caso visual destacado</p>
+      <p class="mt-2 text-sm text-secondary-300">Sugerencia: fotografía 1200 x 800 px de equipo técnico en planta o sala de máquinas con contexto operativo real.</p>
+    </div>
+
+    <TestimonialsCarouselIsland testimonials={testimonials} client:idle />
+  </div>
+</section>

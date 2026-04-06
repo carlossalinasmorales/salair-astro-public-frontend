@@ -9,6 +9,7 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": [
         "src/*"
@@ -16,11 +17,23 @@
       "@styles/*": [
         "src/styles/*"
       ],
-    "layouts/*": [
+      "@layouts/*": [
         "src/layouts/*"
       ],
       "@components/*": [
         "src/components/*"
+      ],
+      "@atoms/*": [
+        "src/components/atoms/*"
+      ],
+      "@molecules/*": [
+        "src/components/molecules/*"
+      ],
+      "@organisms/*": [
+        "src/components/organisms/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
       ]
     },
     "jsx": "react-jsx",

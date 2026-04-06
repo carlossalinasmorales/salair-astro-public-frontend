@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+import defaultLogo from "@assets/logos/salair-logo.webp";
+import whiteLogo from "@assets/logos/salair-white-logo.webp";
+import secondaryLogo from "@assets/logos/salair-secondary-logo.webp";
+
+type LogoVariant = "default" | "white" | "secondary" | "auto";
+type LogoSize = "sm" | "md" | "lg";
+
+interface Props {
+  variant?: LogoVariant;
+  size?: LogoSize;
+  alt?: string;
+  class?: string;
+  priority?: boolean;
+}
+
+const {
+  variant = "default",
+  size = "md",
+  alt = "Salair",
+  class: className = "",
+  priority = false,
+} = Astro.props;
+
+const sizeClasses: Record<LogoSize, string> = {
+  sm: "h-4 lg:h-6",
+  md: "h-6 lg:h-8",
+  lg: "h-8 lg:h-10",
+};
+
+const logosByVariant = {
+  default: defaultLogo,
+  white: whiteLogo,
+  secondary: secondaryLogo,
+} as const;
+
+const selectedVariant = variant === "auto" ? "default" : variant;
+const selectedLogo = logosByVariant[selectedVariant];
+const sharedImageAttributes = {
+  loading: priority ? "eager" as const : "lazy" as const,
+  decoding: priority ? "sync" as const : "async" as const,
+  fetchpriority: priority ? "high" as const : "auto" as const,
+};
+---
+
+{
+  variant === "auto" ? (
+    <span class:list={["logo-auto relative inline-flex items-center", sizeClasses[size], className]}>
+      <Image
+        src={defaultLogo}
+        alt={alt}
+        class="logo-auto__default h-full w-auto"
+        {...sharedImageAttributes}
+      />
+      <Image
+        src={secondaryLogo}
+        alt=""
+        aria-hidden="true"
+        class="logo-auto__white pointer-events-none absolute inset-0 h-full w-auto opacity-0"
+        {...sharedImageAttributes}
+      />
+    </span>
+  ) : (
+    <Image
+      src={selectedLogo}
+      alt={alt}
+      class:list={["w-auto", sizeClasses[size], className]}
+      {...sharedImageAttributes}
+    />
+  )
+}
+
+<style is:global>
+  .logo-auto__default,
+  .logo-auto__white {
+    transition: opacity 220ms ease;
+  }
+
+  #smart-header.is-transparent .logo-auto__default {
+    opacity: 0;
+  }
+
+  #smart-header.is-transparent .logo-auto__white {
+    opacity: 1;
+  }
+</style>

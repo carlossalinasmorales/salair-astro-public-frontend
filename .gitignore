@@ -13,16 +13,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-#testing
-src/pages/dev
-
-# lock de sistemas
-yarn.lock
-pnpm-lock.yaml
-
 # environment variables
 .env
 .env.*
+!.env.example
 
 # editor folders
 .vscode/
@@ -32,9 +26,17 @@ pnpm-lock.yaml
 .DS_Store
 Thumbs.db
 
-
 # cache
 .cache/
 
 # vite
 .vite/
+
+# testing / coverage
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# agent tooling
+.atl/

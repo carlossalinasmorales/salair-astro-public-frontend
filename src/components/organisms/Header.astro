@@ -1,0 +1,173 @@
+---
+import Button from "@atoms/Button.astro";
+import Logo from "@atoms/Logo.astro";
+import NavLink from "@atoms/NavLink.astro";
+
+
+const navLinks = [
+  { href: "#servicios", label: "Servicios" },
+  { href: "#nosotros", label: "Nosotros" },
+  { href: "#testimonios", label: "Clientes" },
+  { href: "#contacto", label: "Contacto" },
+];
+---
+
+<header
+  id="smart-header"
+  class="is-transparent fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent transition-transform duration-300 ease-out">
+  <div class="container">
+    <nav class="flex h-20 items-center justify-between" aria-label="Navegación principal">
+      <a href="/" aria-label="Salair - Inicio">
+        <Logo variant="auto" size="md" priority class="header-logo" />
+      </a>
+      <div class="flex items-center gap-6">
+        <ul class="hidden items-center gap-1 md:flex">
+          {navLinks.map((link) => (
+            <li>
+              <NavLink href={link.href} label={link.label} class="header-nav-link" />
+            </li>
+          ))}
+        </ul>
+
+      <Button href="#contacto" variant="accent" class="hidden! md:flex!">
+        Contacto
+      </Button>
+      </div>
+
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="header-mobile-btn rounded-xl border border-secondary-200 p-2 text-secondary-500 transition-colors hover:bg-neutral-200 md:hidden"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </nav>
+
+    <div id="mobile-menu" class="header-mobile-menu hidden border-t border-secondary-200 py-4 md:hidden">
+      <ul class="flex flex-col gap-2">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+                class="header-mobile-link block rounded-lg border border-transparent px-4 py-2 text-sm font-semibold text-secondary-500 transition-all hover:border-secondary-300 hover:bg-neutral-200"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+        <li class="pt-2">
+          <Button href="#contacto" class=" w-full justify-center">
+            Contacto
+          </Button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const header = document.getElementById("smart-header");
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+
+  if (header instanceof HTMLElement && btn instanceof HTMLElement && menu instanceof HTMLElement) {
+    const SOLID_SCROLL_THRESHOLD = 120;
+    const HIDE_SCROLL_THRESHOLD = 20;
+    const SCROLL_DELTA_THRESHOLD = 6;
+    let lastScrollY = window.scrollY;
+
+    const updateHeaderState = () => {
+      const currentScrollY = window.scrollY;
+      const isMenuExpanded = btn.getAttribute("aria-expanded") === "true";
+      const shouldBeSolid = isMenuExpanded || currentScrollY > SOLID_SCROLL_THRESHOLD;
+
+      header.classList.toggle("is-solid", shouldBeSolid);
+      header.classList.toggle("is-transparent", !shouldBeSolid);
+
+      if (isMenuExpanded || currentScrollY <= HIDE_SCROLL_THRESHOLD) {
+        header.classList.remove("is-hidden");
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      const delta = currentScrollY - lastScrollY;
+
+      if (Math.abs(delta) < SCROLL_DELTA_THRESHOLD) {
+        return;
+      }
+
+      if (delta > 0) {
+        header.classList.add("is-hidden");
+      } else {
+        header.classList.remove("is-hidden");
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    btn.addEventListener("click", () => {
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!isExpanded));
+      menu.classList.toggle("hidden");
+      updateHeaderState();
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        btn.setAttribute("aria-expanded", "false");
+        menu.classList.add("hidden");
+        updateHeaderState();
+      });
+    });
+
+    window.addEventListener("scroll", updateHeaderState, { passive: true });
+    window.addEventListener("resize", updateHeaderState);
+
+    updateHeaderState();
+  }
+</script>
+
+<style is:global>
+  #smart-header.is-solid {
+    background-color: rgb(249 250 251 / 0.92);
+    border-color: rgb(106 122 154 / 0.45);
+    box-shadow: 0 16px 34px -30px rgb(4 12 26 / 0.9);
+  }
+
+  #smart-header.is-hidden {
+    transform: translateY(-100%);
+  }
+
+  #smart-header.is-transparent .header-nav-link,
+  #smart-header.is-transparent .header-mobile-link {
+    color: rgb(249 250 251);
+  }
+
+  #smart-header.is-transparent .header-nav-link:hover,
+  #smart-header.is-transparent .header-mobile-link:hover {
+    border-color: rgb(249 250 251 / 0.4);
+    background-color: rgb(249 250 251 / 0.1);
+    color: rgb(255 255 255);
+  }
+
+  #smart-header.is-transparent .header-mobile-btn {
+    border-color: rgb(249 250 251 / 0.4);
+    color: rgb(249 250 251);
+  }
+
+  #smart-header.is-transparent .header-mobile-btn:hover {
+    background-color: rgb(249 250 251 / 0.12);
+  }
+
+  #smart-header.is-transparent .header-mobile-menu {
+    border-top-color: rgb(165 176 194 / 0.35);
+    background-color: rgb(8 24 48 / 0.96);
+  }
+</style>

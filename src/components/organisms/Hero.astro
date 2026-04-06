@@ -1,0 +1,54 @@
+---
+import Button from "@atoms/Button.astro";
+import TrustedCompaniesMarquee from "@organisms/TrustedCompaniesMarquee.astro";
+import TrustBadge from "@molecules/TrustBadge.astro";
+import heroVideo from "@assets/videos/hero-video.mp4";
+---
+
+<section class="relative min-h-[90dvh] overflow-hidden pt-24 py-20 lg:pt-32 lg:py-28 content-center">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+    class="absolute inset-0 h-full w-full object-cover"
+  >
+    <source src={heroVideo} type="video/mp4" />
+  </video>
+
+  <div class="absolute inset-0 bg-linear-to-b from-secondary-900/80 from-50% to-neutral-100 to-100% "></div>
+
+  <div class="container relative z-10 text-neutral-100">
+    <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
+      <h1 class="text-4xl font-extrabold   sm:text-5xl lg:text-6xl">
+        Soluciones de climatización y refrigeración industrial
+      </h1>
+
+      <p class="mt-6 max-w-3xl leading-relaxed sm:text-lg">
+        Instalamos, mantenemos y reparamos tus sistemas de climatización y refrigeración con foco en continuidad
+        operativa, eficiencia energética y trazabilidad técnica.
+      </p>
+
+      <div class="mt-10 flex flex-row gap-3 ">
+        <Button href="#contacto" variant="accent" size="lg">
+          Contacto
+        </Button>
+        <Button href="#servicios" variant="primary" size="lg">
+          Servicios
+        </Button>
+      </div>
+
+      
+
+
+      
+    </div>
+    
+  </div>
+
+
+  
+</section>
+

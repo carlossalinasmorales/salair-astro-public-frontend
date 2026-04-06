@@ -1,7 +1,28 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Header from "@organisms/Header.astro";
+import Hero from "@organisms/Hero.astro";
+import ServicesGrid from "@organisms/ServicesGrid.astro";
+import BenefitsSection from "@organisms/BenefitsSection.astro";
+import StatsSection from "@organisms/StatsSection.astro";
+import TestimonialsSection from "@organisms/TestimonialsSection.astro";
+import ContactSection from "@organisms/ContactSection.astro";
+import Footer from "@organisms/Footer.astro";
+import TrustedCompaniesMarquee from "@/components/organisms/TrustedCompaniesMarquee.astro";
 ---
 
 <Layout>
-	
+  <Header />
+  <main id="contenido-principal">
+    <Hero />
+    <TrustedCompaniesMarquee/>
+
+    <ServicesGrid />
+    <BenefitsSection />
+    <StatsSection />
+    <TestimonialsSection />
+    <ContactSection />
+
+  </main>
+  <Footer />
 </Layout>

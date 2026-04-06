@@ -1,10 +1,18 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
+  fonts: [{
+    provider: fontProviders.fontsource(),
+    name: "Montserrat",
+    cssVariable: "--font-montserrat",
+    weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+  }],
+
+
   vite: {
     plugins: [tailwindcss()],
     resolve: {
@@ -13,9 +21,15 @@ export default defineConfig({
         '@styles': new URL('./src/styles', import.meta.url).pathname,
         '@components': new URL('./src/components', import.meta.url).pathname,
         '@layouts': new URL('./src/layouts', import.meta.url).pathname,
+        '@atoms': new URL('./src/components/atoms', import.meta.url).pathname,
+        '@molecules': new URL('./src/components/molecules', import.meta.url).pathname,
+        '@organisms': new URL('./src/components/organisms', import.meta.url).pathname,
+        '@assets': new URL('./src/assets', import.meta.url).pathname,
       },
     },
   },
+
+
 
   integrations: [react()]
 });
