@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import SurfaceCard from "@atoms/SurfaceCard.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  alt: string;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  image,
+  alt,
+  class: className = "",
+} = Astro.props;
+---
+
+<SurfaceCard
+  as="article"
+  tone="neutral"
+  interactive
+  class={`group relative h-80 w-full overflow-hidden p-0 md:h-84 md:w-[calc(50%-0.75rem)] xl:h-88 xl:w-[calc(33.333%-1rem)] ${className}`}
+>
+  <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-primary-500 via-secondary-500 to-primary-300 opacity-80"></div>
+  <Image
+    src={image}
+    alt={alt}
+    widths={[480, 720]}
+    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+    class="absolute inset-0 h-full w-full object-cover"
+    loading="lazy"
+    format="webp"
+  />
+  <div aria-hidden="true" class="absolute inset-0 bg-linear-to-b from-secondary-900/20 via-secondary-900/35 to-secondary-900/88"></div>
+
+  <div class="absolute inset-x-0 bottom-0 z-10 p-6">
+    <h3 class="mb-3 text-xl font-bold text-white">{title}</h3>
+    <p class="text-sm leading-relaxed text-secondary-100">{description}</p>
+  </div>
+</SurfaceCard>

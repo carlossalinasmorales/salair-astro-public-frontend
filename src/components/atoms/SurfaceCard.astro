@@ -28,7 +28,7 @@ const interactiveClasses = interactive
   ? ""
   : "";
 
-const classes = `rounded-2xl border shadow-[0_16px_30px_-26px_rgba(9,26,56,0.72)] ${toneClasses[tone]} ${interactiveClasses} ${className}`;
+const classes = `rounded-2xl border shadow-[0_16px_30px_-26px_rgba(9,26,56,0.72)] ${toneClasses[tone as SurfaceTone]} ${interactiveClasses} ${className}`;
 ---
 
 <Tag class={classes}>

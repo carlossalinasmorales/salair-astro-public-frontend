@@ -1,5 +1,6 @@
 ﻿---
 import Button from "@atoms/Button.astro";
+import SectionHeading from "@molecules/SectionHeading.astro";
 import FormField from "@molecules/FormField.astro";
 import FormTextareaField from "@molecules/FormTextareaField.astro";
 import InfoPanelCard from "@molecules/InfoPanelCard.astro";
@@ -9,24 +10,22 @@ import InfoPanelCard from "@molecules/InfoPanelCard.astro";
   <div class="container">
     <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
       <div>
-        <h2 class="mt-4 text-3xl font-black text-white sm:text-4xl lg:text-5xl">
-          Conversemos tu requerimiento
-        </h2>
+        <SectionHeading title="Contacto" tone="dark" align="left" />
         <p class="mt-6 text-lg text-primary-100">
-          Contanos brevemente tu contexto y te responderemos con una evaluación inicial en hasta 24 horas hábiles.
+          Cuéntenos su requerimiento y le responderemos con una evaluación inicial en hasta 24 horas hábiles.
         </p>
 
         <p class="mt-4 text-base text-primary-100/95">
-          Trabajamos con operaciones industriales y comerciales que no pueden detenerse. Nuestro enfoque combina
-          diagnóstico técnico, propuesta clara y plan de ejecución realista según criticidad, plazo y presupuesto.
+          Acompañamos operaciones industriales y comerciales que necesitan continuidad, con diagnóstico técnico,
+          alcance claro y un plan de ejecución realista.
         </p>
 
         <div class="mt-8 space-y-4">
           <InfoPanelCard
-            title="¿Qué vas a recibir en esta primera respuesta?"
+            title="¿Qué incluye la primera respuesta?"
             items={[
               "Diagnóstico inicial del requerimiento y nivel de urgencia.",
-              "Recomendación de servicio (instalación, reparación, mantención o proyecto).",
+              "Recomendación del servicio más adecuado (instalación, reparación, mantención o proyecto).",
               "Próximos pasos con alcance técnico y tiempos estimados.",
             ]}
           />
@@ -38,7 +37,7 @@ import InfoPanelCard from "@molecules/InfoPanelCard.astro";
         </div>
 
         <p class="mt-4 text-sm text-primary-100/90">
-          Si se trata de una urgencia operativa, podés escribir a
+          Si se trata de una urgencia operativa, puede escribir a
           <a href="mailto:contacto@salair.cl" class="font-semibold text-white underline decoration-primary-200/70 underline-offset-4 hover:decoration-white">
             contacto@salair.cl
           </a>.
@@ -46,10 +45,14 @@ import InfoPanelCard from "@molecules/InfoPanelCard.astro";
       </div>
 
       <div class="rounded-2xl border border-primary-200/60 bg-white p-8 shadow-[0_24px_44px_-30px_rgba(0,0,0,0.45)] lg:p-10">
-        <h3 class="text-2xl font-bold text-secondary-500">Formulario de contacto</h3>
-        <p class="mt-2 text-sm text-secondary-300">
-          Completá estos datos y te contactamos a la brevedad.
-        </p>
+        <SectionHeading
+          as="h3"
+          compact
+          align="left"
+          title="Formulario"
+          description="Complete estos datos y le contactaremos a la brevedad."
+          class="mb-6"
+        />
 
         <form id="contact-form" class="mt-8 space-y-5" novalidate>
           <FormField

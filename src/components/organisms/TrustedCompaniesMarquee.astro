@@ -29,6 +29,9 @@ interface Props {
 }
 
 const { embedded = false, class: className = "" } = Astro.props;
+
+const embeddedLogoClasses = "h-12 w-auto object-contain lg:h-16";
+const defaultLogoClasses = "h-12 w-auto object-contain md:h-18";
 ---
 
 {
@@ -42,7 +45,7 @@ const { embedded = false, class: className = "" } = Astro.props;
                 <Image
                   src={company.logo}
                   alt={`Logo de ${company.name}`}
-                  class="h-12 w-auto object-contain lg:h-16"
+                  class={embeddedLogoClasses}
                   loading="lazy"
                   decoding="async"
                 />
@@ -58,7 +61,7 @@ const { embedded = false, class: className = "" } = Astro.props;
                 <Image
                   src={company.logo}
                   alt=""
-                  class="h-9 w-auto object-contain sm:h-10 lg:h-11"
+                  class={embeddedLogoClasses}
                   loading="lazy"
                   decoding="async"
                 />
@@ -81,7 +84,7 @@ const { embedded = false, class: className = "" } = Astro.props;
                   <Image
                     src={company.logo}
                     alt={`Logo de ${company.name}`}
-                    class="h-12 md:h-18 w-auto object-contain"
+                    class={defaultLogoClasses}
                     loading="lazy"
                     decoding="async"
                   />
@@ -97,7 +100,7 @@ const { embedded = false, class: className = "" } = Astro.props;
                   <Image
                     src={company.logo}
                     alt=""
-                    class="h-10 w-auto object-contain sm:h-12 lg:h-14"
+                    class={defaultLogoClasses}
                     loading="lazy"
                     decoding="async"
                   />

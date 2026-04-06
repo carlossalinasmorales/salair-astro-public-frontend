@@ -1,74 +1,63 @@
 ﻿---
 import BenefitItem from "@molecules/BenefitItem.astro";
+import SectionHeading from "@molecules/SectionHeading.astro";
 
 const benefits = [
   {
     number: "01",
-    title: "Ingeniería Especializada",
-    description: "Equipo técnico certificado con experiencia en proyectos de climatización para operaciones de alta exigencia.",
+    title: "Técnicos especializados",
+    description: "Equipo técnico con experiencia real en climatización, refrigeración y ventilación para operaciones exigentes.",
   },
   {
     number: "02",
-    title: "SLA Contractual",
-    description: "Compromisos formales de atención con indicadores de respuesta y seguimiento operativo.",
+    title: "Comunicación clara y directa",
+    description: "Te informamos lo necesario, en términos claros, para que puedas decidir sin vueltas.",
   },
   {
     number: "03",
-    title: "Presupuesto Transparente",
-    description: "Propuestas detalladas con alcance, plazos y entregables claramente definidos desde el inicio.",
+    title: "Presupuestos transparentes",
+    description: "Propuestas con alcance, plazos y costos definidos desde el inicio, sin sorpresas en el camino.",
   },
   {
     number: "04",
-    title: "Garantía Extendida",
-    description: "Cobertura técnica en repuestos y mano de obra para resguardar la inversión de cada proyecto.",
+    title: "Servicios contractuales y esporádicos",
+    description: "Nos adaptamos a tu operación: contratos recurrentes o atenciones puntuales cuando lo necesitás.",
   },
   {
     number: "05",
-    title: "Gestión de Repuestos",
-    description: "Planificación de inventario crítico para reducir riesgos de detención por fallas inesperadas.",
+    title: "Garantía extendida en instalaciones",
+    description: "Respaldo técnico adicional para proteger la inversión y asegurar buen desempeño post instalación.",
   },
   {
     number: "06",
-    title: "Cobertura Nacional",
-    description: "Operación técnica en todo Chile, de norte a sur, para clientes industriales y comerciales.",
+    title: "Foco en tu continuidad operativa",
+    description: "Cada intervención apunta a reducir detenciones y mantener tu operación en marcha.",
   },
-];
-
-const stats = [
-  { value: "15+", label: "Años de experiencia" },
-  { value: "500+", label: "Proyectos B2B" },
-  { value: "50+", label: "Contratos activos" },
-  { value: "98%", label: "Satisfacción de clientes" },
+  {
+    number: "07",
+    title: "Clientes grandes",
+    description: "Trabajamos con empresas de alto estándar operativo en distintos rubros productivos y comerciales.",
+  },
+  {
+    number: "08",
+    title: "Cobertura nacional",
+    description: "Atención técnica en todo Chile, de norte a sur, con equipos preparados para distintos contextos.",
+  },
 ];
 ---
 
 <section id="nosotros" class="bg-secondary-700 py-20 lg:py-28">
   <div class="container">
-    <div class="grid items-start gap-14 lg:grid-cols-2">
-      <div>
-        <h2 class="mt-4 text-3xl font-black text-white sm:text-4xl lg:text-5xl">
-          Un socio técnico para infraestructura crítica
-        </h2>
-        <p class="mt-6 text-lg text-secondary-100/90">
-          Acompañamos a su organización con una metodología de trabajo orientada a prevención,
-          continuidad de servicio y mejora de desempeño energético.
-        </p>
+    <SectionHeading
+      title="Beneficios"
+      description="Combinamos criterio técnico, orden operativo y comunicación clara para sostener tu operación en el tiempo."
+      tone="dark"
+    />
 
-        <div class="mt-10 grid grid-cols-2 gap-4">
-          {stats.map((stat) => (
-            <article class="rounded-2xl border border-secondary-500 bg-secondary-600 p-5 shadow-[0_16px_34px_-30px_rgba(2,6,15,0.8)]">
-              <p class="text-2xl font-black text-white sm:text-3xl">{stat.value}</p>
-              <p class="mt-1 text-sm text-secondary-100/90">{stat.label}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-
-      <div class="space-y-4">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {benefits.map((benefit) => (
           <BenefitItem number={benefit.number} title={benefit.title} description={benefit.description} />
         ))}
-      </div>
     </div>
-  </div>
+    </div>
 </section>
