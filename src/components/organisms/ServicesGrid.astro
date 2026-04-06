@@ -4,33 +4,28 @@ import ServiceCard from "@molecules/ServiceCard.astro";
 const services = [
   {
     iconName: "building",
-    title: "HVAC Industrial",
-    description: "Diseño y montaje de climatización centralizada para plantas productivas, centros logísticos y grandes superficies.",
-  },
-  {
-    iconName: "snowflake",
-    title: "Refrigeración Comercial",
-    description: "Implementación de cámaras frigoríficas y sistemas de cadena de frío para retail, alimentos y logística.",
-  },
-  {
-    iconName: "document",
-    title: "Proyecto Llave en Mano",
-    description: "Gestión integral desde la ingeniería de detalle hasta la puesta en marcha y documentación técnica final.",
+    title: "Instalaciones",
+    description: "Montaje de sistemas de climatización y refrigeración industrial/comercial con puesta en marcha técnica y validación operativa.",
   },
   {
     iconName: "wrench",
-    title: "Mantenimiento Contractual",
-    description: "Planes preventivos con métricas de desempeño, reportes periódicos y atención correctiva prioritaria.",
+    title: "Reparaciones",
+    description: "Diagnóstico y reparación de fallas en equipos HVAC y refrigeración, priorizando continuidad operacional y seguridad.",
+  },
+  {
+    iconName: "calendar",
+    title: "Mantenciones",
+    description: "Planes preventivos y correctivos para extender vida útil de equipos, reducir detenciones y optimizar desempeño.",
   },
   {
     iconName: "zap",
-    title: "Atención de Emergencias",
-    description: "Intervención técnica para eventos críticos con protocolos de continuidad operativa y trazabilidad.",
+    title: "Emergencias",
+    description: "Respuesta técnica para contingencias críticas con protocolos de atención prioritaria y trazabilidad de intervención.",
   },
   {
-    iconName: "award",
-    title: "Auditoría Técnica",
-    description: "Diagnóstico de eficiencia energética, estado de activos y recomendaciones para optimizar costos operativos.",
+    iconName: "document",
+    title: "Proyectos",
+    description: "Desarrollo integral de proyectos HVAC y refrigeración, desde ingeniería de detalle hasta implementación en terreno.",
   },
 ];
 ---
@@ -38,14 +33,14 @@ const services = [
 <section id="servicios" class="border-b border-secondary-200/80 bg-neutral-100 py-20 lg:py-28">
   <div class="container">
     <div class="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
-      <h2 class="mt-4 text-3xl font-black leading-tight text-secondary-500 sm:text-4xl lg:text-5xl">Servicios HVAC para industria y comercio</h2>
+      <h2 class="mt-4 text-3xl font-black leading-tight text-secondary-500 sm:text-4xl lg:text-5xl">Servicios técnicos para continuidad operativa</h2>
       <p class="mt-5 text-base text-secondary-300 sm:text-lg">
-        Ejecutamos proyectos con foco en continuidad operacional, eficiencia energética y cumplimiento técnico.
+        Instalamos, reparamos, mantenemos y ejecutamos proyectos HVAC/refrigeración con cobertura operativa de norte a sur de Chile.
       </p>
     </div>
 
 
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-5">
       {services.map((service) => (
         <ServiceCard title={service.title} description={service.description} iconName={service.iconName} />
       ))}

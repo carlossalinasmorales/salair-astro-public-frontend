@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+
+import aireAcondicionadoIndustrial from "@/assets/images/equipos/aire-acondicionado-industrial.webp";
+import camarasDeRefrigeracion from "@/assets/images/equipos/camaras-de-refrigeracion.webp";
+import camarasDeCongelado from "@/assets/images/equipos/camaras-de-congelado.webp";
+import ductosDeVentilacion from "@/assets/images/equipos/ductos-de-ventilacion.webp";
+import extractoresDeAire from "@/assets/images/equipos/extractores-de-aire.webp";
+
+const workAreas = [
+  {
+    title: "Aires acondicionados",
+    description: "Soluciones de climatización para confort térmico y control de temperatura en operaciones comerciales e industriales.",
+    image: aireAcondicionadoIndustrial,
+    alt: "Equipo de aire acondicionado industrial",
+  },
+  {
+    title: "Cámaras de mantención",
+    description: "Sistemas de refrigeración para conservación de productos con control estable de temperatura y operación continua.",
+    image: camarasDeRefrigeracion,
+    alt: "Cámara de mantención frigorífica",
+  },
+  {
+    title: "Cámaras de congelado",
+    description: "Infraestructura para cadena de frío de baja temperatura, pensada para exigencias sanitarias y logísticas.",
+    image: camarasDeCongelado,
+    alt: "Cámara de congelado industrial",
+  },
+  {
+    title: "Ductería",
+    description: "Diseño e implementación de redes de ductos para ventilación y climatización con enfoque en eficiencia de flujo.",
+    image: ductosDeVentilacion,
+    alt: "Sistema de ductería de ventilación",
+  },
+  {
+    title: "Extractores de aire",
+    description: "Extracción y renovación de aire para ambientes productivos, cocinas industriales y espacios de alta demanda.",
+    image: extractoresDeAire,
+    alt: "Extractores de aire instalados en operación",
+  },
+];
+---
+
+<section id="areas-de-trabajo" class="border-b border-secondary-200/80 bg-white py-20 lg:py-28">
+  <div class="container">
+    <div class="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
+      <h2 class="mt-4 text-3xl font-black leading-tight text-secondary-500 sm:text-4xl lg:text-5xl">
+        Áreas de trabajo principales
+      </h2>
+      <p class="mt-5 text-base text-secondary-300 sm:text-lg">
+        Operamos en todo Chile, de norte a sur, atendiendo infraestructura crítica en climatización, refrigeración y ventilación.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {workAreas.map((area) => (
+        <article class="group overflow-hidden rounded-2xl border border-secondary-200 bg-neutral-100 shadow-[0_16px_30px_-28px_rgba(9,26,56,0.7)] transition-all duration-200 hover:-translate-y-1 hover:border-primary-400 hover:shadow-[0_24px_46px_-34px_rgba(9,26,56,0.88)]">
+          <Image
+            src={area.image}
+            alt={area.alt}
+            widths={[480, 720]}
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            class="h-48 w-full object-cover"
+            loading="lazy"
+            format="webp"
+          />
+          <div class="p-6">
+            <h3 class="mb-3 text-xl font-bold text-secondary-500">{area.title}</h3>
+            <p class="text-sm text-secondary-300">{area.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
