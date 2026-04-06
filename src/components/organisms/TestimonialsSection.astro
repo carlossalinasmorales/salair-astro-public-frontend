@@ -1,5 +1,6 @@
 ---
 import TestimonialsCarouselIsland from "./TestimonialsCarouselIsland";
+import SectionHeading from "@molecules/SectionHeading.astro";
 
 const testimonials = [
   {
@@ -31,10 +32,10 @@ const testimonials = [
 
 <section id="testimonios" class="border-t border-secondary-200/80 bg-neutral-100 py-20 lg:py-28">
   <div class="container">
-    <div class="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
-      <h2 class="mt-4 text-3xl font-black leading-tight text-secondary-500 sm:text-4xl lg:text-5xl">Experiencias de clientes industriales y comerciales</h2>
-      <p class="mt-5 text-base text-secondary-300 sm:text-lg">Empresas de distintos sectores validan nuestra capacidad para sostener operaciones críticas.</p>
-    </div>
+    <SectionHeading
+      title="Experiencias de clientes industriales y comerciales"
+      description="Empresas de distintos sectores validan nuestra capacidad para sostener operaciones críticas."
+    />
 
 
     <TestimonialsCarouselIsland testimonials={testimonials} client:idle />

@@ -136,18 +136,6 @@ const { embedded = false, class: className = "" } = Astro.props;
     min-width: 8rem;
     opacity: 0.78;
     filter: grayscale(1) contrast(1.04);
-    transition: opacity 200ms ease, filter 200ms ease;
-  }
-
-  .marquee__item:hover {
-    opacity: 1;
-    filter: grayscale(0) contrast(1);
-  }
-
-  @media (hover: hover) {
-    .marquee:hover .marquee__track {
-      animation-play-state: paused;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

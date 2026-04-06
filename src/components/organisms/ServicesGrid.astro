@@ -1,5 +1,7 @@
 ﻿---
 import ServiceCard from "@molecules/ServiceCard.astro";
+import SectionHeading from "@molecules/SectionHeading.astro";
+import Button from "@atoms/Button.astro";
 
 const services = [
   {
@@ -30,20 +32,29 @@ const services = [
 ];
 ---
 
-<section id="servicios" class="border-b border-secondary-200/80 bg-neutral-100 py-20 lg:py-28">
+<section id="servicios" class=" bg-linear-to-b from-neutral-100 via-white to-neutral-100 py-20 lg:py-28">
   <div class="container">
-    <div class="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
-      <h2 class="mt-4 text-3xl font-black leading-tight text-secondary-500 sm:text-4xl lg:text-5xl">Servicios técnicos para continuidad operativa</h2>
-      <p class="mt-5 text-base text-secondary-300 sm:text-lg">
-        Instalamos, reparamos, mantenemos y ejecutamos proyectos HVAC/refrigeración con cobertura operativa de norte a sur de Chile.
-      </p>
+    <SectionHeading
+      title="Servicios técnicos para continuidad operativa"
+      description="Instalamos, reparamos, mantenemos y ejecutamos proyectos HVAC/refrigeración con cobertura operativa de norte a sur de Chile."
+    />
+
+
+    <div class="flex flex-wrap justify-center gap-6">
+      {services.map((service) => (
+        <ServiceCard
+          title={service.title}
+          description={service.description}
+          iconName={service.iconName}
+          class="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
+        />
+      ))}
     </div>
 
-
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-5">
-      {services.map((service) => (
-        <ServiceCard title={service.title} description={service.description} iconName={service.iconName} />
-      ))}
+    <div class="mt-10 flex justify-center">
+      <Button href="#contacto" variant="accent" size="lg">
+        Solicitar evaluación técnica
+      </Button>
     </div>
   </div>
 </section>

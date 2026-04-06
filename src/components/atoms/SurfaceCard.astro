@@ -1,0 +1,36 @@
+---
+type SurfaceTone = "light" | "neutral" | "dark";
+type SurfaceTag = "div" | "article" | "section";
+
+interface Props {
+  as?: SurfaceTag;
+  tone?: SurfaceTone;
+  interactive?: boolean;
+  class?: string;
+}
+
+const {
+  as = "div",
+  tone = "light",
+  interactive = false,
+  class: className = "",
+} = Astro.props;
+
+const Tag = as;
+
+const toneClasses: Record<SurfaceTone, string> = {
+  light: "border-secondary-200 bg-white",
+  neutral: "border-secondary-200 bg-neutral-100",
+  dark: "border-primary-200/60 bg-primary-400/30",
+};
+
+const interactiveClasses = interactive
+  ? ""
+  : "";
+
+const classes = `rounded-2xl border shadow-[0_16px_30px_-26px_rgba(9,26,56,0.72)] ${toneClasses[tone]} ${interactiveClasses} ${className}`;
+---
+
+<Tag class={classes}>
+  <slot />
+</Tag>

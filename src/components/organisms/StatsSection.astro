@@ -1,5 +1,6 @@
 ---
-import StatItem from "@atoms/StatItem.astro";
+import StatCard from "@molecules/StatCard.astro";
+import SectionHeading from "@molecules/SectionHeading.astro";
 
 const stats = [
   {
@@ -27,17 +28,16 @@ const stats = [
 
 <section class="bg-primary-500 py-20 lg:py-28">
   <div class="container">
-    <div class="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
-      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-primary-100">Impacto operativo</p>
-      <h2 class="mt-4 text-3xl font-black leading-tight text-white sm:text-4xl lg:text-5xl">Resultados medibles en terreno</h2>
-      <p class="mt-5 text-base text-primary-100 sm:text-lg">
-        Nuestra operación combina ejecución técnica, trazabilidad y cumplimiento de objetivos de negocio.
-      </p>
-    </div>
+    <SectionHeading
+      eyebrow="Impacto operativo"
+      title="Resultados medibles en terreno"
+      description="Nuestra operación combina ejecución técnica, trazabilidad y cumplimiento de objetivos de negocio."
+      tone="dark"
+    />
 
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (
-        <StatItem value={stat.value} label={stat.label} iconName={stat.iconName} />
+        <StatCard value={stat.value} label={stat.label} iconName={stat.iconName} />
       ))}
     </div>
   </div>

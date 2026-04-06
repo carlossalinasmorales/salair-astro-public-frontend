@@ -1,5 +1,8 @@
 ﻿---
 import Button from "@atoms/Button.astro";
+import FormField from "@molecules/FormField.astro";
+import FormTextareaField from "@molecules/FormTextareaField.astro";
+import InfoPanelCard from "@molecules/InfoPanelCard.astro";
 ---
 
 <section id="contacto" class=" bg-primary-500 py-20 lg:py-28">
@@ -19,22 +22,19 @@ import Button from "@atoms/Button.astro";
         </p>
 
         <div class="mt-8 space-y-4">
-          <article class="rounded-2xl border border-primary-200/60 bg-primary-400/30 p-5 backdrop-blur-[1px]">
-            <h3 class="text-base font-bold text-white">¿Qué vas a recibir en esta primera respuesta?</h3>
-            <ul class="mt-3 space-y-2 text-sm text-primary-100/95">
-              <li>• Diagnóstico inicial del requerimiento y nivel de urgencia.</li>
-              <li>• Recomendación de servicio (instalación, reparación, mantención o proyecto).</li>
-              <li>• Próximos pasos con alcance técnico y tiempos estimados.</li>
-            </ul>
-          </article>
+          <InfoPanelCard
+            title="¿Qué vas a recibir en esta primera respuesta?"
+            items={[
+              "Diagnóstico inicial del requerimiento y nivel de urgencia.",
+              "Recomendación de servicio (instalación, reparación, mantención o proyecto).",
+              "Próximos pasos con alcance técnico y tiempos estimados.",
+            ]}
+          />
 
-          <article class="rounded-2xl border border-primary-200/60 bg-primary-400/30 p-5 backdrop-blur-[1px]">
-            <h3 class="text-base font-bold text-white">Cobertura operativa nacional</h3>
-            <p class="mt-2 text-sm text-primary-100/95">
-              Atendemos operaciones en todo Chile, de norte a sur, en climatización, refrigeración y ventilación
-              para infraestructura crítica.
-            </p>
-          </article>
+          <InfoPanelCard
+            title="Cobertura operativa nacional"
+            description="Atendemos operaciones en todo Chile, de norte a sur, en climatización, refrigeración y ventilación para infraestructura crítica."
+          />
         </div>
 
         <p class="mt-4 text-sm text-primary-100/90">
@@ -52,81 +52,54 @@ import Button from "@atoms/Button.astro";
         </p>
 
         <form id="contact-form" class="mt-8 space-y-5" novalidate>
-          <div>
-            <label for="company" class="mb-2 block text-sm font-semibold text-secondary-500">Empresa *</label>
-            <input
-              type="text"
-              id="company"
-              name="company"
-              autocomplete="organization"
-              required
-              placeholder="Ej: Planta Andina SpA"
-              class="w-full rounded-xl border border-secondary-200 bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 transition-colors hover:border-secondary-300 focus-visible:border-primary-400"
-            />
-          </div>
+          <FormField
+            id="company"
+            name="company"
+            label="Empresa"
+            autocomplete="organization"
+            required
+            placeholder="Ej: Planta Andina SpA"
+          />
 
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label for="firstName" class="mb-2 block text-sm font-semibold text-secondary-500">Nombre *</label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                autocomplete="given-name"
-                required
-                placeholder="Nombre"
-                class="w-full rounded-xl border border-secondary-200 bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 transition-colors hover:border-secondary-300 focus-visible:border-primary-400"
-              />
-            </div>
-            <div>
-              <label for="lastName" class="mb-2 block text-sm font-semibold text-secondary-500">Apellido *</label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                autocomplete="family-name"
-                required
-                placeholder="Apellido"
-                class="w-full rounded-xl border border-secondary-200 bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 transition-colors hover:border-secondary-300 focus-visible:border-primary-400"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="role" class="mb-2 block text-sm font-semibold text-secondary-500">Cargo</label>
-            <input
-              type="text"
-              id="role"
-              name="role"
-              placeholder="Ej: Jefatura de Operaciones"
-              class="w-full rounded-xl border border-secondary-200 bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 transition-colors hover:border-secondary-300 focus-visible:border-primary-400"
+            <FormField
+              id="firstName"
+              name="firstName"
+              label="Nombre"
+              autocomplete="given-name"
+              required
+              placeholder="Nombre"
+            />
+            <FormField
+              id="lastName"
+              name="lastName"
+              label="Apellido"
+              autocomplete="family-name"
+              required
+              placeholder="Apellido"
             />
           </div>
 
-          <div>
-            <label for="email" class="mb-2 block text-sm font-semibold text-secondary-500">Correo corporativo *</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              autocomplete="email"
-              required
-              placeholder="su@empresa.cl"
-              class="w-full rounded-xl border border-secondary-200 bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 transition-colors hover:border-secondary-300 focus-visible:border-primary-400"
-            />
-          </div>
+          <FormField id="role" name="role" label="Cargo" placeholder="Ej: Jefatura de Operaciones" />
 
-          <div>
-            <label for="message" class="mb-2 block text-sm font-semibold text-secondary-500">Mensaje *</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="4"
-              required
-              placeholder="Contexto operativo, metraje estimado, criticidad y plazo objetivo"
-              class="w-full resize-none rounded-xl border border-secondary-200 bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 transition-colors hover:border-secondary-300 focus-visible:border-primary-400"
-            ></textarea>
-          </div>
+          <FormField
+            id="email"
+            name="email"
+            type="email"
+            label="Correo corporativo"
+            autocomplete="email"
+            required
+            placeholder="su@empresa.cl"
+          />
+
+          <FormTextareaField
+            id="message"
+            name="message"
+            label="Mensaje"
+            rows={4}
+            required
+            placeholder="Contexto operativo, metraje estimado, criticidad y plazo objetivo"
+          />
 
           <Button type="submit" variant="accent" size="lg" class="w-full">
             <span id="btn-text">Enviar</span>
