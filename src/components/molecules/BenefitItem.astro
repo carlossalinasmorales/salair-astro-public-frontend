@@ -9,12 +9,12 @@ interface Props {
 const { number, title, description, class: className = "" } = Astro.props;
 ---
 
-<div class={`flex gap-5 rounded-2xl border border-secondary-200/80 bg-white p-6 shadow-[0_14px_28px_-22px_rgba(9,26,56,0.65)] transition-all duration-200 hover:border-primary-300 hover:shadow-[0_16px_30px_-25px_rgba(9,26,56,0.9)] ${className}`}>
-  <span class="select-none text-4xl font-black leading-none text-primary-500">
+<div class={`flex gap-5 rounded-2xl border border-secondary-500 bg-secondary-600 p-6 shadow-[0_16px_34px_-30px_rgba(2,6,15,0.86)] transition-all duration-200 hover:border-primary-400 hover:shadow-[0_22px_40px_-34px_rgba(2,6,15,0.95)] ${className}`}>
+  <span class="select-none text-4xl font-black leading-none text-primary-300">
     {number}
   </span>
   <div>
-    <h3 class="mb-2 text-lg font-bold text-secondary-500">{title}</h3>
-    <p class="text-sm text-secondary-300">{description}</p>
+    <h3 class="mb-2 text-lg font-bold text-white">{title}</h3>
+    <p class="text-sm text-secondary-100/90">{description}</p>
   </div>
 </div>

@@ -33,7 +33,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
 
   return (
     <section
-      className="rounded-2xl border border-secondary-200/80 bg-white p-6 shadow-[0_14px_28px_-22px_rgba(9,26,56,0.65)] sm:p-8"
+      className="rounded-2xl border border-secondary-200 bg-white p-6 shadow-[0_16px_32px_-26px_rgba(9,26,56,0.72)] sm:p-8"
       aria-label="Carrusel de testimonios de clientes"
     >
       <header className="mb-6 flex flex-wrap items-center justify-between gap-3">
@@ -42,7 +42,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
           <button
             type="button"
             onClick={goPrev}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-secondary-200 text-secondary-500 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-secondary-200 text-secondary-500 transition-colors hover:border-primary-300 hover:bg-primary-100/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100"
             aria-label="Ver testimonio anterior"
           >
             <span aria-hidden="true">←</span>
@@ -50,7 +50,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
           <button
             type="button"
             onClick={goNext}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-secondary-200 text-secondary-500 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-secondary-200 text-secondary-500 transition-colors hover:border-primary-300 hover:bg-primary-100/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100"
             aria-label="Ver siguiente testimonio"
           >
             <span aria-hidden="true">→</span>
@@ -58,11 +58,11 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
         </div>
       </header>
 
-      <article className="rounded-2xl border border-secondary-200/70 bg-white/90 p-6" aria-live="polite">
+      <article className="rounded-2xl border border-secondary-200 bg-neutral-100 p-6" aria-live="polite">
         <blockquote className="text-sm text-secondary-300 sm:text-base">“{current.quote}”</blockquote>
 
         <div className="mt-6 flex items-center gap-4 border-t border-secondary-200 pt-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary-500 text-sm font-bold text-white">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary-500 text-sm font-bold text-white shadow-[0_12px_24px_-16px_rgba(9,26,56,0.9)]">
             {current.avatar}
           </div>
           <div>
