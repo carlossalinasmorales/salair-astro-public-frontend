@@ -15,6 +15,7 @@ Este repositorio concentra el frontend del sitio público, con foco en:
 - **Astro 6**
 - **Tailwind CSS 4** (`@tailwindcss/vite`)
 - **React 19** (islands puntuales)
+- **GSAP 3** (animaciones puntuales)
 - **Vitest** para pruebas
 - **Node.js >= 22.12.0**
 
@@ -79,3 +80,4 @@ npm run test:run
 
 - Este proyecto prioriza claridad operativa y mantenibilidad del contenido.
 - Si agregás nuevas secciones, respetá naming y jerarquía de componentes para no degradar el sistema.
+- `src/content.config.ts` está como placeholder técnico para evitar warnings de Astro Content (no hay collections activas por ahora).
