@@ -1,7 +1,6 @@
 ﻿---
 import ServiceCard from "@molecules/ServiceCard.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
-import Button from "@atoms/Button.astro";
 
 const services = [
   {
@@ -30,9 +29,12 @@ const services = [
     description: "Desarrollamos proyectos de climatización y refrigeración industrial desde la definición técnica hasta la implementación y entrega operativa.",
   },
 ];
+
+const servicesTopRow = services.slice(0, 3);
+const servicesBottomRow = services.slice(3);
 ---
 
-<section id="servicios" class="bg-linear-to-b from-neutral-100 via-white to-neutral-100 py-20 lg:py-28" data-services-grid>
+<section id="servicios" class="bg-neutral-100 py-20 lg:py-28" data-services-grid>
   <div class="container">
     <SectionHeading
       title="Servicios"
@@ -40,22 +42,42 @@ const services = [
     />
 
 
-    <div class="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+    <div class="services-grid-reference mx-auto grid max-w-6xl grid-cols-1 border-r border-b border-secondary-200/15 bg-neutral-100 sm:grid-cols-2 lg:hidden">
       {services.map((service) => (
         <ServiceCard
           title={service.title}
           description={service.description}
           iconName={service.iconName}
-          class="service-card-equalized w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
+          class="service-card-equalized border-l border-t border-secondary-200/15"
         />
       ))}
     </div>
 
-    <div class="mt-10 flex justify-center">
-      <Button href="#contacto" variant="accent" size="lg">
-        Solicitar diagnóstico inicial
-      </Button>
+    <div class="hidden lg:block">
+      <div class="services-grid-reference mx-auto grid max-w-6xl grid-cols-3 border-r border-b border-secondary-200/15 bg-neutral-100">
+        {servicesTopRow.map((service) => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            iconName={service.iconName}
+            class="service-card-equalized border-l border-t border-secondary-200/15"
+          />
+        ))}
+      </div>
+
+      <div class="services-grid-reference mx-auto grid max-w-4xl grid-cols-2 border-r border-b border-secondary-200/15 bg-neutral-100">
+        {servicesBottomRow.map((service) => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            iconName={service.iconName}
+            class="service-card-equalized border-l border-t border-secondary-200/15"
+          />
+        ))}
+      </div>
     </div>
+
+
   </div>
 </section>
 
@@ -93,3 +115,15 @@ const services = [
 
   window.addEventListener('resize', onResize);
 </script>
+
+<style>
+  .services-grid-reference :global(.service-card-reference) {
+    min-height: 17.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .services-grid-reference :global(.service-card-reference) {
+      min-height: 18.5rem;
+    }
+  }
+</style>
