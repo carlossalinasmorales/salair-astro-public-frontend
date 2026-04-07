@@ -1,7 +1,6 @@
 ---
-import StatCard from "@molecules/StatCard.astro";
-import SectionHeading from "@molecules/SectionHeading.astro";
-import Button from "@atoms/Button.astro";
+import StatMetricItem from "@molecules/StatMetricItem.astro";
+import StatsOrbitAsset from "@molecules/StatsOrbitAsset.astro";
 
 const stats = [
   {
@@ -23,22 +22,28 @@ const stats = [
 ];
 ---
 
-<section id="resultados" class="bg-primary-500 py-20 lg:py-28">
+<section id="resultados" class="relative overflow-hidden border-t border-secondary-200/70 bg-neutral-100 py-20 lg:py-28">
   <div class="container">
-    <SectionHeading
-      title="Resultados"
-      description="Indicadores de trabajo en terreno que reflejan continuidad, cumplimiento y capacidad de respuesta."
-      tone="dark"
-    />
+    <div class="relative grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+      <div class="max-w-2xl">
+        <p class="text-sm font-semibold text-primary-500">Resultados operativos SALAIR</p>
+        <h2 class="mt-3 text-4xl font-extrabold leading-tight text-secondary-500 sm:text-5xl">
+          Números que
+          <br />
+          hablan por sí solos
+        </h2>
+        <p class="mt-5 text-base text-secondary-400 sm:text-lg">
+          Indicadores de trabajo en terreno que reflejan continuidad, cumplimiento y capacidad de respuesta.
+        </p>
 
-    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {stats.map((stat) => (
-        <StatCard value={stat.value} label={stat.label} />
-      ))}
-    </div>
+        <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
+          {stats.map((stat) => (
+            <StatMetricItem value={stat.value} label={stat.label} />
+          ))}
+        </div>
+      </div>
 
-    <div class="mt-10 flex justify-center">
-      <Button href="#contacto" variant="accent" size="lg">Solicitar evaluación inicial</Button>
+      <StatsOrbitAsset class="hidden lg:flex" />
     </div>
   </div>
 </section>

@@ -1,0 +1,200 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class={`stats-orbit-stage relative min-h-[26rem] items-center justify-end ${className}`} aria-hidden="true">
+  <div class="absolute right-0 top-1/2 h-[30rem] w-[30rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_55%_50%,rgba(255,255,255,0.9),rgba(201,227,248,0.18),transparent_72%)]"></div>
+  <div class="stats-orbit-aura absolute right-8 top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(32,141,209,0.24),rgba(32,141,209,0.08),transparent_70%)] blur-xl"></div>
+
+  <svg
+    class="stats-orbit-asset relative z-10 h-[30rem] w-[30rem]"
+    viewBox="0 0 480 480"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="240" cy="240" r="18" class="stats-orbit-core fill-primary-300/50" />
+
+    <g class="stats-orbit-rings">
+      <circle cx="240" cy="240" r="188" class="stats-orbit-ring stats-orbit-ring-1 stroke-primary-200/70" stroke-width="1" />
+      <circle cx="240" cy="240" r="140" class="stats-orbit-ring stats-orbit-ring-2 stroke-primary-200/60" stroke-width="1" />
+      <circle cx="240" cy="240" r="94" class="stats-orbit-ring stats-orbit-ring-3 stroke-primary-200/50" stroke-width="1" />
+    </g>
+
+    <!-- <g class="stats-orbit-arcs">
+      <path d="M 240 52 A 188 188 0 0 1 427 240" class="stats-orbit-arc stats-orbit-arc-1 stroke-primary-300/80" stroke-width="1.4" stroke-linecap="round" />
+      <path d="M 240 380 A 140 140 0 0 0 380 240" class="stats-orbit-arc stats-orbit-arc-2 stroke-primary-300/70" stroke-width="1.2" stroke-linecap="round" />
+      <path d="M 240 146 A 94 94 0 1 1 334 240" class="stats-orbit-arc stats-orbit-arc-3 stroke-primary-500/85" stroke-width="2" stroke-linecap="round" />
+    </g> -->
+
+    <g class="stats-orbit-dot-track">
+      <circle cx="240" cy="52" r="4" class="stats-orbit-dot stats-orbit-dot-1 fill-primary-500" />
+      <circle cx="380" cy="240" r="3.5" class="stats-orbit-dot stats-orbit-dot-2 fill-primary-400" />
+      <circle cx="240" cy="380" r="3.5" class="stats-orbit-dot stats-orbit-dot-3 fill-primary-400" />
+    </g>
+
+    <g class="stats-orbit-stars">
+      <circle cx="96" cy="130" r="2" class="fill-primary-300/70" />
+      <circle cx="140" cy="84" r="1.5" class="fill-primary-200/80" />
+      <circle cx="392" cy="108" r="2" class="fill-primary-300/70" />
+      <circle cx="408" cy="156" r="1.5" class="fill-primary-200/80" />
+      <circle cx="356" cy="380" r="2" class="fill-primary-300/70" />
+      <circle cx="316" cy="414" r="1.5" class="fill-primary-200/80" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .stats-orbit-stage {
+      animation: stats-orbit-stage-drift 6.5s ease-in-out infinite;
+    }
+
+    .stats-orbit-aura {
+      animation: stats-orbit-aura-pulse 3.6s ease-in-out infinite;
+    }
+
+    .stats-orbit-asset {
+      transform-origin: center;
+      animation: stats-orbit-float 9s ease-in-out infinite alternate;
+    }
+
+    .stats-orbit-core {
+      animation: stats-orbit-core-breathe 2.8s ease-in-out infinite;
+    }
+
+    .stats-orbit-rings,
+    .stats-orbit-dot-track,
+    .stats-orbit-dot {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .stats-orbit-rings {
+      animation: stats-orbit-rings-rotate 20s linear infinite reverse;
+    }
+
+
+
+
+    .stats-orbit-dot-track {
+      animation: stats-orbit-dot-orbit 10s linear infinite;
+    }
+
+    .stats-orbit-dot {
+      animation: stats-orbit-dot-pulse 1.2s ease-in-out infinite;
+    }
+
+    .stats-orbit-stars {
+      animation: stats-orbit-stars-twinkle 2.2s ease-in-out infinite;
+    }
+
+    .stats-orbit-dot-2 {
+      animation-delay: 220ms;
+    }
+
+    .stats-orbit-dot-3 {
+      animation-delay: 420ms;
+    }
+  }
+
+  @keyframes stats-orbit-stage-drift {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes stats-orbit-aura-pulse {
+    0%,
+    100% {
+      opacity: 0.42;
+      transform: translateY(-50%) scale(0.92);
+    }
+    50% {
+      opacity: 0.86;
+      transform: translateY(-50%) scale(1.07);
+    }
+  }
+
+  @keyframes stats-orbit-float {
+    from {
+      transform: rotate(-8deg) scale(0.985);
+      opacity: 0.82;
+    }
+    to {
+      transform: rotate(13deg) scale(1.03);
+      opacity: 1;
+    }
+  }
+
+  @keyframes stats-orbit-core-breathe {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: scale(0.82);
+    }
+    50% {
+      opacity: 0.65;
+      transform: scale(1.22);
+    }
+  }
+
+  @keyframes stats-orbit-rings-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+
+
+  @keyframes stats-orbit-arc-pulse {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes stats-orbit-dot-orbit {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes stats-orbit-dot-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.58);
+      opacity: 0.2;
+    }
+  }
+
+  @keyframes stats-orbit-stars-twinkle {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+</style>
