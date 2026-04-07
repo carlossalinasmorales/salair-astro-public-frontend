@@ -32,7 +32,7 @@ const services = [
 ];
 ---
 
-<section id="servicios" class=" bg-linear-to-b from-neutral-100 via-white to-neutral-100 py-20 lg:py-28">
+<section id="servicios" class="bg-linear-to-b from-neutral-100 via-white to-neutral-100 py-20 lg:py-28" data-services-grid>
   <div class="container">
     <SectionHeading
       title="Servicios"
@@ -40,13 +40,13 @@ const services = [
     />
 
 
-    <div class="flex flex-wrap justify-center gap-6">
+    <div class="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
       {services.map((service) => (
         <ServiceCard
           title={service.title}
           description={service.description}
           iconName={service.iconName}
-          class="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
+          class="service-card-equalized w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
         />
       ))}
     </div>
@@ -58,3 +58,38 @@ const services = [
     </div>
   </div>
 </section>
+
+<script>
+  const setupServicesCardHeight = () => {
+    const section = document.querySelector('[data-services-grid]');
+    if (!section) return;
+
+    const cards = Array.from(section.querySelectorAll<HTMLElement>('.service-card-equalized'));
+    if (cards.length === 0) return;
+
+    cards.forEach((card) => {
+      card.style.minHeight = '';
+    });
+
+    const tallest = Math.max(...cards.map((card) => card.offsetHeight));
+
+    cards.forEach((card) => {
+      card.style.minHeight = `${tallest}px`;
+    });
+  };
+
+  let resizeTimer: ReturnType<typeof window.setTimeout> | undefined;
+
+  const onResize = () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setupServicesCardHeight, 120);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupServicesCardHeight, { once: true });
+  } else {
+    setupServicesCardHeight();
+  }
+
+  window.addEventListener('resize', onResize);
+</script>

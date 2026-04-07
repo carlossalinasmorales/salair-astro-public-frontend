@@ -16,7 +16,6 @@ interface Props {
 export default function TestimonialsCarouselIsland({ testimonials }: Props) {
   const safeTestimonials = useMemo(() => testimonials.filter((item) => item.quote && item.name), [testimonials]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState<"next" | "prev">("next");
   const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const touchStartXRef = useRef<number | null>(null);
@@ -24,12 +23,10 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
   const testimonialsLength = safeTestimonials.length;
 
   const goNext = useCallback(() => {
-    setDirection("next");
     setActiveIndex((prev) => (prev + 1) % testimonialsLength);
   }, [testimonialsLength]);
 
   const goPrev = useCallback(() => {
-    setDirection("prev");
     setActiveIndex((prev) => (prev - 1 + testimonialsLength) % testimonialsLength);
   }, [testimonialsLength]);
 
@@ -72,7 +69,19 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
     return null;
   }
 
-  const current = safeTestimonials[activeIndex];
+  const getSignedDistance = (index: number) => {
+    let distance = index - activeIndex;
+
+    if (distance > testimonialsLength / 2) {
+      distance -= testimonialsLength;
+    }
+
+    if (distance < -testimonialsLength / 2) {
+      distance += testimonialsLength;
+    }
+
+    return distance;
+  };
 
   const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
     touchStartXRef.current = event.touches[0]?.clientX ?? null;
@@ -102,92 +111,91 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
 
   return (
     <section
-      className="rounded-2xl  bg-white md:mx-auto md:max-w-3xl"
+      className="mx-auto w-full max-w-6xl"
       aria-label="Carrusel de testimonios de clientes"
     >
-      <div className="relative">
-        <button
-          type="button"
-          onClick={goPrev}
-          onMouseEnter={() => setIsAutoplayPaused(true)}
-          onMouseLeave={() => setIsAutoplayPaused(false)}
-          onFocus={() => setIsAutoplayPaused(true)}
-          onBlur={() => setIsAutoplayPaused(false)}
-          className="absolute top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-secondary-200 bg-white text-secondary-500 shadow-[0_14px_26px_-24px_rgba(9,26,56,0.7)] transition-colors hover:border-primary-300 hover:bg-primary-100/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 md:-left-10 md:inline-flex lg:-left-14"
-          aria-label="Ver testimonio anterior"
-        >
-          <span aria-hidden="true">←</span>
-        </button>
+      <div
+        className="relative overflow-hidden py-1"
+        onMouseEnter={() => setIsAutoplayPaused(true)}
+        onMouseLeave={() => setIsAutoplayPaused(false)}
+      >
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-14 bg-linear-to-r from-neutral-100 via-neutral-100/70 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-14 bg-linear-to-l from-neutral-100 via-neutral-100/70 to-transparent" />
 
-        <button
-          type="button"
-          onClick={goNext}
-          onMouseEnter={() => setIsAutoplayPaused(true)}
-          onMouseLeave={() => setIsAutoplayPaused(false)}
-          onFocus={() => setIsAutoplayPaused(true)}
-          onBlur={() => setIsAutoplayPaused(false)}
-          className="absolute top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-secondary-200 bg-white text-secondary-500 shadow-[0_14px_26px_-24px_rgba(9,26,56,0.7)] transition-colors hover:border-primary-300 hover:bg-primary-100/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 md:-right-10 md:inline-flex lg:-right-14"
-          aria-label="Ver siguiente testimonio"
-        >
-          <span aria-hidden="true">→</span>
-        </button>
+        <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className="relative grid">
+          {safeTestimonials.map((testimonial, index) => {
+            const distance = getSignedDistance(index);
+            const isCenter = distance === 0;
+            const isLeft = distance === -1;
+            const isRight = distance === 1;
+            const isVisible = Math.abs(distance) <= 1;
 
-        <article
-          key={`${current.name}-${activeIndex}`}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          className={`${
-            prefersReducedMotion
-              ? ""
-              : direction === "next"
-              ? "animate-[testimonialSlideInFromRight_760ms_cubic-bezier(0.16,1,0.3,1)]"
-              : "animate-[testimonialSlideInFromLeft_760ms_cubic-bezier(0.16,1,0.3,1)]"
-          } rounded-2xl border border-secondary-200 bg-neutral-100 p-6 md:mx-8 lg:mx-10`}
-          aria-live="polite"
-        >
-          <blockquote className="text-sm text-secondary-300 sm:text-base">“{current.quote}”</blockquote>
+            return (
+              <article
+                key={`${testimonial.name}-${index}`}
+                aria-hidden={!isCenter}
+                aria-live={isCenter ? "polite" : undefined}
+                className={`col-start-1 row-start-1 w-[84%] justify-self-center rounded-3xl border border-secondary-300/70 bg-neutral-100 p-6 text-secondary-500 sm:w-[78%] md:w-[68%] md:p-7 ${
+                  prefersReducedMotion ? "" : "transition-all duration-500 ease-out"
+                } ${
+                  isCenter
+                    ? "z-30 scale-100 opacity-100"
+                    : isLeft
+                    ? "z-10 -translate-x-[56%] scale-95 opacity-35"
+                    : isRight
+                    ? "z-10 translate-x-[56%] scale-95 opacity-35"
+                    : "z-0 scale-90 opacity-0"
+                } ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+              >
+                <blockquote className="text-sm leading-relaxed text-secondary-400 sm:text-base">
+                  “{testimonial.quote}”
+                </blockquote>
 
-          <div className="mt-6 flex items-center gap-4 border-t border-secondary-200 pt-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary-500 text-sm font-bold text-white shadow-[0_12px_24px_-16px_rgba(9,26,56,0.9)]">
-              {current.avatar}
-            </div>
-            <div>
-              <p className="text-sm font-bold text-secondary-500">{current.name}</p>
-              <p className="text-xs text-secondary-300">{current.role}</p>
-              <p className="text-xs font-semibold text-primary-600">{current.company}</p>
-              <p className="text-xs text-secondary-300">{current.location}</p>
-            </div>
-          </div>
-        </article>
+                <div className="mt-6 flex items-center gap-4 border-t border-secondary-200 pt-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary-500 text-sm font-bold text-neutral-100">
+                    {testimonial.avatar}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-secondary-500">{testimonial.name}</p>
+                    <p className="text-xs text-secondary-400">{testimonial.role}</p>
+                    <p className="text-xs font-semibold text-primary-600">{testimonial.company}</p>
+                    <p className="text-xs text-secondary-300">{testimonial.location}</p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </div>
 
-      <style>{`
-        @keyframes testimonialSlideInFromRight {
-          from {
-            opacity: 0.25;
-            transform: translateX(128px) scale(0.98);
-            filter: blur(1.5px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-            filter: blur(0);
-          }
-        }
-
-        @keyframes testimonialSlideInFromLeft {
-          from {
-            opacity: 0.25;
-            transform: translateX(-128px) scale(0.98);
-            filter: blur(1.5px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-            filter: blur(0);
-          }
-        }
-      `}</style>
+      <div className="mt-5 hidden items-center justify-center md:flex">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={goPrev}
+            onFocus={() => setIsAutoplayPaused(true)}
+            onBlur={() => setIsAutoplayPaused(false)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-secondary-300 bg-white text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+            aria-label="Ver testimonio anterior"
+          >
+            <span aria-hidden="true" className="text-xl leading-none ">
+              ‹
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={goNext}
+            onFocus={() => setIsAutoplayPaused(true)}
+            onBlur={() => setIsAutoplayPaused(false)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-secondary-300 bg-white text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+            aria-label="Ver siguiente testimonio"
+          >
+            <span aria-hidden="true" className="text-xl leading-none">
+              ›
+            </span>
+          </button>
+        </div>
+      </div>
     </section>
   );
 }

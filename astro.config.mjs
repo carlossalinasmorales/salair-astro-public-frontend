@@ -9,6 +9,11 @@ export default defineConfig({
   // TODO: ajustar este dominio si cambia el dominio canónico del sitio.
   site: 'https://www.salair.cl',
 
+  // Evita requests de sourcemaps del dev toolbar en desarrollo.
+  devToolbar: {
+    enabled: false,
+  },
+
   fonts: [{
     provider: fontProviders.fontsource(),
     name: "Montserrat",
