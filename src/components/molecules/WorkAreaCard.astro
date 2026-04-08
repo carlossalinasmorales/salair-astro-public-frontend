@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import SurfaceCard from "@atoms/SurfaceCard.astro";
 
 interface Props {
   title: string;
@@ -19,11 +18,8 @@ const {
 } = Astro.props;
 ---
 
-<SurfaceCard
-  as="article"
-  tone="neutral"
-  interactive
-  class={`group relative h-80 w-full overflow-hidden p-0 md:h-84 md:w-[calc(50%-0.75rem)] xl:h-88 xl:w-[calc(33.333%-1rem)] ${className}`}
+<article
+  class={`rounded-sm border border-secondary-200 bg-neutral-100 shadow-lg group relative h-80 w-full overflow-hidden p-0 md:h-84 md:w-[calc(50%-0.75rem)] xl:h-88 xl:w-[calc(33.333%-1rem)] ${className}`}
 >
   <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-primary-500 via-secondary-500 to-primary-300 opacity-80"></div>
   <Image
@@ -41,4 +37,4 @@ const {
     <h3 class="mb-3 text-xl font-bold text-neutral-100">{title}</h3>
     <p class="text-sm leading-relaxed text-neutral-100">{description}</p>
   </div>
-</SurfaceCard>
+</article>

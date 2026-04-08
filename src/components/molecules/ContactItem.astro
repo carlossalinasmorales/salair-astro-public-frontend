@@ -12,7 +12,7 @@ interface Props {
 const { iconName, label, value, href, class: className = "" } = Astro.props;
 ---
 
-<div class={`flex items-center gap-4 rounded-2xl border border-secondary-200/80 bg-white p-4 shadow-[0_14px_28px_-22px_rgba(9,26,56,0.65)] ${className}`}>
+<div class={`flex items-center gap-4 rounded-2xl border border-secondary-200/80 bg-white p-4 shadow-md ${className}`}>
   <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary-500 text-white">
     <Icon name={iconName} class="h-5 w-5" />
   </div>

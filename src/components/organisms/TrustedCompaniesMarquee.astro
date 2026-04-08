@@ -37,7 +37,7 @@ const defaultLogoClasses = "h-12 w-auto object-contain md:h-18";
 {
   embedded ? (
     <div class:list={["w-full", className]} aria-labelledby="empresas-atendidas">
-      <div class="marquee rounded-xl   px-3 py-3 shadow-[0_16px_34px_-28px_rgba(9,26,56,0.8)]" aria-label="Logos de empresas atendidas">
+      <div class="marquee rounded-xl px-3 py-3 shadow-lg" aria-label="Logos de empresas atendidas">
         <ul class="marquee__track" role="list">
           {
             companies.map((company) => (
@@ -73,7 +73,7 @@ const defaultLogoClasses = "h-12 w-auto object-contain md:h-18";
     </div>
   ) : (
     <section aria-labelledby="empresas-atendidas" class:list={[className]} >
-      <div class="container min-h-[10dvh] content-center">
+      <div class="container min-h-20 content-center">
 
 
         <div class="marquee" aria-label="Logos de empresas atendidas">

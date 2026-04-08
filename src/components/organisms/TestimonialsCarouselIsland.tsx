@@ -135,15 +135,15 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
                 key={`${testimonial.name}-${index}`}
                 aria-hidden={!isCenter}
                 aria-live={isCenter ? "polite" : undefined}
-                className={`col-start-1 row-start-1 w-[84%] justify-self-center rounded-sm border border-secondary-300/20 bg-neutral-100 p-6 text-secondary-500 sm:w-[78%] md:w-[68%] md:p-7 ${
+                className={`col-start-1 row-start-1 w-5/6 justify-self-center rounded-sm border border-secondary-300/20 bg-neutral-100 p-6 text-secondary-500 sm:w-4/5 md:w-2/3 md:p-7 ${
                   prefersReducedMotion ? "" : "transition-all duration-500 ease-out"
                 } ${
                   isCenter
                     ? "z-30 scale-100 opacity-100"
                     : isLeft
-                    ? "z-10 -translate-x-[56%] scale-95 opacity-35"
+                    ? "z-10 -translate-x-1/2 scale-95 opacity-35"
                     : isRight
-                    ? "z-10 translate-x-[56%] scale-95 opacity-35"
+                    ? "z-10 translate-x-1/2 scale-95 opacity-35"
                     : "z-0 scale-90 opacity-0"
                 } ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
               >
