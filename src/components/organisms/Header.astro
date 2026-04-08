@@ -2,7 +2,7 @@
 import Button from "@atoms/Button.astro";
 import Logo from "@atoms/Logo.astro";
 import NavLink from "@atoms/NavLink.astro";
-import { headerNavLinks } from "@/lib/navigation/header-nav-links";
+import { mainNavLinks } from "@/lib/navigation/nav-links";
 ---
 
 <header
@@ -15,7 +15,7 @@ import { headerNavLinks } from "@/lib/navigation/header-nav-links";
       </a>
       <div class="flex items-center gap-6">
         <ul class="hidden items-center md:flex">
-          {headerNavLinks.map((link) => (
+          {mainNavLinks.map((link) => (
             <li>
               <NavLink href={link.href} label={link.label} variant="desktop" />
             </li>
@@ -45,7 +45,7 @@ import { headerNavLinks } from "@/lib/navigation/header-nav-links";
 
     <div id="mobile-menu" class="header-mobile-menu hidden border-t border-secondary-200 py-4 md:hidden">
       <ul class="flex flex-col gap-2">
-        {headerNavLinks.map((link) => (
+        {mainNavLinks.map((link) => (
           <li>
             <NavLink href={link.href} label={link.label} variant="mobile" />
           </li>
