@@ -1,21 +1,21 @@
 ﻿---
-import Icon from "@atoms/Icon.astro";
+import ServiceOrbitIcon from "@atoms/ServiceOrbitIcon.jsx";
 
 interface Props {
   title: string;
   description: string;
-  iconName: string;
+  iconVariant?: "orbit" | "maintenance" | "prism" | "layers" | "panels";
   class?: string;
 }
 
-const { title, description, iconName, class: className = "" } = Astro.props;
+const { title, description, iconVariant = "orbit", class: className = "" } = Astro.props;
 ---
 
 <article class={`service-card-reference border border-neutral-300/30 group relative h-full overflow-hidden bg-linear-to-b  from-neutral-100 to-neutral-200/50 px-8 py-10 transition-colors duration-300 hover:bg-neutral-100 ${className}`}>
   <div aria-hidden="true" class="absolute inset-0"></div>
 
   <div class="relative z-10 flex h-full flex-col ">
-    <Icon name={iconName} class="mb-8 h-8 w-8 text-primary-500 " />
+    <ServiceOrbitIcon variant={iconVariant} className="mb-8" />
 
     <h3 class="text-xl md:text-2xl leading-tight font-semibold tracking-tight text-secondary-500">{title}</h3>
 
