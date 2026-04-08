@@ -2,14 +2,7 @@
 import Button from "@atoms/Button.astro";
 import Logo from "@atoms/Logo.astro";
 import NavLink from "@atoms/NavLink.astro";
-
-
-const navLinks = [
-  { href: "#servicios", label: "Servicios" },
-  { href: "#nosotros", label: "Nosotros" },
-  { href: "#testimonios", label: "Clientes" },
-  { href: "#contacto", label: "Contacto" },
-];
+import { headerNavLinks } from "@/lib/navigation/header-nav-links";
 ---
 
 <header
@@ -21,10 +14,10 @@ const navLinks = [
         <Logo variant="auto" size="md" priority class="header-logo" />
       </a>
       <div class="flex items-center gap-6">
-        <ul class="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
+        <ul class="hidden items-center md:flex">
+          {headerNavLinks.map((link) => (
             <li>
-              <NavLink href={link.href} label={link.label} class="header-nav-link" />
+              <NavLink href={link.href} label={link.label} variant="desktop" />
             </li>
           ))}
         </ul>
@@ -52,14 +45,9 @@ const navLinks = [
 
     <div id="mobile-menu" class="header-mobile-menu hidden border-t border-secondary-200 py-4 md:hidden">
       <ul class="flex flex-col gap-2">
-        {navLinks.map((link) => (
+        {headerNavLinks.map((link) => (
           <li>
-            <a
-              href={link.href}
-                class="header-mobile-link block rounded-lg border border-transparent px-4 py-2 text-sm font-semibold text-secondary-500 transition-all hover:border-secondary-300 hover:bg-neutral-200"
-            >
-              {link.label}
-            </a>
+            <NavLink href={link.href} label={link.label} variant="mobile" />
           </li>
         ))}
         <li class="pt-2">
@@ -145,13 +133,13 @@ const navLinks = [
     transform: translateY(-100%);
   }
 
-  #smart-header.is-transparent .header-nav-link,
-  #smart-header.is-transparent .header-mobile-link {
+  #smart-header.is-transparent .header-nav-link-desktop,
+  #smart-header.is-transparent .header-nav-link-mobile {
     color: rgb(249 250 251);
   }
 
-  #smart-header.is-transparent .header-nav-link:hover,
-  #smart-header.is-transparent .header-mobile-link:hover {
+  #smart-header.is-transparent .header-nav-link-desktop:hover,
+  #smart-header.is-transparent .header-nav-link-mobile:hover {
     border-color: rgb(249 250 251 / 0.4);
     background-color: rgb(249 250 251 / 0.1);
     color: rgb(255 255 255);

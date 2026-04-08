@@ -38,40 +38,39 @@ const servicesBottomRow = services.slice(3);
   <div class="container">
     <SectionHeading
       title="Servicios"
-      description="Acompañamos operaciones industriales y comerciales con servicios de climatización y refrigeración industrial en todo Chile, desde soporte puntual hasta continuidad contractual."
     />
 
 
-    <div class="services-grid-reference mx-auto grid max-w-6xl grid-cols-1 border-r border-b border-secondary-200/15 bg-neutral-100 sm:grid-cols-2 lg:hidden">
+    <div class="services-grid-reference mx-auto grid max-w-6xl grid-cols-1    bg-neutral-100 sm:grid-cols-2 lg:hidden">
       {services.map((service) => (
         <ServiceCard
           title={service.title}
           description={service.description}
           iconName={service.iconName}
-          class="service-card-equalized border-l border-t border-secondary-200/15"
+          class="service-card-equalized   "
         />
       ))}
     </div>
 
     <div class="hidden lg:block">
-      <div class="services-grid-reference mx-auto grid max-w-6xl grid-cols-3 border-r border-b border-secondary-200/15 bg-neutral-100">
+      <div class="services-grid-reference mx-auto grid max-w-6xl grid-cols-3    bg-neutral-100">
         {servicesTopRow.map((service) => (
           <ServiceCard
             title={service.title}
             description={service.description}
             iconName={service.iconName}
-            class="service-card-equalized border-l border-t border-secondary-200/15"
+            class="service-card-equalized   "
           />
         ))}
       </div>
 
-      <div class="services-grid-reference mx-auto grid max-w-4xl grid-cols-2 border-r border-b border-secondary-200/15 bg-neutral-100">
+      <div class="services-grid-reference mx-auto grid max-w-4xl grid-cols-2    bg-neutral-100">
         {servicesBottomRow.map((service) => (
           <ServiceCard
             title={service.title}
             description={service.description}
             iconName={service.iconName}
-            class="service-card-equalized border-l border-t border-secondary-200/15"
+            class="service-card-equalized   "
           />
         ))}
       </div>

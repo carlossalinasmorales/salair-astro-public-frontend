@@ -1,16 +1,23 @@
 ---
+type NavLinkVariant = "desktop" | "mobile";
+
 interface Props {
   label: string;
   href?: string;
-  class?: string;
+  variant?: NavLinkVariant;
 }
 
-const { label, href = "#", class: className = "" } = Astro.props;
+const { label, href = "#", variant = "desktop" } = Astro.props;
+
+const desktopClasses =
+  "header-nav-link-desktop rounded-sm border border-transparent px-8 py-4 uppercase text-sm font-semibold text-secondary-500 transition-all duration-200 hover:border-secondary-300 hover:bg-neutral-100/85 hover:text-secondary-700 active:bg-neutral-200";
+
+const mobileClasses =
+  "header-nav-link-mobile block rounded-lg border border-transparent px-4 py-2 uppercase text-sm font-semibold text-secondary-500 transition-all duration-200 ";
+
+const classes = variant === "mobile" ? mobileClasses : desktopClasses;
 ---
 
-<a
-  href={href}
-  class={`rounded-lg border border-transparent px-4 py-2 text-sm font-semibold text-secondary-500 transition-all duration-200 hover:border-secondary-300 hover:bg-neutral-100/85 hover:text-secondary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 active:bg-neutral-200 ${className}`}
->
+<a href={href} class={classes}>
   {label}
 </a>

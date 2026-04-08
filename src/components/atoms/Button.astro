@@ -1,7 +1,6 @@
 ---
 interface Props {
   variant?: "primary" | "secondary" | "outline-white" | "accent";
-  size?: "sm" | "md" | "lg";
   href?: string;
   type?: "button" | "submit";
   disabled?: boolean;
@@ -10,14 +9,13 @@ interface Props {
 
 const {
   variant = "primary",
-  size = "md",
   href,
   type = "button",
   disabled = false,
   class: className = "",
 } = Astro.props;
 
-const baseClasses = "inline-flex items-center justify-center gap-2 rounded-md text-sm lg:text-base font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0";
+const baseClasses = "inline-flex items-center justify-center gap-2 rounded-sm text-sm  font-bold transition-all duration-200 uppercase";
 
 const variantClasses = {
   "primary": "border-1 border-primary-500 bg-primary-500 text-white hover:border-primary-300 hover:bg-primary-300",
@@ -26,13 +24,9 @@ const variantClasses = {
   "accent": "bg-accent-500 text-neutral-100  hover:bg-accent-300 hover:text-white",
 };
 
-const sizeClasses = {
-  sm: "px-4 py-2",
-  md: "px-5 py-2.5",
-  lg: "px-7 py-3.5 text-base",
-};
+const responsiveSizeClasses = "px-6 py-3 lg:px-8 lg:py-4";
 
-const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+const classes = `${baseClasses} ${variantClasses[variant]} ${responsiveSizeClasses} ${className}`;
 ---
 
 {href ? (

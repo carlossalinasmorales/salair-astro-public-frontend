@@ -5,8 +5,6 @@ type HeadingTag = "h1" | "h2" | "h3";
 
 interface Props {
   title: string;
-  description?: string;
-  eyebrow?: string;
   align?: HeadingAlign;
   tone?: HeadingTone;
   as?: HeadingTag;
@@ -16,8 +14,6 @@ interface Props {
 
 const {
   title,
-  description,
-  eyebrow,
   align = "center",
   tone = "light",
   as = "h2",
@@ -28,32 +24,15 @@ const {
 const HeadingTag = as;
 const alignClasses = align === "center" ? "mx-auto text-center" : "text-left";
 
-const eyebrowClasses =
-  tone === "dark"
-    ? "text-xs font-semibold uppercase tracking-[0.14em] text-neutral-100"
-    : "text-xs font-semibold uppercase tracking-[0.14em] text-secondary-100";
+const titleBaseClasses = "font-semibold";
+const titleSpacingAndSizeClasses = compact
+  ? "mt-1 text-2xl sm:text-3xl"
+  : "mt-4 text-3xl sm:text-4xl lg:text-5xl";
+const titleToneClasses = tone === "dark" ? "text-neutral-100" : "text-secondary-500";
+const titleClasses = `${titleBaseClasses} ${titleSpacingAndSizeClasses} ${titleToneClasses}`;
 
-const titleClasses =
-  compact
-    ? tone === "dark"
-      ? "mt-1 text-2xl font-extrabold leading-tight text-neutral-100 sm:text-3xl uppercase"
-      : "mt-1 text-2xl font-extrabold leading-tight text-secondary-500 sm:text-3xl uppercase"
-    : tone === "dark"
-      ? "mt-4 text-3xl font-extrabold leading-tight text-neutral-100 sm:text-4xl lg:text-5xl uppercase"
-      : "mt-4 text-3xl font-extrabold leading-tight text-secondary-500 sm:text-4xl lg:text-5xl uppercase";
-
-const descriptionClasses =
-  compact
-    ? tone === "dark"
-      ? "mt-2 text-sm text-primary-100 sm:text-base"
-      : "mt-2 text-sm text-secondary-500 sm:text-base"
-    : tone === "dark"
-      ? "mt-5 text-base text-primary-100 sm:text-lg"
-      : "mt-5 text-base text-secondary-500 sm:text-lg";
 ---
 
 <div class={`${compact ? "mb-2 max-w-none" : "mb-12 max-w-3xl lg:mb-16"} ${alignClasses} ${className}`}>
-  {eyebrow && <p class={eyebrowClasses}>{eyebrow}</p>}
   <HeadingTag class={titleClasses}>{title}</HeadingTag>
-  {description && <p class={descriptionClasses}>{description}</p>}
 </div>
