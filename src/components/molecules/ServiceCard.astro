@@ -11,7 +11,7 @@ interface Props {
 const { title, description, iconName, class: className = "" } = Astro.props;
 ---
 
-<article class={`service-card-reference border border-neutral-300/30 group relative h-full overflow-hidden bg-linear-to-b  from-neutral-100 to-neutral-200/50 px-8 py-10 transition-colors duration-300 hover:bg-white ${className}`}>
+<article class={`service-card-reference border border-neutral-300/30 group relative h-full overflow-hidden bg-linear-to-b  from-neutral-100 to-neutral-200/50 px-8 py-10 transition-colors duration-300 hover:bg-neutral-100 ${className}`}>
   <div aria-hidden="true" class="absolute inset-0"></div>
 
   <div class="relative z-10 flex h-full flex-col ">

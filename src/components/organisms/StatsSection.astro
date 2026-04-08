@@ -1,5 +1,5 @@
 ---
-import StatMetricItem from "@molecules/StatMetricItem.astro";
+import StatCard from "@molecules/StatCard.astro";
 import StatsOrbitAsset from "@molecules/StatsOrbitAsset.astro";
 import SectionHeading from "../molecules/SectionHeading.astro";
 
@@ -23,21 +23,19 @@ const stats = [
 ];
 ---
 
-<section id="resultados" class="relative overflow-hidden bg-neutral-100 py-20 lg:py-28">
+<section id="nosotros" class="relative overflow-hidden bg-neutral-100 py-20 lg:py-28">
   <div class="pointer-events-none absolute inset-0  items-center justify-center opacity-55 ">
     <StatsOrbitAsset class="flex h-full w-full max-w-none justify-center" />
   </div>
 
   <div class="container relative z-10">
     <div class="mx-auto max-w-5xl text-center">
-      <SectionHeading title="No necesitás más datos. Necesitás señales claras para decidir." />
-      <p class="mx-auto mt-5 max-w-3xl text-base text-secondary-400 sm:text-lg">
-        Estos resultados muestran lo que realmente te importa: continuidad operativa, respuesta técnica y control en terreno.
-      </p>
+      <SectionHeading title="Nuestra experiencia hace la diferencia" />
+
 
       <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
         {stats.map((stat) => (
-          <StatMetricItem value={stat.value} label={stat.label} />
+          <StatCard value={stat.value} label={stat.label} />
         ))}
       </div>
     </div>
@@ -47,8 +45,8 @@ const stats = [
 <script>
   import { gsap } from "gsap";
 
-  const section = document.getElementById("resultados");
-  const statNodes = Array.from(document.querySelectorAll<HTMLElement>("#resultados .js-stat-value"));
+  const section = document.getElementById("nosotros");
+  const statNodes = Array.from(document.querySelectorAll<HTMLElement>("#nosotros .js-stat-value"));
 
   if (section instanceof HTMLElement && statNodes.length > 0) {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -9,7 +9,7 @@ interface Props {
 const { number, title, description, class: className = "" } = Astro.props;
 ---
 
-<div class={`group relative h-full overflow-hidden  border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/50 px-8 py-8  transition-colors duration-300 hover:bg-white ${className}`}>
+<div class={`group relative h-full overflow-hidden  border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/50 px-8 py-8  transition-colors duration-300 hover:bg-neutral-100 ${className}`}>
   <div aria-hidden="true" class="absolute inset-0"></div>
 
   <div class="relative z-10 flex gap-5">

@@ -1,3 +1,4 @@
+---
 interface Props {
   value: string;
   label: string;
@@ -7,23 +8,12 @@ interface Props {
 const { value, label, class: className = "" } = Astro.props;
 ---
 
-<article
-  class={`group relative h-full overflow-hidden rounded-2xl border border-white/80 bg-white/95 px-6 py-8 text-center shadow-xl backdrop-blur-sm transition-shadow duration-300 hover:shadow-2xl ${className}`}
->
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-linear-to-b from-white via-white to-primary-100/35"></div>
-  <div aria-hidden="true" class="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-primary-200/55 blur-2xl"></div>
-  <div aria-hidden="true" class="pointer-events-none absolute -left-8 bottom-0 h-24 w-24 rounded-full bg-secondary-200/40 blur-2xl"></div>
-
-  <div class="relative">
-    <div
-      class="js-stat-value mb-2 text-5xl leading-none font-black tracking-tight text-primary-500 sm:text-6xl lg:text-7xl"
-      data-stat-value={value}
-    >
-      {value}
-    </div>
-    <div aria-hidden="true" class="mx-auto mb-3 h-px w-16 bg-primary-300/80"></div>
-    <div class="mx-auto max-w-xs text-sm font-semibold text-secondary-400 sm:text-base">
-      {label}
-    </div>
-  </div>
+<article class={`border-l-2 border-primary-500 pl-3 text-left ${className}`}>
+  <p
+    class="js-stat-value text-4xl leading-none font-semibold tracking-tight text-secondary-500 sm:text-5xl"
+    data-stat-value={value}
+  >
+    {value}
+  </p>
+  <p class="mt-2 text-sm text-secondary-400 sm:text-base">{label}</p>
 </article>

@@ -62,7 +62,7 @@
   }
 
   ::selection {
-    @apply bg-primary-500 text-white;
+    @apply bg-primary-500 text-neutral-100;
   }
 
   a,

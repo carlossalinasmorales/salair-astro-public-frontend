@@ -175,7 +175,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
             onClick={goPrev}
             onFocus={() => setIsAutoplayPaused(true)}
             onBlur={() => setIsAutoplayPaused(false)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-secondary-300/30 bg-white text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-secondary-300/30 bg-neutral-100 text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
             aria-label="Ver testimonio anterior"
           >
             <span aria-hidden="true" className="text-xl leading-none ">
@@ -187,7 +187,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
             onClick={goNext}
             onFocus={() => setIsAutoplayPaused(true)}
             onBlur={() => setIsAutoplayPaused(false)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-secondary-300/30 bg-white text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-secondary-300/30 bg-neutral-100 text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
             aria-label="Ver siguiente testimonio"
           >
             <span aria-hidden="true" className="text-xl leading-none">
