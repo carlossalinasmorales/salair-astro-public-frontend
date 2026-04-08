@@ -10,7 +10,7 @@ const { value, label, class: className = "" } = Astro.props;
 
 <article class={`border-l-2 border-primary-500 pl-3 ${className}`}>
   <p
-    class="js-stat-value text-4xl leading-none font-black tracking-tight text-secondary-500 sm:text-5xl"
+    class="js-stat-value text-4xl leading-none font-semibold tracking-tight text-secondary-500 sm:text-5xl"
     data-stat-value={value}
   >
     {value}

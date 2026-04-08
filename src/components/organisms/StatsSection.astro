@@ -1,6 +1,7 @@
 ---
 import StatMetricItem from "@molecules/StatMetricItem.astro";
 import StatsOrbitAsset from "@molecules/StatsOrbitAsset.astro";
+import SectionHeading from "../molecules/SectionHeading.astro";
 
 const stats = [
   {
@@ -23,26 +24,22 @@ const stats = [
 ---
 
 <section id="resultados" class="relative overflow-hidden bg-neutral-100 py-20 lg:py-28">
-  <div class="container">
-    <div class="relative grid items-center gap-12 lg:grid-cols-2">
-      <div class="max-w-2xl">
-        <h2 class="mt-3 text-4xl font-extrabold leading-tight text-secondary-500 sm:text-5xl">
-          Números que
-          <br />
-          hablan por sí solos
-        </h2>
-        <p class="mt-5 text-base text-secondary-400 sm:text-lg">
-          Indicadores de trabajo en terreno que reflejan continuidad, cumplimiento y capacidad de respuesta.
-        </p>
+  <div class="pointer-events-none absolute inset-0  items-center justify-center opacity-55 ">
+    <StatsOrbitAsset class="flex h-full w-full max-w-none justify-center" />
+  </div>
 
-        <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
-          {stats.map((stat) => (
-            <StatMetricItem value={stat.value} label={stat.label} />
-          ))}
-        </div>
+  <div class="container relative z-10">
+    <div class="mx-auto max-w-5xl text-center">
+      <SectionHeading title="No necesitás más datos. Necesitás señales claras para decidir." />
+      <p class="mx-auto mt-5 max-w-3xl text-base text-secondary-400 sm:text-lg">
+        Estos resultados muestran lo que realmente te importa: continuidad operativa, respuesta técnica y control en terreno.
+      </p>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
+        {stats.map((stat) => (
+          <StatMetricItem value={stat.value} label={stat.label} />
+        ))}
       </div>
-
-      <StatsOrbitAsset class="hidden lg:flex" />
     </div>
   </div>
 </section>

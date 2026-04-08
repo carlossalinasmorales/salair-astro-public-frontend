@@ -1,7 +1,6 @@
 ---
-import Button from "@atoms/Button.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
-import WorkAreaCard from "@molecules/WorkAreaCard.astro";
+import SystemCard from "@molecules/SystemCard.astro";
 
 import aireAcondicionadoIndustrial from "@/assets/images/equipos/aire-acondicionado-industrial.webp";
 import camarasDeRefrigeracion from "@/assets/images/equipos/camaras-de-refrigeracion.webp";
@@ -9,7 +8,7 @@ import camarasDeCongelado from "@/assets/images/equipos/camaras-de-congelado.web
 import ductosDeVentilacion from "@/assets/images/equipos/ductos-de-ventilacion.webp";
 import extractoresDeAire from "@/assets/images/equipos/extractores-de-aire.webp";
 
-const workAreas = [
+const systems = [
   {
     title: "Aires acondicionados",
     description: "Climatización para espacios comerciales e industriales con control térmico estable y operación confiable.",
@@ -42,44 +41,44 @@ const workAreas = [
   },
 ];
 
-const workAreasTopRow = workAreas.slice(0, 3);
-const workAreasBottomRow = workAreas.slice(3);
+const systemsTopRow = systems.slice(0, 3);
+const systemsBottomRow = systems.slice(3);
 ---
 
-<section id="areas-de-trabajo" class="bg-neutral-100 py-20 lg:py-28">
+<section id="sistemas" class="bg-neutral-100 py-20 lg:py-28">
   <div class="container">
-    <SectionHeading title="Sistemas críticos" />
+    <SectionHeading title="¿Tu operación no puede detenerse? Cubrimos estos sistemas críticos." />
 
     <div class="mx-auto grid max-w-6xl grid-cols-1 bg-neutral-100 sm:grid-cols-2 lg:hidden">
-      {workAreas.map((area) => (
-        <WorkAreaCard
-          title={area.title}
-          description={area.description}
-          image={area.image}
-          alt={area.alt}
+      {systems.map((system) => (
+        <SystemCard
+          title={system.title}
+          description={system.description}
+          image={system.image}
+          alt={system.alt}
         />
       ))}
     </div>
 
     <div class="hidden lg:block">
       <div class="mx-auto grid max-w-6xl grid-cols-3 bg-neutral-100">
-        {workAreasTopRow.map((area) => (
-          <WorkAreaCard
-            title={area.title}
-            description={area.description}
-            image={area.image}
-            alt={area.alt}
+        {systemsTopRow.map((system) => (
+          <SystemCard
+            title={system.title}
+            description={system.description}
+            image={system.image}
+            alt={system.alt}
           />
         ))}
       </div>
 
       <div class="mx-auto grid max-w-4xl grid-cols-2 bg-neutral-100">
-        {workAreasBottomRow.map((area) => (
-          <WorkAreaCard
-            title={area.title}
-            description={area.description}
-            image={area.image}
-            alt={area.alt}
+        {systemsBottomRow.map((system) => (
+          <SystemCard
+            title={system.title}
+            description={system.description}
+            image={system.image}
+            alt={system.alt}
           />
         ))}
       </div>

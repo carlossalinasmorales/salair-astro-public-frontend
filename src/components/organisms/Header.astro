@@ -7,7 +7,7 @@ import { headerNavLinks } from "@/lib/navigation/header-nav-links";
 
 <header
   id="smart-header"
-  class="is-transparent fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent transition-transform duration-300 ease-out">
+  class="is-transparent fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent transition-colors duration-300 ease-out">
   <div class="container">
     <nav class="flex h-20 items-center justify-between" aria-label="Navegación principal">
       <a href="/" aria-label="Salair - Inicio">
@@ -67,9 +67,6 @@ import { headerNavLinks } from "@/lib/navigation/header-nav-links";
 
   if (header instanceof HTMLElement && btn instanceof HTMLElement && menu instanceof HTMLElement) {
     const SOLID_SCROLL_THRESHOLD = 120;
-    const HIDE_SCROLL_THRESHOLD = 20;
-    const SCROLL_DELTA_THRESHOLD = 6;
-    let lastScrollY = window.scrollY;
 
     const updateHeaderState = () => {
       const currentScrollY = window.scrollY;
@@ -78,26 +75,6 @@ import { headerNavLinks } from "@/lib/navigation/header-nav-links";
 
       header.classList.toggle("is-solid", shouldBeSolid);
       header.classList.toggle("is-transparent", !shouldBeSolid);
-
-      if (isMenuExpanded || currentScrollY <= HIDE_SCROLL_THRESHOLD) {
-        header.classList.remove("is-hidden");
-        lastScrollY = currentScrollY;
-        return;
-      }
-
-      const delta = currentScrollY - lastScrollY;
-
-      if (Math.abs(delta) < SCROLL_DELTA_THRESHOLD) {
-        return;
-      }
-
-      if (delta > 0) {
-        header.classList.add("is-hidden");
-      } else {
-        header.classList.remove("is-hidden");
-      }
-
-      lastScrollY = currentScrollY;
     };
 
     btn.addEventListener("click", () => {
@@ -127,10 +104,6 @@ import { headerNavLinks } from "@/lib/navigation/header-nav-links";
     background-color: rgb(249 250 251 / 0.92);
     border-color: rgb(106 122 154 / 0.45);
     box-shadow: 0 16px 34px -30px rgb(4 12 26 / 0.9);
-  }
-
-  #smart-header.is-hidden {
-    transform: translateY(-100%);
   }
 
   #smart-header.is-transparent .header-nav-link-desktop,
