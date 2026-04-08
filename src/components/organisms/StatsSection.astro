@@ -1,6 +1,6 @@
 ---
 import StatCard from "@molecules/StatCard.astro";
-import StatsOrbitAsset from "@molecules/StatsOrbitAsset.astro";
+import { StatsOrbit } from "@molecules/StatsOrbitAsset.jsx";
 import SectionHeading from "../molecules/SectionHeading.astro";
 
 const stats = [
@@ -24,8 +24,8 @@ const stats = [
 ---
 
 <section id="nosotros" class="relative overflow-hidden bg-neutral-100 py-20 lg:py-28">
-  <div class="pointer-events-none absolute inset-0  items-center justify-center opacity-55 ">
-    <StatsOrbitAsset class="flex h-full w-full max-w-none justify-center" />
+  <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-55">
+    <StatsOrbit />
   </div>
 
   <div class="container relative z-10">
