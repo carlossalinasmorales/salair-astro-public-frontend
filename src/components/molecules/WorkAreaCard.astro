@@ -19,9 +19,9 @@ const {
 ---
 
 <article
-  class={`rounded-sm border border-secondary-200 bg-neutral-100 shadow-lg group relative h-80 w-full overflow-hidden p-0 md:h-84 md:w-[calc(50%-0.75rem)] xl:h-88 xl:w-[calc(33.333%-1rem)] ${className}`}
+  class={`group relative h-80 w-full overflow-hidden border border-neutral-300/20 bg-neutral-100  md:h-84 xl:h-88 ${className}`}
 >
-  <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-primary-500 via-secondary-500 to-primary-300 opacity-80"></div>
+  <div aria-hidden="true" class="absolute inset-x-0 top-0 z-10 h-1 opacity-90"></div>
   <Image
     src={image}
     alt={alt}
@@ -34,7 +34,7 @@ const {
   <div aria-hidden="true" class="absolute inset-0 bg-linear-to-b from-secondary-900/20 via-secondary-900/35 to-secondary-900/88"></div>
 
   <div class="absolute inset-x-0 bottom-0 z-10 p-6">
-    <h3 class="mb-3 text-xl font-bold text-neutral-100">{title}</h3>
-    <p class="text-sm leading-relaxed text-neutral-100">{description}</p>
+    <h3 class="mb-3 text-xl leading-tight font-semibold tracking-tight text-neutral-100 md:text-2xl">{title}</h3>
+    <p class="text-base leading-relaxed text-neutral-100">{description}</p>
   </div>
 </article>

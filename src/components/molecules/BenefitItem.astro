@@ -9,12 +9,16 @@ interface Props {
 const { number, title, description, class: className = "" } = Astro.props;
 ---
 
-<div class={`flex gap-5 rounded-2xl border border-secondary-500 bg-secondary-600 p-6 shadow-lg ${className}`}>
-  <span class="select-none text-4xl font-black leading-none text-primary-300">
+<div class={`group relative h-full overflow-hidden  border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/50 px-8 py-8  transition-colors duration-300 hover:bg-white ${className}`}>
+  <div aria-hidden="true" class="absolute inset-0"></div>
+
+  <div class="relative z-10 flex gap-5">
+    <span class="select-none text-3xl font-semibold leading-none text-primary-500 sm:text-4xl">
     {number}
-  </span>
-  <div>
-    <h3 class="mb-2 text-lg font-bold text-white">{title}</h3>
-    <p class="text-sm text-secondary-100/90">{description}</p>
+    </span>
+    <div>
+      <h3 class="mb-2 text-xl leading-tight font-semibold tracking-tight text-secondary-500 md:text-2xl">{title}</h3>
+      <p class="text-base leading-relaxed text-secondary-300">{description}</p>
+    </div>
   </div>
 </div>

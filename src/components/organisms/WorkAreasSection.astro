@@ -41,15 +41,16 @@ const workAreas = [
     alt: "Extractores de aire instalados en operación",
   },
 ];
+
+const workAreasTopRow = workAreas.slice(0, 3);
+const workAreasBottomRow = workAreas.slice(3);
 ---
 
-<section id="areas-de-trabajo" class=" bg-neutral-100 py-20 lg:py-28">
+<section id="areas-de-trabajo" class="bg-neutral-100 py-20 lg:py-28">
   <div class="container">
-    <SectionHeading
-      title="Sistemas críticos"
-    />
+    <SectionHeading title="Sistemas críticos" />
 
-    <div class="flex flex-wrap justify-center gap-6">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 bg-neutral-100 sm:grid-cols-2 lg:hidden">
       {workAreas.map((area) => (
         <WorkAreaCard
           title={area.title}
@@ -60,8 +61,29 @@ const workAreas = [
       ))}
     </div>
 
-    <div class="mt-10 flex justify-center">
-      <Button href="#contacto" variant="accent">Solicitar asesoría técnica</Button>
+    <div class="hidden lg:block">
+      <div class="mx-auto grid max-w-6xl grid-cols-3 bg-neutral-100">
+        {workAreasTopRow.map((area) => (
+          <WorkAreaCard
+            title={area.title}
+            description={area.description}
+            image={area.image}
+            alt={area.alt}
+          />
+        ))}
+      </div>
+
+      <div class="mx-auto grid max-w-4xl grid-cols-2 bg-neutral-100">
+        {workAreasBottomRow.map((area) => (
+          <WorkAreaCard
+            title={area.title}
+            description={area.description}
+            image={area.image}
+            alt={area.alt}
+          />
+        ))}
+      </div>
     </div>
+
   </div>
 </section>
