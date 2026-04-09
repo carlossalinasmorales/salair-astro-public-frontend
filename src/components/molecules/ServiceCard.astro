@@ -1,5 +1,6 @@
-﻿---
-import ServiceOrbitIcon from "@atoms/ServiceOrbitIcon.jsx";
+---
+import ServiceOrbitIcon from "@/components/illustrations/ServiceOrbitIcon.jsx";
+import { neutralSoftCardSurfaceClasses } from "@styles/surfaces";
 
 interface Props {
   title: string;
@@ -11,13 +12,13 @@ interface Props {
 const { title, description, iconVariant = "orbit", class: className = "" } = Astro.props;
 ---
 
-<article class={`service-card-reference border border-neutral-300/30 group relative h-full overflow-hidden bg-linear-to-b  from-neutral-100 to-neutral-200/50 px-8 py-10 transition-colors duration-300 hover:bg-neutral-100 ${className}`}>
+<article class={`service-card-reference px-8 py-10 ${neutralSoftCardSurfaceClasses} ${className}`}>
   <div aria-hidden="true" class="absolute inset-0"></div>
 
-  <div class="relative z-10 flex h-full flex-col ">
+  <div class="relative z-10 flex h-full flex-col">
     <ServiceOrbitIcon variant={iconVariant} className="mb-8" />
 
-    <h3 class="text-xl md:text-2xl leading-tight font-semibold tracking-tight text-secondary-500">{title}</h3>
+    <h3 class="text-xl leading-tight font-semibold tracking-tight text-secondary-500 md:text-2xl">{title}</h3>
 
     <p class="mt-4 max-w-md text-base leading-relaxed text-secondary-300">{description}</p>
   </div>

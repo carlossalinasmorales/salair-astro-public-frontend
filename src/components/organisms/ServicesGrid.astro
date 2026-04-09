@@ -1,30 +1,31 @@
 ﻿---
 import ServiceCard from "@molecules/ServiceCard.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
+import { sectionShellClasses } from "@styles/section-shell";
 
 const services = [
   {
-    iconVariant: "prism",
+    iconVariant: "prism" as const,
     title: "Instalaciones",
     description: "Implementamos sistemas de climatización y refrigeración con puesta en marcha en terreno y verificación de funcionamiento.",
   },
   {
-    iconVariant: "layers",
+    iconVariant: "layers" as const,
     title: "Reparaciones",
     description: "Diagnosticamos y resolvemos fallas en equipos de climatización y refrigeración industrial para reducir detenciones y recuperar operación segura.",
   },
   {
-    iconVariant: "maintenance",
+    iconVariant: "maintenance" as const,
     title: "Mantenciones",
     description: "Ejecutamos mantenciones preventivas y correctivas para extender la vida útil de los equipos y evitar fallas repetitivas.",
   },
   {
-    iconVariant: "orbit",
+    iconVariant: "orbit" as const,
     title: "Emergencias",
     description: "Respondemos contingencias críticas con atención prioritaria y reporte claro de lo ejecutado en cada intervención.",
   },
   {
-    iconVariant: "panels",
+    iconVariant: "panels" as const,
     title: "Proyectos",
     description: "Desarrollamos proyectos de climatización y refrigeración industrial desde la definición técnica hasta la implementación y entrega operativa.",
   },
@@ -32,51 +33,52 @@ const services = [
 
 const servicesTopRow = services.slice(0, 3);
 const servicesBottomRow = services.slice(3);
+
+const servicesGridBaseClasses = "services-grid-reference mx-auto grid bg-neutral-100";
+const serviceCardEqualizedClass = "service-card-equalized";
+
 ---
 
-<section id="servicios" class="bg-neutral-100 py-20 lg:py-28" data-services-grid>
+<section id="servicios" class={sectionShellClasses} data-services-grid>
   <div class="container">
     <SectionHeading
       title="Nuestros servicios sostienen tu continuidad operativa."
     />
 
-
-    <div class="services-grid-reference mx-auto grid max-w-6xl grid-cols-1    bg-neutral-100 sm:grid-cols-2 lg:hidden">
+    <div class={`${servicesGridBaseClasses} max-w-6xl grid-cols-1 sm:grid-cols-2 lg:hidden`}>
       {services.map((service) => (
         <ServiceCard
           title={service.title}
           description={service.description}
           iconVariant={service.iconVariant}
-          class="service-card-equalized   "
+          class={serviceCardEqualizedClass}
         />
       ))}
     </div>
 
     <div class="hidden lg:block">
-      <div class="services-grid-reference mx-auto grid max-w-6xl grid-cols-3    bg-neutral-100">
+      <div class={`${servicesGridBaseClasses} max-w-6xl grid-cols-3`}>
         {servicesTopRow.map((service) => (
           <ServiceCard
             title={service.title}
             description={service.description}
             iconVariant={service.iconVariant}
-            class="service-card-equalized   "
+            class={serviceCardEqualizedClass}
           />
         ))}
       </div>
 
-      <div class="services-grid-reference mx-auto grid max-w-4xl grid-cols-2    bg-neutral-100">
+      <div class={`${servicesGridBaseClasses} max-w-4xl grid-cols-2`}>
         {servicesBottomRow.map((service) => (
           <ServiceCard
             title={service.title}
             description={service.description}
             iconVariant={service.iconVariant}
-            class="service-card-equalized   "
+            class={serviceCardEqualizedClass}
           />
         ))}
       </div>
     </div>
-
-
   </div>
 </section>
 

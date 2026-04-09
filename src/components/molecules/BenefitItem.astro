@@ -1,4 +1,6 @@
 ---
+import { neutralSoftCardSurfaceClasses } from "@styles/surfaces";
+
 interface Props {
   number: string;
   title: string;
@@ -9,12 +11,12 @@ interface Props {
 const { number, title, description, class: className = "" } = Astro.props;
 ---
 
-<div class={`group relative h-full overflow-hidden  border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/50 px-8 py-8  transition-colors duration-300 hover:bg-neutral-100 ${className}`}>
+<div class={`px-8 py-8 ${neutralSoftCardSurfaceClasses} ${className}`}>
   <div aria-hidden="true" class="absolute inset-0"></div>
 
   <div class="relative z-10 flex gap-5">
     <span class="select-none text-3xl font-semibold leading-none text-primary-500 sm:text-4xl">
-    {number}
+      {number}
     </span>
     <div>
       <h3 class="mb-2 text-xl leading-tight font-semibold tracking-tight text-secondary-500 md:text-2xl">{title}</h3>

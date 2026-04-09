@@ -10,10 +10,10 @@ interface Props {
 const { label, href = "#", variant = "desktop" } = Astro.props;
 
 const desktopClasses =
-  "header-nav-link-desktop rounded-sm border border-transparent px-8 py-4 uppercase text-sm font-semibold text-secondary-500 transition-all duration-200 hover:border-secondary-300 hover:bg-neutral-100/85 hover:text-secondary-700 active:bg-neutral-200";
+  "header-nav-link-desktop rounded-sm border border-transparent px-8 py-4 uppercase text-sm font-semibold text-secondary-500 transition-colors duration-200 hover:border-secondary-300 hover:bg-neutral-100/85 hover:text-secondary-700 active:bg-neutral-200";
 
 const mobileClasses =
-  "header-nav-link-mobile block rounded-lg border border-transparent px-4 py-2 uppercase text-sm font-semibold text-secondary-500 transition-all duration-200 ";
+  "header-nav-link-mobile block rounded-lg border border-transparent px-4 py-2 uppercase text-sm font-semibold text-secondary-500 transition-colors duration-200";
 
 const classes = variant === "mobile" ? mobileClasses : desktopClasses;
 ---

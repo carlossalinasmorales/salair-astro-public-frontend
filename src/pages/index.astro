@@ -9,23 +9,20 @@ import StatsSection from "@organisms/StatsSection.astro";
 import TestimonialsSection from "@organisms/TestimonialsSection.astro";
 import ContactSection from "@organisms/ContactSection.astro";
 import Footer from "@organisms/Footer.astro";
-import TrustedCompaniesMarquee from "@/components/organisms/TrustedCompaniesMarquee.astro";
+import TrustedCompaniesMarquee from "@organisms/TrustedCompaniesMarquee.astro";
 ---
 
 <Layout>
   <Header />
   <main id="contenido-principal">
     <Hero />
-    <TrustedCompaniesMarquee/>
-
+    <TrustedCompaniesMarquee />
     <ServicesGrid />
     <SystemsSection />
     <StatsSection />
     <BenefitsSection />
-
     <TestimonialsSection />
     <ContactSection />
-
   </main>
   <Footer />
 </Layout>

@@ -1,6 +1,7 @@
 ---
 import SectionHeading from "@molecules/SectionHeading.astro";
 import SystemCard from "@molecules/SystemCard.astro";
+import { sectionShellClasses } from "@styles/section-shell";
 
 import aireAcondicionadoIndustrial from "@/assets/images/equipos/aire-acondicionado-industrial.webp";
 import camarasDeRefrigeracion from "@/assets/images/equipos/camaras-de-refrigeracion.webp";
@@ -43,13 +44,16 @@ const systems = [
 
 const systemsTopRow = systems.slice(0, 3);
 const systemsBottomRow = systems.slice(3);
+
+const systemsGridBaseClasses = "mx-auto grid bg-neutral-100";
+
 ---
 
-<section id="sistemas" class="bg-neutral-100 py-20 lg:py-28">
+<section id="sistemas" class={sectionShellClasses}>
   <div class="container">
     <SectionHeading title="Cubrimos los sistemas críticos que sostienen tu operación." />
 
-    <div class="mx-auto grid max-w-6xl grid-cols-1 bg-neutral-100 sm:grid-cols-2 lg:hidden">
+    <div class={`${systemsGridBaseClasses} max-w-6xl grid-cols-1 sm:grid-cols-2 lg:hidden`}>
       {systems.map((system) => (
         <SystemCard
           title={system.title}
@@ -61,7 +65,7 @@ const systemsBottomRow = systems.slice(3);
     </div>
 
     <div class="hidden lg:block">
-      <div class="mx-auto grid max-w-6xl grid-cols-3 bg-neutral-100">
+      <div class={`${systemsGridBaseClasses} max-w-6xl grid-cols-3`}>
         {systemsTopRow.map((system) => (
           <SystemCard
             title={system.title}
@@ -72,7 +76,7 @@ const systemsBottomRow = systems.slice(3);
         ))}
       </div>
 
-      <div class="mx-auto grid max-w-4xl grid-cols-2 bg-neutral-100">
+      <div class={`${systemsGridBaseClasses} max-w-4xl grid-cols-2`}>
         {systemsBottomRow.map((system) => (
           <SystemCard
             title={system.title}
@@ -83,6 +87,5 @@ const systemsBottomRow = systems.slice(3);
         ))}
       </div>
     </div>
-
   </div>
 </section>

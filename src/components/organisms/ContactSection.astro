@@ -3,25 +3,26 @@ import Button from "@atoms/Button.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
 import FormField from "@molecules/FormField.astro";
 import FormTextareaField from "@molecules/FormTextareaField.astro";
+import { sectionShellClasses } from "@styles/section-shell";
+import { neutralPanelSurfaceClasses } from "@styles/surfaces";
 ---
 
-<section id="contacto" class="bg-neutral-100 py-20 lg:py-28">
+<section id="contacto" class={sectionShellClasses}>
   <div class="container justify-items-center">
     <SectionHeading title="Cuéntanos tu desafío y te damos una solución técnica clara." align="center" />
-    <div class=" gap-10  max-w-3xl">
-      
-      
+    <div class="max-w-3xl gap-10">
+      <div class={`p-8 ${neutralPanelSurfaceClasses}`}>
+        <form id="contact-form" class="space-y-5" novalidate data-state="idle">
+          <div id="form-feedback" class="hidden rounded-sm border bg-primary-500 text-neutral-100 p-4 text-sm" role="status" aria-live="polite"></div>
 
-      <div class="rounded-sm border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/30 p-8 ">
-
-
-        <form id="contact-form" class="space-y-5" novalidate>
           <FormField
             id="company"
             name="company"
             label="Empresa"
             autocomplete="organization"
             required
+            minLength={2}
+            maxLength={120}
             placeholder="Ej: Planta Andina SpA"
           />
 
@@ -32,6 +33,9 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
               label="Nombre"
               autocomplete="given-name"
               required
+              minLength={2}
+              maxLength={60}
+              pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+$"
               placeholder="Nombre"
             />
             <FormField
@@ -40,11 +44,20 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
               label="Apellido"
               autocomplete="family-name"
               required
+              minLength={2}
+              maxLength={60}
+              pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+$"
               placeholder="Apellido"
             />
           </div>
 
-          <FormField id="role" name="role" label="Cargo" placeholder="Ej: Jefatura de Operaciones" />
+          <FormField
+            id="role"
+            name="role"
+            label="Cargo"
+            maxLength={80}
+            placeholder="Ej: Jefe de Operaciones"
+          />
 
           <FormField
             id="email"
@@ -53,6 +66,8 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
             label="Correo corporativo"
             autocomplete="email"
             required
+            inputMode="email"
+            maxLength={254}
             placeholder="su@empresa.cl"
           />
 
@@ -62,20 +77,28 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
             label="Mensaje"
             rows={4}
             required
+            minLength={20}
+            maxLength={2000}
             placeholder="Contexto operativo, metraje estimado, criticidad y plazo objetivo"
+            description="Entre 20 y 2000 caracteres. Entre más contexto entregue, mejor propuesta técnica recibirá."
           />
 
+          <div class="absolute -left-2499.75 top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            <label for="website">No completar este campo</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
           <Button type="submit" variant="primary" class="w-full">
-            <span id="btn-text">Enviar</span>
+            <span id="btn-text" aria-live="polite">Enviar</span>
           </Button>
 
           <p class="text-xs text-secondary-400">
             Al enviar este formulario acepta que usemos estos datos para contactarlo y preparar una propuesta.
           </p>
 
-          <div id="success-msg" class="hidden rounded-sm border border-secondary-300/50 bg-primary-100 p-4 text-center text-sm text-secondary-500">
-            Solicitud enviada correctamente. Nuestro equipo se contactará a la brevedad.
-          </div>
+          <p class="text-xs text-secondary-400">
+            Nota: el envío actual es una simulación local. No existe conexión real con backend todavía.
+          </p>
         </form>
       </div>
     </div>
@@ -83,62 +106,360 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
 </section>
 
 <script is:inline>
+  const MIN_SUBMIT_TIME_MS = 3000;
+  const FIELD_RULES = {
+    company: {
+      label: "Empresa",
+      required: true,
+      min: 2,
+      max: 120,
+    },
+    firstName: {
+      label: "Nombre",
+      required: true,
+      min: 2,
+      max: 60,
+      pattern: /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+$/,
+      patternMessage: "Use solo letras, espacios, apóstrofe o guion.",
+    },
+    lastName: {
+      label: "Apellido",
+      required: true,
+      min: 2,
+      max: 60,
+      pattern: /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+$/,
+      patternMessage: "Use solo letras, espacios, apóstrofe o guion.",
+    },
+    role: {
+      label: "Cargo",
+      required: false,
+      max: 80,
+    },
+    email: {
+      label: "Correo corporativo",
+      required: true,
+      max: 254,
+    },
+    message: {
+      label: "Mensaje",
+      required: true,
+      min: 20,
+      max: 2000,
+    },
+  };
+
+  const FREE_EMAIL_PROVIDERS = new Set([
+    "gmail.com",
+    "outlook.com",
+    "hotmail.com",
+    "yahoo.com",
+    "icloud.com",
+    "proton.me",
+  ]);
+
   const form = document.getElementById("contact-form");
-  const submitBtn = document
-    .getElementById("contact-form")
-    ?.querySelector("button[type=submit]");
+  const submitBtn = form?.querySelector("button[type=submit]");
   const btnText = document.getElementById("btn-text");
-  const successMsg = document.getElementById("success-msg");
+  const feedback = document.getElementById("form-feedback");
+  const formStartedAt = performance.now();
 
   if (
     form instanceof HTMLFormElement &&
     submitBtn instanceof HTMLButtonElement &&
     btnText instanceof HTMLElement &&
-    successMsg instanceof HTMLElement
+    feedback instanceof HTMLElement
   ) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const firstNameInput = form.querySelector("#firstName");
-      const lastNameInput = form.querySelector("#lastName");
-      const emailInput = form.querySelector("#email");
-      const messageInput = form.querySelector("#message");
-      const companyInput = form.querySelector("#company");
+    const fields = {
+      company: form.elements.namedItem("company"),
+      firstName: form.elements.namedItem("firstName"),
+      lastName: form.elements.namedItem("lastName"),
+      role: form.elements.namedItem("role"),
+      email: form.elements.namedItem("email"),
+      message: form.elements.namedItem("message"),
+      website: form.elements.namedItem("website"),
+    };
 
-      if (
-        !(firstNameInput instanceof HTMLInputElement) ||
-        !(lastNameInput instanceof HTMLInputElement) ||
-        !(emailInput instanceof HTMLInputElement) ||
-        !(messageInput instanceof HTMLTextAreaElement) ||
-        !(companyInput instanceof HTMLInputElement)
-      ) {
+    const getFieldElement = (name) => {
+      const field = fields[name];
+      if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) {
+        return field;
+      }
+      return null;
+    };
+
+    const normalizeWhitespace = (value) => value.replace(/\s+/g, " ").trim();
+    const normalizeMessage = (value) =>
+      value
+        .replace(/\r\n/g, "\n")
+        .replace(/[ \t]+/g, " ")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+
+    const normalizeByField = (fieldName, value) => {
+      if (fieldName === "message") {
+        return normalizeMessage(value);
+      }
+      if (fieldName === "email") {
+        return normalizeWhitespace(value).toLowerCase();
+      }
+      return normalizeWhitespace(value);
+    };
+
+    const setState = (state, message = "") => {
+      form.dataset.state = state;
+      const labels = {
+        idle: "Enviar",
+        submitting: "Enviando solicitud...",
+        success: "Solicitud enviada",
+        error: "Reintentar envío",
+      };
+
+      btnText.textContent = labels[state] ?? labels.idle;
+
+      if (!message) {
+        feedback.classList.add("hidden");
+        feedback.textContent = "";
+        feedback.className = "hidden rounded-sm border p-4 text-sm";
+        feedback.setAttribute("role", "status");
         return;
       }
 
-      const firstName = firstNameInput.value.trim();
-      const lastName = lastNameInput.value.trim();
-      const email = emailInput.value.trim();
-      const message = messageInput.value.trim();
-      const company = companyInput.value.trim();
+      const isSuccess = state === "success";
+      feedback.className = isSuccess
+        ? "rounded-sm border border-secondary-300/50 bg-primary-100 p-4 text-sm text-secondary-500"
+        : "rounded-sm border border-primary-500/40 bg-primary-500 p-4 text-sm text-neutral-100";
 
-      if (!firstName || !lastName || !email || !message || !company) {
-        alert("Por favor complete todos los campos obligatorios.");
+      feedback.setAttribute("role", isSuccess ? "status" : "alert");
+      feedback.textContent = message;
+      feedback.classList.remove("hidden");
+    };
+
+    const setFieldError = (fieldName, message) => {
+      const input = getFieldElement(fieldName);
+      const errorMessage = form.querySelector(`#${fieldName}-error`);
+
+      if (!input || !(errorMessage instanceof HTMLElement)) {
         return;
       }
 
-      submitBtn.disabled = true;
-      btnText.textContent = "Enviando solicitud...";
+      input.setAttribute("aria-invalid", message ? "true" : "false");
 
+      if (message) {
+        input.classList.add("border-primary-500");
+        errorMessage.textContent = message;
+        errorMessage.classList.remove("hidden");
+        return;
+      }
+
+      input.classList.remove("border-primary-500");
+      errorMessage.textContent = "";
+      errorMessage.classList.add("hidden");
+    };
+
+    const clearAllErrors = () => {
+      Object.keys(FIELD_RULES).forEach((fieldName) => {
+        setFieldError(fieldName, "");
+      });
+    };
+
+    const validateFieldValue = (fieldName, rawValue) => {
+      const rule = FIELD_RULES[fieldName];
+      if (!rule) {
+        return "";
+      }
+
+      const value = normalizeByField(fieldName, rawValue);
+
+      if (rule.required && !value) {
+        return `${rule.label} es obligatorio.`;
+      }
+
+      if (!value) {
+        return "";
+      }
+
+      if (rule.min && value.length < rule.min) {
+        return `${rule.label} debe tener al menos ${rule.min} caracteres.`;
+      }
+
+      if (rule.max && value.length > rule.max) {
+        return `${rule.label} no puede superar ${rule.max} caracteres.`;
+      }
+
+      if (rule.pattern && !rule.pattern.test(value)) {
+        return rule.patternMessage || `${rule.label} tiene un formato inválido.`;
+      }
+
+      if (fieldName === "email") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        if (!emailRegex.test(value)) {
+          return "Ingrese un correo electrónico válido.";
+        }
+
+        const domain = value.split("@")[1] || "";
+        if (FREE_EMAIL_PROVIDERS.has(domain)) {
+          return "Ingrese un correo corporativo (evite proveedores personales).";
+        }
+      }
+
+      return "";
+    };
+
+    const getCurrentValues = () => {
+      const snapshot = {};
+      Object.keys(FIELD_RULES).forEach((fieldName) => {
+        const field = getFieldElement(fieldName);
+        snapshot[fieldName] = field ? normalizeByField(fieldName, field.value) : "";
+      });
+      return snapshot;
+    };
+
+    const focusFirstError = (errors) => {
+      const firstFieldName = Object.keys(FIELD_RULES).find((fieldName) => errors[fieldName]);
+      if (!firstFieldName) {
+        return;
+      }
+
+      const firstField = getFieldElement(firstFieldName);
+      firstField?.focus();
+    };
+
+    const setFormLocked = (locked) => {
+      const controls = form.querySelectorAll("input, textarea, button");
+      controls.forEach((control) => {
+        if (control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement || control instanceof HTMLButtonElement) {
+          control.disabled = locked;
+        }
+      });
+      form.setAttribute("aria-busy", locked ? "true" : "false");
+    };
+
+    const buildPayload = (values) => {
+      return {
+        company: values.company,
+        contact: {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          fullName: `${values.firstName} ${values.lastName}`.trim(),
+          role: values.role || null,
+          email: values.email,
+        },
+        message: values.message,
+        metadata: {
+          contractVersion: 1,
+          source: "contact-section",
+          locale: document.documentElement.lang || "es",
+          submittedAt: new Date().toISOString(),
+          honeypotPassed: true,
+        },
+      };
+    };
+
+    const mockSubmitContact = async (payload) => {
       await new Promise((resolve) => setTimeout(resolve, 1200));
 
-      submitBtn.disabled = false;
-      btnText.textContent = "Solicitud enviada";
-      successMsg.classList.remove("hidden");
-      form.reset();
+      const forceError = payload.message.toLowerCase().includes("[force-error]");
+      if (forceError) {
+        return {
+          ok: false,
+          error: {
+            code: "MOCK_VALIDATION_ERROR",
+            message: "No fue posible procesar su solicitud. Revise el mensaje y vuelva a intentarlo.",
+          },
+        };
+      }
 
-      setTimeout(() => {
-        btnText.textContent = "Enviar";
-        successMsg.classList.add("hidden");
-      }, 3500);
+      return {
+        ok: true,
+        data: {
+          requestId: `mock-${Date.now()}`,
+        },
+      };
+    };
+
+    Object.keys(FIELD_RULES).forEach((fieldName) => {
+      const input = getFieldElement(fieldName);
+      if (!input) {
+        return;
+      }
+
+      input.addEventListener("blur", () => {
+        const error = validateFieldValue(fieldName, input.value);
+        setFieldError(fieldName, error);
+      });
+
+      input.addEventListener("input", () => {
+        if (form.dataset.state === "success" || form.dataset.state === "error") {
+          setState("idle", "");
+        }
+
+        if (input.getAttribute("aria-invalid") === "true") {
+          const error = validateFieldValue(fieldName, input.value);
+          setFieldError(fieldName, error);
+        }
+      });
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (form.dataset.state === "submitting") {
+        return;
+      }
+
+      clearAllErrors();
+      setState("idle", "");
+
+      const honeypotField = getFieldElement("website");
+      if (honeypotField && normalizeWhitespace(honeypotField.value)) {
+        setState("error", "No se pudo enviar el formulario. Intente nuevamente.");
+        return;
+      }
+
+      const elapsedMs = performance.now() - formStartedAt;
+      if (elapsedMs < MIN_SUBMIT_TIME_MS) {
+        setState("error", "Espere unos segundos antes de enviar el formulario.");
+        return;
+      }
+
+      const values = getCurrentValues();
+      const errors = {};
+
+      Object.keys(FIELD_RULES).forEach((fieldName) => {
+        const error = validateFieldValue(fieldName, values[fieldName] || "");
+        if (error) {
+          errors[fieldName] = error;
+          setFieldError(fieldName, error);
+        }
+      });
+
+      if (Object.keys(errors).length > 0) {
+        setState("error", "Revise los campos marcados y vuelva a intentarlo.");
+        focusFirstError(errors);
+        return;
+      }
+
+      const payload = buildPayload(values);
+      setFormLocked(true);
+      setState("submitting", "Validando y preparando su solicitud...");
+
+      try {
+        const result = await mockSubmitContact(payload);
+
+        if (!result.ok) {
+          setState("error", result.error.message || "No se pudo enviar su solicitud en este momento.");
+          return;
+        }
+
+        form.reset();
+        clearAllErrors();
+        setState("success", "Solicitud enviada correctamente (simulación local). Nuestro equipo se contactará a la brevedad.");
+      } catch (error) {
+        setState("error", "Ocurrió un problema inesperado al preparar el envío. Intente nuevamente.");
+      } finally {
+        setFormLocked(false);
+      }
     });
   }
 </script>

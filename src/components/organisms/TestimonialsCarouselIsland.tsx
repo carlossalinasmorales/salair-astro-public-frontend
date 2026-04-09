@@ -136,7 +136,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
                 aria-hidden={!isCenter}
                 aria-live={isCenter ? "polite" : undefined}
                 className={`col-start-1 row-start-1 w-5/6 justify-self-center rounded-sm border border-secondary-300/20 bg-neutral-100 p-6 text-secondary-500 sm:w-4/5 md:w-2/3 md:p-7 ${
-                  prefersReducedMotion ? "" : "transition-all duration-500 ease-out"
+                  prefersReducedMotion ? "" : "transition-transform  duration-500 ease-out"
                 } ${
                   isCenter
                     ? "z-30 scale-100 opacity-100"
@@ -180,7 +180,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
             onClick={goPrev}
             onFocus={() => setIsAutoplayPaused(true)}
             onBlur={() => setIsAutoplayPaused(false)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-secondary-300/30 bg-neutral-100 text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-secondary-300/30 bg-neutral-100 text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer"
             aria-label="Ver testimonio anterior"
           >
             <span aria-hidden="true" className="text-xl leading-none ">
@@ -192,7 +192,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
             onClick={goNext}
             onFocus={() => setIsAutoplayPaused(true)}
             onBlur={() => setIsAutoplayPaused(false)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-secondary-300/30 bg-neutral-100 text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-secondary-300/30 bg-neutral-100 text-secondary-500 hover:bg-secondary-500 hover:text-neutral-100 transition-colors hover:cursor-pointer"
             aria-label="Ver siguiente testimonio"
           >
             <span aria-hidden="true" className="text-xl leading-none">

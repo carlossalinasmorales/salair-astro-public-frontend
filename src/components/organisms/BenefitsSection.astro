@@ -1,6 +1,7 @@
 ﻿---
 import BenefitItem from "@molecules/BenefitItem.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
+import { sectionShellClasses } from "@styles/section-shell";
 
 const benefits = [
   {
@@ -46,7 +47,7 @@ const benefits = [
 ];
 ---
 
-<section id="beneficios" class="bg-neutral-100 py-20 lg:py-28">
+<section id="beneficios" class={sectionShellClasses}>
   <div class="container">
     <SectionHeading
       title="Te brindamos el respaldo y continuidad operativa que necesitas."

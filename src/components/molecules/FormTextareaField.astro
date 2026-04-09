@@ -6,6 +6,10 @@ interface Props {
   rows?: number;
   placeholder?: string;
   required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  description?: string;
+  describedBy?: string;
   class?: string;
 }
 
@@ -16,21 +20,41 @@ const {
   rows = 4,
   placeholder,
   required = false,
+  minLength,
+  maxLength,
+  description,
+  describedBy,
   class: className = "",
 } = Astro.props;
+
+const hintId = description ? `${id}-hint` : undefined;
+const errorId = `${id}-error`;
+const describedByIds = [describedBy, hintId, errorId].filter(Boolean).join(" ");
 ---
 
-<div class={className}>
+<div class={className} data-field-wrapper={id}>
   <label for={id} class="mb-2 block text-sm font-semibold text-secondary-500">
     {label}
-    {required && " *"}
+    {required && <span aria-hidden="true"> *</span>}
   </label>
   <textarea
     id={id}
     name={name}
     rows={rows}
     required={required}
+    minLength={minLength}
+    maxLength={maxLength}
+    aria-invalid="false"
+    aria-describedby={describedByIds}
     placeholder={placeholder}
-    class="w-full resize-none  border border-secondary-200/20 bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 transition-colors hover:border-secondary-300 "
+    class="form-control resize-none border-secondary-200/20"
   ></textarea>
+
+  {description && (
+    <p id={hintId} class="mt-2 text-xs text-secondary-400">
+      {description}
+    </p>
+  )}
+
+  <p id={errorId} class="mt-2 hidden text-sm font-semibold text-primary-600" data-field-error aria-live="polite"></p>
 </div>

@@ -1,7 +1,8 @@
 ---
 import StatCard from "@molecules/StatCard.astro";
-import { StatsOrbit } from "@molecules/StatsOrbitAsset.jsx";
-import SectionHeading from "../molecules/SectionHeading.astro";
+import { StatsOrbit } from "@/components/illustrations/StatsOrbit.jsx";
+import SectionHeading from "@molecules/SectionHeading.astro";
+import { sectionShellClasses } from "@styles/section-shell";
 
 const stats = [
   {
@@ -23,7 +24,7 @@ const stats = [
 ];
 ---
 
-<section id="nosotros" class="relative overflow-hidden bg-neutral-100 py-20 lg:py-28">
+<section id="nosotros" class={`relative overflow-hidden ${sectionShellClasses}`}>
   <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-55">
     <StatsOrbit />
   </div>
@@ -31,7 +32,6 @@ const stats = [
   <div class="container relative z-10">
     <div class="mx-auto max-w-5xl text-center">
       <SectionHeading title="Nuestra experiencia hace la diferencia" />
-
 
       <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
         {stats.map((stat) => (
