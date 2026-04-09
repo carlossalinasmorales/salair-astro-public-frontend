@@ -7,24 +7,34 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
 
 <header
   id="smart-header"
-  class="is-transparent fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent transition-colors duration-300 ease-out">
+  class="is-transparent fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent transition-colors duration-300 ease-out"
+>
   <div class="container">
-    <nav class="flex h-20 items-center justify-between" aria-label="Navegación principal">
+    <nav
+      class="flex h-20 items-center justify-between"
+      aria-label="Navegación principal"
+    >
       <a href="/" aria-label="Salair - Inicio">
         <Logo variant="auto" size="md" priority class="header-logo" />
       </a>
       <div class="flex items-center gap-6">
         <ul class="hidden items-center lg:flex">
-          {mainNavLinks.map((link) => (
-            <li>
-              <NavLink href={link.href} label={link.label} variant="desktop" />
-            </li>
-          ))}
+          {
+            mainNavLinks.map((link) => (
+              <li>
+                <NavLink
+                  href={link.href}
+                  label={link.label}
+                  variant="desktop"
+                />
+              </li>
+            ))
+          }
         </ul>
 
-      <Button href="#contacto" variant="primary" class="hidden! lg:flex!">
-        Contacto
-      </Button>
+        <Button href="#contacto" variant="primary" class="hidden! lg:flex!">
+          Contacto
+        </Button>
       </div>
 
       <button
@@ -35,68 +45,117 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          class="h-6 w-6"
+        >
+          <line class="menu-line menu-line-top" x1="3" y1="7" x2="21" y2="7"
+          ></line>
+          <line class="menu-line menu-line-mid" x1="3" y1="12" x2="21" y2="12"
+          ></line>
+          <line class="menu-line menu-line-bot" x1="3" y1="17" x2="21" y2="17"
+          ></line>
         </svg>
       </button>
     </nav>
 
-    <div id="mobile-menu" class="header-mobile-menu hidden border-t border-secondary-200 py-4 lg:hidden">
-      <ul class="flex flex-col gap-2">
-        {mainNavLinks.map((link) => (
-          <li>
-            <NavLink href={link.href} label={link.label} variant="mobile" />
+    <div
+      id="mobile-menu"
+      class="header-mobile-menu lg:hidden overflow-hidden"
+      style="max-height: 0; opacity: 0; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;"
+    >
+      <div class="border-t border-secondary-200 py-5 px-1">
+        <ul class="flex flex-col gap-1">
+          {
+            mainNavLinks.map((link) => (
+              <li>
+                <NavLink href={link.href} label={link.label} variant="mobile" />
+              </li>
+            ))
+          }
+          <li class="pt-4 pb-1">
+            <Button href="#contacto" class="w-full justify-center">
+              Contacto
+            </Button>
           </li>
-        ))}
-        <li class="pt-2">
-          <Button href="#contacto" class=" w-full justify-center">
-            Contacto
-          </Button>
-        </li>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
 </header>
 
 <script is:inline>
-  const header = document.getElementById("smart-header");
-  const btn = document.getElementById("mobile-menu-btn");
-  const menu = document.getElementById("mobile-menu");
+  function initHeader() {
+    const header = document.getElementById("smart-header");
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
 
-  if (header instanceof HTMLElement && btn instanceof HTMLElement && menu instanceof HTMLElement) {
+    if (!header || !btn || !menu) return;
+    if (btn.dataset.headerInit === "true") return;
+    btn.dataset.headerInit = "true";
+
     const SOLID_SCROLL_THRESHOLD = 120;
 
     const updateHeaderState = () => {
-      const currentScrollY = window.scrollY;
       const isMenuExpanded = btn.getAttribute("aria-expanded") === "true";
-      const shouldBeSolid = isMenuExpanded || currentScrollY > SOLID_SCROLL_THRESHOLD;
-
+      const shouldBeSolid =
+        isMenuExpanded || window.scrollY > SOLID_SCROLL_THRESHOLD;
       header.classList.toggle("is-solid", shouldBeSolid);
       header.classList.toggle("is-transparent", !shouldBeSolid);
     };
 
+    const openMenu = () => {
+      btn.setAttribute("aria-expanded", "true");
+      btn.setAttribute("aria-label", "Cerrar menú");
+      btn.classList.add("is-open");
+      menu.style.maxHeight = menu.scrollHeight + "px";
+      menu.style.opacity = "1";
+      updateHeaderState();
+    };
+
+    const closeMenu = () => {
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-label", "Abrir menú");
+      btn.classList.remove("is-open");
+      menu.style.maxHeight = "0";
+      menu.style.opacity = "0";
+      updateHeaderState();
+    };
+
     btn.addEventListener("click", () => {
       const isExpanded = btn.getAttribute("aria-expanded") === "true";
-      btn.setAttribute("aria-expanded", String(!isExpanded));
-      menu.classList.toggle("hidden");
-      updateHeaderState();
+      isExpanded ? closeMenu() : openMenu();
+    });
+
+    // Cerrar al hacer click fuera
+    document.addEventListener("click", (e) => {
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+      if (isExpanded && !header.contains(e.target)) {
+        closeMenu();
+      }
     });
 
     menu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        btn.setAttribute("aria-expanded", "false");
-        menu.classList.add("hidden");
-        updateHeaderState();
-      });
+      link.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 1024) closeMenu();
+      updateHeaderState();
     });
 
     window.addEventListener("scroll", updateHeaderState, { passive: true });
-    window.addEventListener("resize", updateHeaderState);
 
     updateHeaderState();
   }
+
+  document.addEventListener("DOMContentLoaded", initHeader);
+  document.addEventListener("astro:page-load", initHeader);
 </script>
 
 <style is:global>
@@ -132,4 +191,25 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
     background-color: rgb(8 24 48 / 0.96);
   }
 
+  /* Animación hamburguesa → X */
+  .menu-line {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.25s ease;
+  }
+
+  .header-mobile-btn.is-open .menu-line-top {
+    transform: translateY(5px) rotate(45deg);
+  }
+
+  .header-mobile-btn.is-open .menu-line-mid {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .header-mobile-btn.is-open .menu-line-bot {
+    transform: translateY(-5px) rotate(-45deg);
+  }
 </style>
