@@ -14,7 +14,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
         <Logo variant="auto" size="md" priority class="header-logo" />
       </a>
       <div class="flex items-center gap-6">
-        <ul class="hidden items-center md:flex">
+        <ul class="hidden items-center lg:flex">
           {mainNavLinks.map((link) => (
             <li>
               <NavLink href={link.href} label={link.label} variant="desktop" />
@@ -22,7 +22,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
           ))}
         </ul>
 
-      <Button href="#contacto" variant="primary" class="hidden! md:flex!">
+      <Button href="#contacto" variant="primary" class="hidden! lg:flex!">
         Contacto
       </Button>
       </div>
@@ -30,7 +30,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
       <button
         id="mobile-menu-btn"
         type="button"
-        class="header-mobile-btn rounded-xl border border-secondary-200 p-2 text-secondary-500 transition-colors hover:bg-neutral-200 md:hidden"
+        class="header-mobile-btn lg:hidden"
         aria-label="Abrir menú"
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -43,7 +43,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
       </button>
     </nav>
 
-    <div id="mobile-menu" class="header-mobile-menu hidden border-t border-secondary-200 py-4 md:hidden">
+    <div id="mobile-menu" class="header-mobile-menu hidden border-t border-secondary-200 py-4 lg:hidden">
       <ul class="flex flex-col gap-2">
         {mainNavLinks.map((link) => (
           <li>
