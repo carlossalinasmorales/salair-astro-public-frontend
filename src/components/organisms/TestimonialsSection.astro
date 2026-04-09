@@ -1,31 +1,28 @@
 ---
 import TestimonialsCarouselIsland from "./TestimonialsCarouselIsland";
 import SectionHeading from "@molecules/SectionHeading.astro";
+import degasaLogo from "@assets/images/empresas/degasa.webp";
+import kfcLogo from "@assets/images/empresas/kfc.webp";
+import unoSaludLogo from "@assets/images/empresas/uno-salud.webp";
 
 const testimonials = [
   {
-    quote: "Implementaron un sistema centralizado de climatización para nuestra planta de 5.000 m². El proyecto se entregó en plazo y el consumo energético se redujo un 23% durante el primer año.",
-    name: "Roberto Méndez",
-    role: "Director de Operaciones",
-    company: "Alimentos Industriales Chile",
-    location: "Quilicura, Santiago",
-    avatar: "RM",
+    quote: "Llevamos años trabajando con Salair en el mantenimiento de nuestros equipos tanto en KFC, Wendy's y China Wok. Su equipo técnico es confiable, siempre disponible y nos ha ayudado a evitar paradas críticas en nuestra operación.",
+    name: "Nicolas Rojas",
+    company: "Degasa",
+    avatar: degasaLogo.src,
   },
   {
-    quote: "Contratamos un plan anual de mantención para 12 locales. La reducción de incidencias fue del 85% y hoy contamos con reportes técnicos que facilitan la toma de decisiones.",
-    name: "Patricia Vega",
-    role: "Gerente de Operaciones e Infraestructura",
-    company: "Grupo Comercial Sur",
-    location: "Región Metropolitana",
-    avatar: "PV",
+    quote: "SALAIR lleva años cubriendo nuestros mas de  120 locales a lo largo de Chile siendo una parte importante en la continuidad operativa de nuestros restaurantes.",
+    name: "Francisco Beque",
+    company: "KFC Chile",
+    avatar: kfcLogo.src,
   },
   {
-    quote: "Tuvimos una contingencia crítica en cámara de frío durante un fin de semana. El equipo llegó en menos de seis horas y evitamos pérdidas de mercadería.",
-    name: "Carlos Ruiz",
-    role: "Gerente de Cadena de Suministro",
-    company: "Logística Andes SpA",
-    location: "Pudahuel, Santiago",
-    avatar: "CR",
+    quote: "SALAIR se ha hecho cargo de las isntalaciones de cliatización de nuestros centros médicos, brindándonos tranquilidad y respaldo técnico para mantener un ambiente seguro y confortable para nuestros pacientes y personal.",
+    name: "Bernabé Calderón",
+    company: "Uno Salud",
+    avatar: unoSaludLogo.src,
   },
 ];
 ---

@@ -152,13 +152,18 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
                 </blockquote>
 
                 <div className="mt-6 flex items-center gap-4 border-t border-secondary-200/30 pt-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary-500 text-sm font-bold text-neutral-100">
-                    {testimonial.avatar}
+                  <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-xl border border-secondary-200/30 bg-neutral-100 p-1">
+                    <img
+                      src={testimonial.avatar}
+                      alt={`Logo de ${testimonial.company}`}
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                    />
                   </div>
                   <div>
                     <p className="text-sm font-bold text-secondary-500">{testimonial.name}</p>
-                    <p className="text-xs text-secondary-400">{testimonial.role}</p>
-                    <p className="text-xs font-semibold text-primary-600">{testimonial.company}</p>
+                    <p className="text-xs text-secondary-500">{testimonial.role}</p>
+                    <p className="text-xs font-semibold text-secondary-500">{testimonial.company}</p>
                     <p className="text-xs text-secondary-300">{testimonial.location}</p>
                   </div>
                 </div>
