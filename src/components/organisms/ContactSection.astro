@@ -1,13 +1,14 @@
 ﻿---
 import Button from "@atoms/Button.astro";
-import SectionHeading from "@molecules/SectionHeading.astro";
 import FormField from "@molecules/FormField.astro";
 import FormTextareaField from "@molecules/FormTextareaField.astro";
 ---
 
 <section id="contacto" class="section-shell">
   <div class="container justify-items-center">
-    <SectionHeading title="Cuéntanos tu desafío y te damos una solución técnica clara." align="center" />
+    <div class="section-heading">
+      <h2 class="section-title">Cuéntanos tu desafío y te damos una solución técnica clara.</h2>
+    </div>
     <div class="max-w-3xl gap-10">
       <div class="surface-panel p-8">
         <form id="contact-form" class="space-y-5" data-state="idle">

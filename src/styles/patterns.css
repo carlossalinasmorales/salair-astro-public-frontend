@@ -12,8 +12,16 @@
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10;
   }
 
+  .section-heading {
+    @apply mx-auto mb-12 max-w-3xl text-center lg:mb-16;
+  }
+
+  .section-title {
+    @apply mt-4 text-3xl font-semibold text-secondary-500 sm:text-4xl lg:text-5xl;
+  }
+
   .form-control {
-    @apply w-full border bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 ;
+    @apply w-full border bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 transition-colors focus-visible:border-red-900;
   }
 
   .section-shell {
@@ -21,7 +29,7 @@
   }
 
   .surface-card {
-    @apply relative h-full overflow-hidden border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/50 ;
+    @apply relative h-full overflow-hidden border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/50;
   }
 
   .surface-panel {

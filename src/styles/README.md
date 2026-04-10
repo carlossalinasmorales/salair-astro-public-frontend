@@ -8,7 +8,7 @@
 
 ## `patterns.css`
 - Reusable semantic UI patterns built with `@apply`
-- Examples: section shells, shared surfaces, common form controls, layout helpers
+- Examples: section shells, section titles, shared surfaces, common form controls, layout helpers
 - Prefer this over tiny `*.ts` files that only export Tailwind class strings
 
 ## `domains/*.css`

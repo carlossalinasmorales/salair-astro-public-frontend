@@ -1,14 +1,13 @@
 ---
 import TestimonialsCarouselIsland from "./TestimonialsCarouselIsland";
-import SectionHeading from "@molecules/SectionHeading.astro";
 import { testimonials } from "@/lib/content/testimonials";
 ---
 
 <section id="testimonios" class="section-shell">
   <div class="container">
-    <SectionHeading
-      title="Empresas como la tuya ya operan con más tranquilidad."
-    />
+    <div class="section-heading">
+      <h2 class="section-title">Empresas como la tuya ya operan con más tranquilidad.</h2>
+    </div>
     <TestimonialsCarouselIsland testimonials={testimonials} client:idle />
   </div>
 </section>
