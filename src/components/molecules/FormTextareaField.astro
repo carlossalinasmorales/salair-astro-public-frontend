@@ -42,12 +42,12 @@ const describedByIds = [describedBy, hintId, errorId].filter(Boolean).join(" ");
     name={name}
     rows={rows}
     required={required}
-    minLength={minLength}
-    maxLength={maxLength}
+    minlength={minLength}
+    maxlength={maxLength}
     aria-invalid="false"
     aria-describedby={describedByIds}
     placeholder={placeholder}
-    class="form-control resize-none border-secondary-200/20"
+    class="form-control resize-none border-secondary-200/20 rounded-sm"
   ></textarea>
 
   {description && (

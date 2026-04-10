@@ -49,14 +49,14 @@ const describedByIds = [describedBy, hintId, errorId].filter(Boolean).join(" ");
     name={name}
     autocomplete={autocomplete}
     required={required}
-    minLength={minLength}
-    maxLength={maxLength}
+    minlength={minLength}
+    maxlength={maxLength}
     pattern={pattern}
     inputmode={inputMode}
     aria-invalid="false"
     aria-describedby={describedByIds}
     placeholder={placeholder}
-    class="form-control border-secondary-200/30"
+    class="form-control border-secondary-200/30 rounded-sm"
   />
 
   {description && (
