@@ -12,7 +12,7 @@ interface Props {
 const { title, description, iconVariant = "orbit", class: className = "" } = Astro.props;
 ---
 
-<article class={`service-card-reference px-8 py-10 ${neutralSoftCardSurfaceClasses} ${className}`}>
+<article class={`service-card-reference h-full px-8 py-10 ${neutralSoftCardSurfaceClasses} ${className}`}>
   <div aria-hidden="true" class="absolute inset-0"></div>
 
   <div class="relative z-10 flex h-full flex-col">

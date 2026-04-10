@@ -55,41 +55,6 @@ const serviceCardEqualizedClass = "service-card-equalized";
   </div>
 </section>
 
-<script>
-  const setupServicesCardHeight = () => {
-    const section = document.querySelector('[data-services-grid]');
-    if (!section) return;
-
-    const cards = Array.from(section.querySelectorAll<HTMLElement>('.service-card-equalized'));
-    if (cards.length === 0) return;
-
-    cards.forEach((card) => {
-      card.style.minHeight = '';
-    });
-
-    const tallest = Math.max(...cards.map((card) => card.offsetHeight));
-
-    cards.forEach((card) => {
-      card.style.minHeight = `${tallest}px`;
-    });
-  };
-
-  let resizeTimer: ReturnType<typeof window.setTimeout> | undefined;
-
-  const onResize = () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(setupServicesCardHeight, 120);
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupServicesCardHeight, { once: true });
-  } else {
-    setupServicesCardHeight();
-  }
-
-  window.addEventListener('resize', onResize);
-</script>
-
 <style>
   .services-grid-reference :global(.service-card-reference) {
     min-height: 17.5rem;

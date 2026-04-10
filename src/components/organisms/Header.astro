@@ -67,7 +67,6 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
     <div
       id="mobile-menu"
       class="header-mobile-menu lg:hidden overflow-hidden"
-      style="max-height: 0; opacity: 0; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;"
     >
       <div class="border-t border-secondary-200 py-5 px-1">
         <ul class="flex flex-col gap-1">
@@ -89,8 +88,8 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
   </div>
 </header>
 
-<script is:inline>
-  function initHeader() {
+<script>
+  const initHeader = () => {
     const header = document.getElementById("smart-header");
     const btn = document.getElementById("mobile-menu-btn");
     const menu = document.getElementById("mobile-menu");
@@ -113,8 +112,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
       btn.setAttribute("aria-expanded", "true");
       btn.setAttribute("aria-label", "Cerrar menú");
       btn.classList.add("is-open");
-      menu.style.maxHeight = menu.scrollHeight + "px";
-      menu.style.opacity = "1";
+      menu.classList.add("is-open");
       updateHeaderState();
     };
 
@@ -122,8 +120,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
       btn.setAttribute("aria-expanded", "false");
       btn.setAttribute("aria-label", "Abrir menú");
       btn.classList.remove("is-open");
-      menu.style.maxHeight = "0";
-      menu.style.opacity = "0";
+      menu.classList.remove("is-open");
       updateHeaderState();
     };
 
@@ -152,9 +149,14 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
     window.addEventListener("scroll", updateHeaderState, { passive: true });
 
     updateHeaderState();
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeader, { once: true });
+  } else {
+    initHeader();
   }
 
-  document.addEventListener("DOMContentLoaded", initHeader);
   document.addEventListener("astro:page-load", initHeader);
 </script>
 
@@ -189,6 +191,19 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
   #smart-header.is-transparent .header-mobile-menu {
     border-top-color: rgb(165 176 194 / 0.35);
     background-color: rgb(8 24 48 / 0.96);
+  }
+
+  .header-mobile-menu {
+    max-height: 0;
+    opacity: 0;
+    transition:
+      max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease;
+  }
+
+  .header-mobile-menu.is-open {
+    max-height: 24rem;
+    opacity: 1;
   }
 
   /* Animación hamburguesa → X */

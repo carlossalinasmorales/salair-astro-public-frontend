@@ -9,6 +9,31 @@ export default defineConfig({
   // TODO: ajustar este dominio si cambia el dominio canónico del sitio.
   site: 'https://www.salair.cl',
 
+  markdown: {
+    syntaxHighlight: false,
+  },
+
+  security: {
+    checkOrigin: true,
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "object-src 'none'",
+        "form-action 'self'",
+        "img-src 'self' data: blob:",
+        "font-src 'self' data:",
+        "connect-src 'self'",
+      ],
+      scriptDirective: {
+        resources: ["'self'"],
+      },
+      styleDirective: {
+        resources: ["'self'"],
+      },
+    },
+  },
+
   // Evita requests de sourcemaps del dev toolbar en desarrollo.
   devToolbar: {
     enabled: false,
@@ -21,15 +46,12 @@ export default defineConfig({
     weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
   }],
 
-
   vite: {
     plugins: [tailwindcss()],
     resolve: {
       alias: {
         '@': new URL('./src', import.meta.url).pathname,
         '@styles': new URL('./src/styles', import.meta.url).pathname,
-        '@components': new URL('./src/components', import.meta.url).pathname,
-        '@layouts': new URL('./src/layouts', import.meta.url).pathname,
         '@atoms': new URL('./src/components/atoms', import.meta.url).pathname,
         '@molecules': new URL('./src/components/molecules', import.meta.url).pathname,
         '@organisms': new URL('./src/components/organisms', import.meta.url).pathname,
@@ -37,8 +59,6 @@ export default defineConfig({
       },
     },
   },
-
-
 
   integrations: [react(), sitemap()]
 });

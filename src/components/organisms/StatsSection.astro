@@ -27,10 +27,20 @@ import { stats } from "@/lib/content/stats";
 <script>
   import { gsap } from "gsap";
 
-  const section = document.getElementById("nosotros");
-  const statNodes = Array.from(document.querySelectorAll<HTMLElement>("#nosotros .js-stat-value"));
+  const initStatsSection = () => {
+    const section = document.getElementById("nosotros");
+    const statNodes = Array.from(document.querySelectorAll<HTMLElement>("#nosotros .js-stat-value"));
 
-  if (section instanceof HTMLElement && statNodes.length > 0) {
+    if (!(section instanceof HTMLElement) || statNodes.length === 0) {
+      return;
+    }
+
+    if (section.dataset.statsInit === "true") {
+      return;
+    }
+
+    section.dataset.statsInit = "true";
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let hasAnimated = false;
 
@@ -95,5 +105,13 @@ import { stats } from "@/lib/content/stats";
     );
 
     observer.observe(section);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initStatsSection, { once: true });
+  } else {
+    initStatsSection();
   }
+
+  document.addEventListener("astro:page-load", initStatsSection);
 </script>

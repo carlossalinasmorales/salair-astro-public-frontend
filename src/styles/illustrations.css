@@ -1,0 +1,181 @@
+@media (prefers-reduced-motion: no-preference) {
+  .so-float {
+    animation: service-icon-float 3.6s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .so-orbit-group {
+    animation: service-icon-float 3.6s ease-in-out infinite, service-icon-spin 9.5s linear infinite;
+  }
+
+  .so-orbit-stroke-a,
+  .so-orbit-stroke-b {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 0;
+    animation: service-line-draw 3.2s ease-in-out infinite;
+  }
+
+  .so-orbit-stroke-b { animation-delay: 0.2s; opacity: 0.72; }
+  .so-orbit-dot { animation: service-dot-pulse 1.8s ease-in-out infinite; }
+  .so-orbit-core { animation: service-core-breathe 2.2s ease-in-out infinite; }
+
+  .so-maintenance-group {
+    animation: service-icon-float 3.6s ease-in-out infinite, service-icon-spin-slow 7.2s linear infinite;
+  }
+
+  .so-maint-ring { opacity: 0.35; }
+  .so-maint-arc-a { opacity: 0.9; }
+  .so-maint-arc-b { opacity: 0.72; }
+  .so-maint-core { animation: service-core-breathe 2.2s ease-in-out infinite; }
+
+  .so-prism-draw {
+    animation: service-icon-float 3.6s ease-in-out infinite, service-prism-wobble 4.4s ease-in-out infinite;
+  }
+
+  .so-prism-stroke-a,
+  .so-prism-stroke-b,
+  .so-prism-stroke-c {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 0;
+    animation: service-prism-line 3.2s ease-in-out infinite;
+    opacity: 0.9;
+  }
+
+  .so-prism-stroke-b { animation-delay: 0.15s; opacity: 0.75; }
+  .so-prism-stroke-c { animation-delay: 0.3s; opacity: 0.6; }
+  .so-prism-dot-a,
+  .so-prism-dot-b,
+  .so-prism-dot-c { animation: service-prism-dot 1.8s ease-in-out infinite; }
+  .so-prism-dot-b { animation-delay: 0.2s; }
+  .so-prism-dot-c { animation-delay: 0.4s; }
+
+  .so-layers-group {
+    animation: service-icon-float 3.6s ease-in-out infinite, service-layers-wobble 4.2s ease-in-out infinite;
+  }
+
+  .so-layer-a,
+  .so-layer-b,
+  .so-layer-c {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    animation: service-line-draw 3.4s ease-in-out infinite;
+  }
+  .so-layer-a { animation-delay: 0s; opacity: 0.88; }
+  .so-layer-b { animation-delay: 0.18s; opacity: 0.7; }
+  .so-layer-c { animation-delay: 0.32s; opacity: 0.52; }
+  .so-layer-dot { animation: service-dot-pulse 1.7s ease-in-out infinite; }
+
+  .so-panels-group {
+    animation: service-icon-float 3.6s ease-in-out infinite, service-panels-drift 4.6s ease-in-out infinite;
+  }
+
+  .so-panel-a,
+  .so-panel-b,
+  .so-panel-c {
+    stroke-dasharray: 98;
+    stroke-dashoffset: 0;
+    animation: service-line-draw 3.6s ease-in-out infinite;
+  }
+  .so-panel-a { animation-delay: 0s; opacity: 0.86; }
+  .so-panel-b { animation-delay: 0.2s; opacity: 0.68; }
+  .so-panel-c { animation-delay: 0.36s; opacity: 0.5; }
+  .so-panel-scan { animation: service-scan 2.2s ease-in-out infinite; opacity: 0.55; }
+
+  .stats-orbit-stage { animation: so-drift 8s ease-in-out infinite; }
+  .stats-orbit-aura { animation: so-aura 4.6s ease-in-out infinite; }
+  .so-ring-cw { animation: so-cw 18s linear infinite; }
+  .so-ring-ccw { animation: so-ccw 24s linear infinite; }
+  .so-ring-cw-slow { animation: so-cw 14s linear infinite; }
+  .so-soft-pulse { animation: so-soft 4.2s ease-in-out infinite; }
+  .so-core-pulse { animation: so-core 2.8s ease-in-out infinite; }
+}
+
+@keyframes service-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+
+@keyframes service-icon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes service-icon-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes service-line-draw {
+  0%, 100% { stroke-dashoffset: 100; opacity: 0.45; }
+  55% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes service-dot-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes service-core-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(0.9); }
+  50% { opacity: 0.95; transform: scale(1.1); }
+}
+
+@keyframes service-prism-wobble {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(-2deg) translateY(-1px); }
+}
+
+@keyframes service-prism-line {
+  0%, 100% { stroke-dashoffset: 120; opacity: 0.45; }
+  55% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes service-prism-dot {
+  0%, 100% { opacity: 0.45; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes service-layers-wobble {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-1.7deg); }
+}
+
+@keyframes service-panels-drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-1.4px); }
+}
+
+@keyframes service-scan {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(-3px); opacity: 0.85; }
+}
+
+@keyframes so-drift {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes so-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes so-ccw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes so-aura {
+  0%,100% { opacity: .35; transform: translate(-50%, -50%) scale(.95); }
+  50% { opacity: .6; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+@keyframes so-soft {
+  0%,100% { opacity: .3; }
+  50% { opacity: .5; }
+}
+
+@keyframes so-core {
+  0%,100% { opacity: .55; transform: scale(.92); }
+  50% { opacity: .85; transform: scale(1.1); }
+}

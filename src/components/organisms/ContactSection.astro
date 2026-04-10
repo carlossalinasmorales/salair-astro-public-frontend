@@ -12,7 +12,7 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
     <SectionHeading title="Cuéntanos tu desafío y te damos una solución técnica clara." align="center" />
     <div class="max-w-3xl gap-10">
       <div class={`p-8 ${neutralPanelSurfaceClasses}`}>
-        <form id="contact-form" class="space-y-5" novalidate data-state="idle">
+        <form id="contact-form" class="space-y-5" data-state="idle">
           <div id="form-feedback" class="hidden rounded-sm border bg-primary-500 text-neutral-100 p-4 text-sm" role="status" aria-live="polite"></div>
 
           <FormField
@@ -83,7 +83,7 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
             description="Entre 20 y 2000 caracteres. Entre más contexto entregue, mejor propuesta técnica recibirá."
           />
 
-          <div class="absolute -left-2499.75 top-auto h-px w-px overflow-hidden" aria-hidden="true">
+          <div class="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
             <label for="website">No completar este campo</label>
             <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
           </div>
@@ -105,14 +105,18 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
   </div>
 </section>
 
-<script is:inline>
+<script>
   const MIN_SUBMIT_TIME_MS = 3000;
+  const GENERIC_PLAIN_TEXT_MESSAGE = "Este campo debe contener solo texto plano. No use HTML ni scripts.";
+  const DISALLOWED_CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/;
+  const DISALLOWED_INLINE_MARKUP = /<[^>]*>|[<>]/;
   const FIELD_RULES = {
     company: {
       label: "Empresa",
       required: true,
       min: 2,
       max: 120,
+      plainTextOnly: true,
     },
     firstName: {
       label: "Nombre",
@@ -134,6 +138,7 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
       label: "Cargo",
       required: false,
       max: 80,
+      plainTextOnly: true,
     },
     email: {
       label: "Correo corporativo",
@@ -145,22 +150,33 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
       required: true,
       min: 20,
       max: 2000,
+      plainTextOnly: true,
     },
   };
 
 
-  const form = document.getElementById("contact-form");
-  const submitBtn = form?.querySelector("button[type=submit]");
-  const btnText = document.getElementById("btn-text");
-  const feedback = document.getElementById("form-feedback");
-  const formStartedAt = performance.now();
+  const initContactForm = () => {
+    const form = document.getElementById("contact-form");
+    const submitBtn = form?.querySelector("button[type=submit]");
+    const btnText = document.getElementById("btn-text");
+    const feedback = document.getElementById("form-feedback");
+    const formStartedAt = performance.now();
 
-  if (
-    form instanceof HTMLFormElement &&
-    submitBtn instanceof HTMLButtonElement &&
-    btnText instanceof HTMLElement &&
-    feedback instanceof HTMLElement
-  ) {
+    if (
+      !(form instanceof HTMLFormElement) ||
+      !(submitBtn instanceof HTMLButtonElement) ||
+      !(btnText instanceof HTMLElement) ||
+      !(feedback instanceof HTMLElement)
+    ) {
+      return;
+    }
+
+    if (form.dataset.init === "true") {
+      return;
+    }
+
+    form.dataset.init = "true";
+
     const fields = {
       company: form.elements.namedItem("company"),
       firstName: form.elements.namedItem("firstName"),
@@ -196,6 +212,9 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
       }
       return normalizeWhitespace(value);
     };
+
+    const containsDisallowedMarkup = (value) => DISALLOWED_INLINE_MARKUP.test(value);
+    const containsDisallowedControlChars = (value) => DISALLOWED_CONTROL_CHARS.test(value);
 
     const setState = (state, message = "") => {
       form.dataset.state = state;
@@ -268,6 +287,14 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
 
       if (!value) {
         return "";
+      }
+
+      if (containsDisallowedControlChars(value)) {
+        return `${rule.label} contiene caracteres no permitidos.`;
+      }
+
+      if (rule.plainTextOnly && containsDisallowedMarkup(value)) {
+        return rule.plainTextMessage || GENERIC_PLAIN_TEXT_MESSAGE;
       }
 
       if (rule.min && value.length < rule.min) {
@@ -377,6 +404,13 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
         setFieldError(fieldName, error);
       });
 
+      input.addEventListener("invalid", (event) => {
+        event.preventDefault();
+        const error = validateFieldValue(fieldName, input.value);
+        setFieldError(fieldName, error || `${FIELD_RULES[fieldName].label} es inválido.`);
+        setState("error", "Revise los campos marcados y vuelva a intentarlo.");
+      });
+
       input.addEventListener("input", () => {
         if (form.dataset.state === "success" || form.dataset.state === "error") {
           setState("idle", "");
@@ -449,5 +483,13 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
         setFormLocked(false);
       }
     });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initContactForm, { once: true });
+  } else {
+    initContactForm();
   }
+
+  document.addEventListener("astro:page-load", initContactForm);
 </script>
