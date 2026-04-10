@@ -3,7 +3,9 @@ import Button from "@atoms/Button.astro";
 import heroVideo from "@assets/videos/hero-video.mp4";
 ---
 
-<section class="relative content-end overflow-hidden py-20 pt-24 lg:py-28 lg:pt-32 min-h-[90dvh]">
+<section
+  class="relative content-end overflow-hidden py-20 pt-24 lg:py-28 lg:pt-32 min-h-[90dvh]"
+>
   <video
     autoplay
     muted
@@ -16,24 +18,24 @@ import heroVideo from "@assets/videos/hero-video.mp4";
     <source src={heroVideo} type="video/mp4" />
   </video>
 
-  <div class="absolute inset-0 bg-linear-to-b from-secondary-900/80 from-50% to-neutral-100 to-100%"></div>
+  <div
+    class="absolute inset-0 bg-linear-to-b from-secondary-900/80 from-50% to-neutral-100 to-100%"
+  >
+  </div>
 
-  <div class="container relative z-10 text-neutral-100">
-    <div class="mx-auto flex max-w-6xl flex-col items-center text-center">
-      <h1 class="text-3xl font-semibold sm:text-5xl lg:text-6xl/18">
+  <div class="container relative z-10 text-neutral-100 mb-14">
+    <div class="mx-auto flex max-w-sm md:max-w-6xl flex-col items-center text-center">
+      <h1 class="text-4xl font-medium sm:text-5xl lg:text-6xl/18">
         Soluciones de climatización y refrigeración industrial.
       </h1>
 
-      <p class="mt-6 max-w-3xl text-sm sm:text-lg/6">
-        Nos hacemos cargo de instalaciones, mantenciones y reparaciones en climatización y refrigeración para que su
-        operación siga funcionando.
+      <p class="mt-6 max-w-3xl text-sm md:text-xl sm:text-lg/6">
+        Tu negocio necesita seguir funcionando.
       </p>
 
       <div class="mt-10 flex flex-row gap-3">
         <Button href="#contacto" variant="primary">Contacto</Button>
-        <Button href="#servicios" variant="outline-light">
-          Servicios
-        </Button>
+        <Button href="#servicios" variant="outline-light"> Servicios </Button>
       </div>
     </div>
   </div>
