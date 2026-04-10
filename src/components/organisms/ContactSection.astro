@@ -148,14 +148,6 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
     },
   };
 
-  const FREE_EMAIL_PROVIDERS = new Set([
-    "gmail.com",
-    "outlook.com",
-    "hotmail.com",
-    "yahoo.com",
-    "icloud.com",
-    "proton.me",
-  ]);
 
   const form = document.getElementById("contact-form");
   const submitBtn = form?.querySelector("button[type=submit]");
@@ -297,10 +289,6 @@ import { neutralPanelSurfaceClasses } from "@styles/surfaces";
           return "Ingrese un correo electrónico válido.";
         }
 
-        const domain = value.split("@")[1] || "";
-        if (FREE_EMAIL_PROVIDERS.has(domain)) {
-          return "Ingrese un correo corporativo (evite proveedores personales).";
-        }
       }
 
       return "";
