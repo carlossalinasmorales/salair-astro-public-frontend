@@ -1,0 +1,30 @@
+@reference "./global.css";
+
+/*
+ * Reusable visual patterns.
+ *
+ * Keep here semantic classes reused across multiple components:
+ * layout shells, shared surfaces, common form controls, and shared UI helpers.
+ */
+
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10;
+  }
+
+  .form-control {
+    @apply w-full border bg-neutral-100 px-4 py-3 text-sm text-secondary-500 placeholder-secondary-300 ;
+  }
+
+  .section-shell {
+    @apply bg-neutral-100 py-20 lg:py-28;
+  }
+
+  .surface-card {
+    @apply relative h-full overflow-hidden border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/50 ;
+  }
+
+  .surface-panel {
+    @apply rounded-sm border border-neutral-300/30 bg-linear-to-b from-neutral-100 to-neutral-200/30;
+  }
+}

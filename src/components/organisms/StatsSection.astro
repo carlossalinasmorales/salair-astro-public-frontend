@@ -2,11 +2,10 @@
 import StatCard from "@molecules/StatCard.astro";
 import { StatsOrbit } from "@/components/illustrations/StatsOrbit.jsx";
 import SectionHeading from "@molecules/SectionHeading.astro";
-import { sectionShellClasses } from "@styles/section-shell";
 import { stats } from "@/lib/content/stats";
 ---
 
-<section id="nosotros" class={`relative overflow-hidden ${sectionShellClasses}`}>
+<section id="nosotros" class="section-shell relative overflow-hidden">
   <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-55">
     <StatsOrbit />
   </div>

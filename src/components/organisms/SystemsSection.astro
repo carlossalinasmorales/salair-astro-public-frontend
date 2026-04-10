@@ -1,7 +1,6 @@
 ---
 import SectionHeading from "@molecules/SectionHeading.astro";
 import SystemCard from "@molecules/SystemCard.astro";
-import { sectionShellClasses } from "@styles/section-shell";
 import { systems } from "@/lib/content/systems";
 
 const systemsTopRow = systems.slice(0, 3);
@@ -11,7 +10,7 @@ const systemsGridBaseClasses = "mx-auto grid bg-neutral-100";
 
 ---
 
-<section id="sistemas" class={sectionShellClasses}>
+<section id="sistemas" class="section-shell">
   <div class="container">
     <SectionHeading title="Cubrimos los sistemas críticos que sostienen tu operación." />
 

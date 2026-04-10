@@ -3,15 +3,13 @@ import Button from "@atoms/Button.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
 import FormField from "@molecules/FormField.astro";
 import FormTextareaField from "@molecules/FormTextareaField.astro";
-import { sectionShellClasses } from "@styles/section-shell";
-import { neutralPanelSurfaceClasses } from "@styles/surfaces";
 ---
 
-<section id="contacto" class={sectionShellClasses}>
+<section id="contacto" class="section-shell">
   <div class="container justify-items-center">
     <SectionHeading title="Cuéntanos tu desafío y te damos una solución técnica clara." align="center" />
     <div class="max-w-3xl gap-10">
-      <div class={`p-8 ${neutralPanelSurfaceClasses}`}>
+      <div class="surface-panel p-8">
         <form id="contact-form" class="space-y-5" data-state="idle">
           <div id="form-feedback" class="hidden rounded-sm border bg-primary-500 text-neutral-100 p-4 text-sm" role="status" aria-live="polite"></div>
 

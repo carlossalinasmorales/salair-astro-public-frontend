@@ -1,5 +1,4 @@
 ---
-import { neutralSoftCardSurfaceClasses } from "@styles/surfaces";
 
 interface Props {
   number: string;
@@ -11,7 +10,7 @@ interface Props {
 const { number, title, description, class: className = "" } = Astro.props;
 ---
 
-<div class={`px-8 py-8 ${neutralSoftCardSurfaceClasses} ${className}`}>
+<div class={`surface-card px-8 py-8 ${className}`}>
   <div aria-hidden="true" class="absolute inset-0"></div>
 
   <div class="relative z-10 flex gap-5">

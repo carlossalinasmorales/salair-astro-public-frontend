@@ -1,7 +1,6 @@
 ﻿---
 import ServiceCard from "@molecules/ServiceCard.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
-import { sectionShellClasses } from "@styles/section-shell";
 import { services } from "@/lib/content/services";
 
 const servicesTopRow = services.slice(0, 3);
@@ -12,7 +11,7 @@ const serviceCardEqualizedClass = "service-card-equalized";
 
 ---
 
-<section id="servicios" class={sectionShellClasses} data-services-grid>
+<section id="servicios" class="section-shell" data-services-grid>
   <div class="container">
     <SectionHeading
       title="Nuestros servicios sostienen tu continuidad operativa."

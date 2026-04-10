@@ -1,3 +1,10 @@
+/*
+ * Domain stylesheet: visual illustration system.
+ *
+ * Keep here only styles shared by multiple decorative JSX/SVG illustrations
+ * that cannot safely embed <style> tags because of CSP.
+ */
+
 @media (prefers-reduced-motion: no-preference) {
   .so-float {
     animation: service-icon-float 3.6s ease-in-out infinite;
