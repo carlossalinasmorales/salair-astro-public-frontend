@@ -3,25 +3,7 @@ import StatCard from "@molecules/StatCard.astro";
 import { StatsOrbit } from "@/components/illustrations/StatsOrbit.jsx";
 import SectionHeading from "@molecules/SectionHeading.astro";
 import { sectionShellClasses } from "@styles/section-shell";
-
-const stats = [
-  {
-    value: "30+",
-    label: "Años de experiencia",
-  },
-  {
-    value: "6000+",
-    label: "Emergencias solucionadas",
-  },
-  {
-    value: "100+",
-    label: "Proyectos realizados",
-  },
-  {
-    value: "10+",
-    label: "Empresas multinacionales confían en nosotros",
-  },
-];
+import { stats } from "@/lib/content/stats";
 ---
 
 <section id="nosotros" class={`relative overflow-hidden ${sectionShellClasses}`}>

@@ -2,34 +2,7 @@
 import ServiceCard from "@molecules/ServiceCard.astro";
 import SectionHeading from "@molecules/SectionHeading.astro";
 import { sectionShellClasses } from "@styles/section-shell";
-
-const services = [
-  {
-    iconVariant: "prism" as const,
-    title: "Instalaciones",
-    description: "Implementamos sistemas de climatización y refrigeración con puesta en marcha en terreno y verificación de funcionamiento.",
-  },
-  {
-    iconVariant: "layers" as const,
-    title: "Reparaciones",
-    description: "Diagnosticamos y resolvemos fallas en equipos de climatización y refrigeración industrial para reducir detenciones y recuperar operación segura.",
-  },
-  {
-    iconVariant: "maintenance" as const,
-    title: "Mantenciones",
-    description: "Ejecutamos mantenciones preventivas y correctivas para extender la vida útil de los equipos y evitar fallas repetitivas.",
-  },
-  {
-    iconVariant: "orbit" as const,
-    title: "Emergencias",
-    description: "Respondemos contingencias críticas con atención prioritaria y reporte claro de lo ejecutado en cada intervención.",
-  },
-  {
-    iconVariant: "panels" as const,
-    title: "Proyectos",
-    description: "Desarrollamos proyectos de climatización y refrigeración industrial desde la definición técnica hasta la implementación y entrega operativa.",
-  },
-];
+import { services } from "@/lib/content/services";
 
 const servicesTopRow = services.slice(0, 3);
 const servicesBottomRow = services.slice(3);
