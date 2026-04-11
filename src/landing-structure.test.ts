@@ -10,10 +10,10 @@ const readSource = (relativePath: string) => {
 };
 
 describe('landing pública: estructura crítica', () => {
-  it('index.astro mantiene organismos críticos (Header, Hero, Services, Contact, Footer)', () => {
+  it('index.astro mantiene componentes críticos (Header, Hero, Services, Contact, Footer)', () => {
     const indexSource = readSource('src/pages/index.astro');
 
-    const criticalSections = ['Header', 'Hero', 'ServicesGrid', 'ContactSection', 'Footer'];
+    const criticalSections = ['Header', 'Hero', 'ServicesSection', 'ContactSection', 'Footer'];
 
     for (const section of criticalSections) {
       expect(indexSource).toContain(`<${section}`);
@@ -25,7 +25,7 @@ describe('landing pública: estructura crítica', () => {
 
     const headerIndex = indexSource.indexOf('<Header');
     const heroIndex = indexSource.indexOf('<Hero');
-    const servicesIndex = indexSource.indexOf('<ServicesGrid');
+    const servicesIndex = indexSource.indexOf('<ServicesSection');
     const contactIndex = indexSource.indexOf('<ContactSection');
     const footerIndex = indexSource.indexOf('<Footer');
 
@@ -37,7 +37,7 @@ describe('landing pública: estructura crítica', () => {
   });
 
   it('Hero mantiene CTAs clave hacia #contacto y #servicios', () => {
-    const heroSource = readSource('src/components/organisms/Hero.astro');
+    const heroSource = readSource('src/components/sections/Hero.astro');
 
     expect(heroSource).toContain('href="#contacto"');
     expect(heroSource).toContain('href="#servicios"');
@@ -48,7 +48,7 @@ describe('landing pública: estructura crítica', () => {
     expect(existsSync(marqueePath)).toBe(true);
 
     const indexSource = readSource('src/pages/index.astro');
-    const heroSource = readSource('src/components/organisms/Hero.astro');
+    const heroSource = readSource('src/components/sections/Hero.astro');
     const isIntegrated =
       indexSource.includes('<TrustedCompaniesMarquee') || heroSource.includes('<TrustedCompaniesMarquee');
 

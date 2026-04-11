@@ -1,13 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "@organisms/Header.astro";
-import Hero from "@organisms/Hero.astro";
-import ServicesGrid from "@organisms/ServicesGrid.astro";
-import SystemsSection from "@organisms/SystemsSection.astro";
-import BenefitsSection from "@organisms/BenefitsSection.astro";
-import StatsSection from "@organisms/StatsSection.astro";
-import TestimonialsSection from "@organisms/TestimonialsSection.astro";
-import ContactSection from "@organisms/ContactSection.astro";
+import Hero from "@sections/Hero.astro";
+import ServicesSection from "@sections/ServicesSection.astro";
+import SystemsSection from "@sections/SystemsSection.astro";
+import BenefitsSection from "@sections/BenefitsSection.astro";
+import StatsSection from "@sections/StatsSection.astro";
+import TestimonialsSection from "@sections/TestimonialsSection.astro";
+import ContactSection from "@sections/ContactSection.astro";
 import Footer from "@organisms/Footer.astro";
 import TrustedCompaniesMarquee from "@organisms/TrustedCompaniesMarquee.astro";
 ---
@@ -17,7 +17,7 @@ import TrustedCompaniesMarquee from "@organisms/TrustedCompaniesMarquee.astro";
   <main id="contenido-principal">
     <Hero />
     <TrustedCompaniesMarquee />
-    <ServicesGrid />
+    <ServicesSection />
     <SystemsSection />
     <StatsSection />
     <BenefitsSection />

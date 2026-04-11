@@ -55,6 +55,7 @@ export default defineConfig({
         '@atoms': new URL('./src/components/atoms', import.meta.url).pathname,
         '@molecules': new URL('./src/components/molecules', import.meta.url).pathname,
         '@organisms': new URL('./src/components/organisms', import.meta.url).pathname,
+        '@sections': new URL('./src/components/sections', import.meta.url).pathname,
         '@assets': new URL('./src/assets', import.meta.url).pathname,
       },
     },
