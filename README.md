@@ -48,18 +48,46 @@ src/
   components/
     atoms/               # piezas base (Button, Icon, Logo, SurfaceCard, etc.)
     molecules/           # combinaciones reutilizables (ServiceCard, WorkAreaCard, SectionHeading, etc.)
-    organisms/           # secciones completas de la landing
+    organisms/           # bloques compuestos reutilizables (Header, Footer, islands puntuales)
+    sections/            # secciones completas de página/landing
+    illustrations/       # ilustraciones SVG/React con estilos compartidos de dominio
   layouts/               # layout base y metadata global
   pages/                 # páginas Astro
-  styles/                # estilos globales y tokens
+  styles/                # tokens, patrones semánticos y estilos por dominio
 ```
 
 ## Convenciones del frontend
 
 - Arquitectura de componentes por **Atomic Design**.
-- Mantener componentes reutilizables en `atoms/` y `molecules/`; evitar markup complejo inline en organismos.
+- Mantener componentes reutilizables en `atoms/` y `molecules/`; reservar `sections/` para composición de secciones de página.
+- `organisms/` se usa para bloques compuestos reutilizables, no como sinónimo de secciones completas.
 - Se usan aliases para importaciones limpias (`@`, `@atoms`, `@molecules`, `@organisms`, `@assets`, etc.).
 - Las imágenes deben usar `astro:assets` (`<Image />`) para mantener optimización y consistencia.
+
+## Arquitectura y convenciones de estilos
+
+### `src/styles/global.css`
+- Tokens de tema (`@theme`) y reglas base de elementos.
+- Defaults de accesibilidad a nivel de elemento.
+- No agregar aquí patrones reutilizables de UI ni estilos específicos de feature/dominio.
+
+### `src/styles/patterns.css`
+- Patrones semánticos reutilizables construidos con `@apply`.
+- Ejemplos: shells de secciones, títulos, superficies compartidas, controles comunes y helpers de layout.
+- Preferir este archivo por sobre crear archivos `*.ts` que solo exportan strings de clases Tailwind.
+
+### `src/styles/domains/*.css`
+- CSS transversal para un dominio visual/funcional específico.
+- Usarlo cuando los estilos se comparten entre múltiples componentes y no corresponde llevarlos a `global.css`.
+- Ejemplo actual: `src/styles/domains/illustrations.css`.
+
+### Estilos locales por componente
+- Preferir `<style>` dentro de componentes `.astro` cuando el CSS pertenece a un único componente.
+- Evitar archivos CSS standalone por componente salvo que exista una necesidad clara de reutilización.
+
+### Nota para React/JSX (CSP)
+- No incrustar bloques `<style>{...}</style>` dentro de componentes JSX bajo CSP.
+- Mover ese CSS a un stylesheet de dominio o al stylesheet de un componente Astro, según corresponda.
 
 ## SEO y configuración relevante
 

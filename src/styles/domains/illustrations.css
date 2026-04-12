@@ -5,6 +5,20 @@
  * that cannot safely embed <style> tags because of CSP.
  */
 
+.so-orbit-group,
+.so-maintenance-group,
+.so-prism-draw,
+.so-layers-group,
+.so-panels-group {
+  transform-origin: 28px 28px;
+}
+
+.so-ring-cw,
+.so-ring-ccw,
+.so-ring-cw-slow {
+  transform-origin: 240px 240px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .so-float {
     animation: service-icon-float 3.6s ease-in-out infinite;
