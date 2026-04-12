@@ -25,83 +25,100 @@ import { stats } from "@/lib/content/stats";
 </section>
 
 <script>
-  import { gsap } from "gsap";
+  const TIMING_BY_VALUE: Record<string, { duration: number; delay: number }> = {
+    "30+": { duration: 1.4, delay: 0.0 },
+    "6000+": { duration: 2.2, delay: 0.12 },
+    "100+": { duration: 1.6, delay: 0.24 },
+    "10+": { duration: 1.2, delay: 0.36 },
+  };
 
-  const initStatsSection = () => {
-    const section = document.getElementById("nosotros");
-    const statNodes = Array.from(document.querySelectorAll<HTMLElement>("#nosotros .js-stat-value"));
+  const formatValue = (raw: string, value: number) => {
+    const hasPlus = raw.includes("+");
+    const hasPercent = raw.includes("%");
+    const rounded = Math.round(value);
+    const formatted = rounded.toLocaleString("es-CL");
 
-    if (!(section instanceof HTMLElement) || statNodes.length === 0) {
+    if (hasPercent) return `${formatted}%`;
+    if (hasPlus) return `${formatted}+`;
+    return formatted;
+  };
+
+  const animateCounters = async (statNodes: HTMLElement[]) => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      statNodes.forEach((node) => {
+        const raw = node.dataset.statValue?.trim() ?? node.textContent?.trim() ?? "0";
+        const target = Number.parseInt(raw.replace(/[^\d]/g, ""), 10);
+
+        if (Number.isFinite(target)) {
+          node.textContent = formatValue(raw, target);
+        }
+      });
       return;
     }
 
-    if (section.dataset.statsInit === "true") {
+    const { gsap } = await import("gsap");
+
+    statNodes.forEach((node, index) => {
+      const raw = node.dataset.statValue?.trim() ?? node.textContent?.trim() ?? "0";
+      const target = Number.parseInt(raw.replace(/[^\d]/g, ""), 10);
+      const fallbackTiming = { duration: 1.5, delay: index * 0.1 };
+      const timing = TIMING_BY_VALUE[raw] ?? fallbackTiming;
+
+      if (!Number.isFinite(target)) return;
+
+      const counter = { value: 0 };
+
+      gsap.to(counter, {
+        value: target,
+        duration: timing.duration,
+        delay: timing.delay,
+        ease: "power3.out",
+        onUpdate: () => {
+          node.textContent = formatValue(raw, counter.value);
+        },
+      });
+    });
+  };
+
+  const initStatsSection = () => {
+    const section = document.getElementById("nosotros");
+
+    if (!(section instanceof HTMLElement) || section.dataset.statsInit === "true") {
       return;
     }
 
     section.dataset.statsInit = "true";
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let hasAnimated = false;
-
-    const formatValue = (raw: string, value: number) => {
-      const hasPlus = raw.includes("+");
-      const hasPercent = raw.includes("%");
-      const rounded = Math.round(value);
-      const formatted = rounded.toLocaleString("es-CL");
-
-      if (hasPercent) return `${formatted}%`;
-      if (hasPlus) return `${formatted}+`;
-      return formatted;
-    };
-
-    const animateCounters = () => {
+    const runAnimation = async () => {
       if (hasAnimated) return;
       hasAnimated = true;
 
-      const timingByValue: Record<string, { duration: number; delay: number }> = {
-        "30+": { duration: 1.4, delay: 0.0 },
-        "6000+": { duration: 2.2, delay: 0.12 },
-        "100+": { duration: 1.6, delay: 0.24 },
-        "10+": { duration: 1.2, delay: 0.36 },
-      };
+      const statNodes = Array.from(document.querySelectorAll<HTMLElement>("#nosotros .js-stat-value"));
+      if (statNodes.length === 0) return;
 
-      statNodes.forEach((node, index) => {
-        const raw = node.dataset.statValue?.trim() ?? node.textContent?.trim() ?? "0";
-        const target = Number.parseInt(raw.replace(/[^\d]/g, ""), 10);
-        const fallbackTiming = { duration: 1.5, delay: index * 0.1 };
-        const timing = timingByValue[raw] ?? fallbackTiming;
-
-        if (!Number.isFinite(target)) return;
-
-        if (prefersReducedMotion) {
-          node.textContent = formatValue(raw, target);
-          return;
-        }
-
-        const counter = { value: 0 };
-
-        gsap.to(counter, {
-          value: target,
-          duration: timing.duration,
-          delay: timing.delay,
-          ease: "power3.out",
-          onUpdate: () => {
-            node.textContent = formatValue(raw, counter.value);
-          },
-        });
-      });
+      await animateCounters(statNodes);
     };
+
+    if (!("IntersectionObserver" in window)) {
+      void runAnimation();
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
         if (entry?.isIntersecting) {
-          animateCounters();
           observer.disconnect();
+          void runAnimation();
         }
       },
-      { threshold: 0.35 },
+      {
+        threshold: 0.35,
+        rootMargin: "0px 0px -10% 0px",
+      },
     );
 
     observer.observe(section);

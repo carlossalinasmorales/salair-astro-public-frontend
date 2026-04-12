@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -38,13 +38,6 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-
-  fonts: [{
-    provider: fontProviders.fontsource(),
-    name: "Montserrat",
-    cssVariable: "--font-montserrat",
-    weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
-  }],
 
   vite: {
     plugins: [tailwindcss()],

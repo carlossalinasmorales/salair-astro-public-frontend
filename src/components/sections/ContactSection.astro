@@ -105,390 +105,84 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
 </section>
 
 <script>
-  const MIN_SUBMIT_TIME_MS = 3000;
-  const GENERIC_PLAIN_TEXT_MESSAGE = "Este campo debe contener solo texto plano. No use HTML ni scripts.";
-  const DISALLOWED_CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/;
-  const DISALLOWED_INLINE_MARKUP = /<[^>]*>|[<>]/;
-  const FIELD_RULES = {
-    company: {
-      label: "Empresa",
-      required: true,
-      min: 2,
-      max: 120,
-      plainTextOnly: true,
-    },
-    firstName: {
-      label: "Nombre",
-      required: true,
-      min: 2,
-      max: 60,
-      pattern: /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+$/,
-      patternMessage: "Use solo letras, espacios, apóstrofe o guion.",
-    },
-    lastName: {
-      label: "Apellido",
-      required: true,
-      min: 2,
-      max: 60,
-      pattern: /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+$/,
-      patternMessage: "Use solo letras, espacios, apóstrofe o guion.",
-    },
-    role: {
-      label: "Cargo",
-      required: false,
-      max: 80,
-      plainTextOnly: true,
-    },
-    email: {
-      label: "Correo corporativo",
-      required: true,
-      max: 254,
-    },
-    message: {
-      label: "Mensaje",
-      required: true,
-      min: 20,
-      max: 2000,
-      plainTextOnly: true,
-    },
-  };
-
-
-  const initContactForm = () => {
+  const setupDeferredContactFormInit = () => {
+    const section = document.getElementById("contacto");
     const form = document.getElementById("contact-form");
-    const submitBtn = form?.querySelector("button[type=submit]");
-    const btnText = document.getElementById("btn-text");
-    const feedback = document.getElementById("form-feedback");
-    const formStartedAt = performance.now();
 
-    if (
-      !(form instanceof HTMLFormElement) ||
-      !(submitBtn instanceof HTMLButtonElement) ||
-      !(btnText instanceof HTMLElement) ||
-      !(feedback instanceof HTMLElement)
-    ) {
+    if (!(section instanceof HTMLElement) || !(form instanceof HTMLFormElement)) {
       return;
     }
 
-    if (form.dataset.init === "true") {
+    if (section.dataset.deferredInit === "true") {
       return;
     }
 
-    form.dataset.init = "true";
+    section.dataset.deferredInit = "true";
 
-    const fields = {
-      company: form.elements.namedItem("company"),
-      firstName: form.elements.namedItem("firstName"),
-      lastName: form.elements.namedItem("lastName"),
-      role: form.elements.namedItem("role"),
-      email: form.elements.namedItem("email"),
-      message: form.elements.namedItem("message"),
-      website: form.elements.namedItem("website"),
+    let hasLoadedModule = false;
+    let observer: IntersectionObserver | null = null;
+
+    const cleanup = () => {
+      observer?.disconnect();
+      document.removeEventListener("focusin", onFocusIn, true);
+      section.removeEventListener("pointerenter", triggerInit);
+      section.removeEventListener("touchstart", triggerInit);
     };
 
-    const getFieldElement = (name) => {
-      const field = fields[name];
-      if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) {
-        return field;
-      }
-      return null;
-    };
-
-    const normalizeWhitespace = (value) => value.replace(/\s+/g, " ").trim();
-    const normalizeMessage = (value) =>
-      value
-        .replace(/\r\n/g, "\n")
-        .replace(/[ \t]+/g, " ")
-        .replace(/\n{3,}/g, "\n\n")
-        .trim();
-
-    const normalizeByField = (fieldName, value) => {
-      if (fieldName === "message") {
-        return normalizeMessage(value);
-      }
-      if (fieldName === "email") {
-        return normalizeWhitespace(value).toLowerCase();
-      }
-      return normalizeWhitespace(value);
-    };
-
-    const containsDisallowedMarkup = (value) => DISALLOWED_INLINE_MARKUP.test(value);
-    const containsDisallowedControlChars = (value) => DISALLOWED_CONTROL_CHARS.test(value);
-
-    const setState = (state, message = "") => {
-      form.dataset.state = state;
-      const labels = {
-        idle: "Enviar",
-        submitting: "Enviando solicitud...",
-        success: "Solicitud enviada",
-        error: "Reintentar envío",
-      };
-
-      btnText.textContent = labels[state] ?? labels.idle;
-
-      if (!message) {
-        feedback.classList.add("hidden");
-        feedback.textContent = "";
-        feedback.className = "hidden rounded-sm border p-4 text-sm";
-        feedback.setAttribute("role", "status");
+    const loadAndInit = async () => {
+      if (hasLoadedModule) {
         return;
       }
 
-      const isSuccess = state === "success";
-      feedback.className = isSuccess
-        ? "rounded-sm border border-secondary-300/50 bg-primary-100 p-4 text-sm text-secondary-500"
-        : "rounded-sm border border-primary-500/40 bg-primary-500 p-4 text-sm text-neutral-100";
-
-      feedback.setAttribute("role", isSuccess ? "status" : "alert");
-      feedback.textContent = message;
-      feedback.classList.remove("hidden");
-    };
-
-    const setFieldError = (fieldName, message) => {
-      const input = getFieldElement(fieldName);
-      const errorMessage = form.querySelector(`#${fieldName}-error`);
-
-      if (!input || !(errorMessage instanceof HTMLElement)) {
-        return;
-      }
-
-      input.setAttribute("aria-invalid", message ? "true" : "false");
-
-      if (message) {
-        input.classList.add("border-primary-500");
-        errorMessage.textContent = message;
-        errorMessage.classList.remove("hidden");
-        return;
-      }
-
-      input.classList.remove("border-primary-500");
-      errorMessage.textContent = "";
-      errorMessage.classList.add("hidden");
-    };
-
-    const clearAllErrors = () => {
-      Object.keys(FIELD_RULES).forEach((fieldName) => {
-        setFieldError(fieldName, "");
-      });
-    };
-
-    const validateFieldValue = (fieldName, rawValue) => {
-      const rule = FIELD_RULES[fieldName];
-      if (!rule) {
-        return "";
-      }
-
-      const value = normalizeByField(fieldName, rawValue);
-
-      if (rule.required && !value) {
-        return `${rule.label} es obligatorio.`;
-      }
-
-      if (!value) {
-        return "";
-      }
-
-      if (containsDisallowedControlChars(value)) {
-        return `${rule.label} contiene caracteres no permitidos.`;
-      }
-
-      if (rule.plainTextOnly && containsDisallowedMarkup(value)) {
-        return rule.plainTextMessage || GENERIC_PLAIN_TEXT_MESSAGE;
-      }
-
-      if (rule.min && value.length < rule.min) {
-        return `${rule.label} debe tener al menos ${rule.min} caracteres.`;
-      }
-
-      if (rule.max && value.length > rule.max) {
-        return `${rule.label} no puede superar ${rule.max} caracteres.`;
-      }
-
-      if (rule.pattern && !rule.pattern.test(value)) {
-        return rule.patternMessage || `${rule.label} tiene un formato inválido.`;
-      }
-
-      if (fieldName === "email") {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-        if (!emailRegex.test(value)) {
-          return "Ingrese un correo electrónico válido.";
-        }
-
-      }
-
-      return "";
-    };
-
-    const getCurrentValues = () => {
-      const snapshot = {};
-      Object.keys(FIELD_RULES).forEach((fieldName) => {
-        const field = getFieldElement(fieldName);
-        snapshot[fieldName] = field ? normalizeByField(fieldName, field.value) : "";
-      });
-      return snapshot;
-    };
-
-    const focusFirstError = (errors) => {
-      const firstFieldName = Object.keys(FIELD_RULES).find((fieldName) => errors[fieldName]);
-      if (!firstFieldName) {
-        return;
-      }
-
-      const firstField = getFieldElement(firstFieldName);
-      firstField?.focus();
-    };
-
-    const setFormLocked = (locked) => {
-      const controls = form.querySelectorAll("input, textarea, button");
-      controls.forEach((control) => {
-        if (control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement || control instanceof HTMLButtonElement) {
-          control.disabled = locked;
-        }
-      });
-      form.setAttribute("aria-busy", locked ? "true" : "false");
-    };
-
-    const buildPayload = (values) => {
-      return {
-        company: values.company,
-        contact: {
-          firstName: values.firstName,
-          lastName: values.lastName,
-          fullName: `${values.firstName} ${values.lastName}`.trim(),
-          role: values.role || null,
-          email: values.email,
-        },
-        message: values.message,
-        metadata: {
-          contractVersion: 1,
-          source: "contact-section",
-          locale: document.documentElement.lang || "es",
-          submittedAt: new Date().toISOString(),
-          honeypotPassed: true,
-        },
-      };
-    };
-
-    const mockSubmitContact = async (payload) => {
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-
-      const forceError = payload.message.toLowerCase().includes("[force-error]");
-      if (forceError) {
-        return {
-          ok: false,
-          error: {
-            code: "MOCK_VALIDATION_ERROR",
-            message: "No fue posible procesar su solicitud. Revise el mensaje y vuelva a intentarlo.",
-          },
-        };
-      }
-
-      return {
-        ok: true,
-        data: {
-          requestId: `mock-${Date.now()}`,
-        },
-      };
-    };
-
-    Object.keys(FIELD_RULES).forEach((fieldName) => {
-      const input = getFieldElement(fieldName);
-      if (!input) {
-        return;
-      }
-
-      input.addEventListener("blur", () => {
-        const error = validateFieldValue(fieldName, input.value);
-        setFieldError(fieldName, error);
-      });
-
-      input.addEventListener("invalid", (event) => {
-        event.preventDefault();
-        const error = validateFieldValue(fieldName, input.value);
-        setFieldError(fieldName, error || `${FIELD_RULES[fieldName].label} es inválido.`);
-        setState("error", "Revise los campos marcados y vuelva a intentarlo.");
-      });
-
-      input.addEventListener("input", () => {
-        if (form.dataset.state === "success" || form.dataset.state === "error") {
-          setState("idle", "");
-        }
-
-        if (input.getAttribute("aria-invalid") === "true") {
-          const error = validateFieldValue(fieldName, input.value);
-          setFieldError(fieldName, error);
-        }
-      });
-    });
-
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      if (form.dataset.state === "submitting") {
-        return;
-      }
-
-      clearAllErrors();
-      setState("idle", "");
-
-      const honeypotField = getFieldElement("website");
-      if (honeypotField && normalizeWhitespace(honeypotField.value)) {
-        setState("error", "No se pudo enviar el formulario. Intente nuevamente.");
-        return;
-      }
-
-      const elapsedMs = performance.now() - formStartedAt;
-      if (elapsedMs < MIN_SUBMIT_TIME_MS) {
-        setState("error", "Espere unos segundos antes de enviar el formulario.");
-        return;
-      }
-
-      const values = getCurrentValues();
-      const errors = {};
-
-      Object.keys(FIELD_RULES).forEach((fieldName) => {
-        const error = validateFieldValue(fieldName, values[fieldName] || "");
-        if (error) {
-          errors[fieldName] = error;
-          setFieldError(fieldName, error);
-        }
-      });
-
-      if (Object.keys(errors).length > 0) {
-        setState("error", "Revise los campos marcados y vuelva a intentarlo.");
-        focusFirstError(errors);
-        return;
-      }
-
-      const payload = buildPayload(values);
-      setFormLocked(true);
-      setState("submitting", "Validando y preparando su solicitud...");
+      hasLoadedModule = true;
 
       try {
-        const result = await mockSubmitContact(payload);
-
-        if (!result.ok) {
-          setState("error", result.error.message || "No se pudo enviar su solicitud en este momento.");
-          return;
-        }
-
-        form.reset();
-        clearAllErrors();
-        setState("success", "Solicitud enviada correctamente (simulación local). Nuestro equipo se contactará a la brevedad.");
-      } catch (error) {
-        setState("error", "Ocurrió un problema inesperado al preparar el envío. Intente nuevamente.");
-      } finally {
-        setFormLocked(false);
+        const { initContactForm } = await import("@/scripts/contact-form");
+        initContactForm();
+        cleanup();
+      } catch {
+        hasLoadedModule = false;
       }
-    });
+    };
+
+    const triggerInit = () => {
+      void loadAndInit();
+    };
+
+    const onFocusIn = (event: FocusEvent) => {
+      const target = event.target;
+      if (target instanceof Node && form.contains(target)) {
+        triggerInit();
+      }
+    };
+
+    document.addEventListener("focusin", onFocusIn, true);
+    section.addEventListener("pointerenter", triggerInit, { once: true, passive: true });
+    section.addEventListener("touchstart", triggerInit, { once: true, passive: true });
+
+    if ("IntersectionObserver" in window) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const [entry] = entries;
+          if (entry?.isIntersecting) {
+            triggerInit();
+          }
+        },
+        { rootMargin: "220px 0px" },
+      );
+
+      observer.observe(section);
+      return;
+    }
+
+    triggerInit();
   };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initContactForm, { once: true });
+    document.addEventListener("DOMContentLoaded", setupDeferredContactFormInit, { once: true });
   } else {
-    initContactForm();
+    setupDeferredContactFormInit();
   }
 
-  document.addEventListener("astro:page-load", initContactForm);
+  document.addEventListener("astro:page-load", setupDeferredContactFormInit);
 </script>

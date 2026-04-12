@@ -2,12 +2,13 @@
 import "@styles/global.css";
 import "@styles/patterns.css";
 import "@styles/domains/illustrations.css";
-import { Font } from "astro:assets";
 import appleTouchIcon from "@assets/identity/apple-touch-icon.png";
 import socialImage from "@assets/identity/android-chrome-512x512.png";
 import favicon16 from "@assets/identity/favicon-16x16.png";
 import favicon32 from "@assets/identity/favicon-32x32.png";
 import faviconIco from "@assets/identity/favicon.ico";
+import montserrat400 from "@assets/fonts/montserrat/montserrat-latin-400-normal.woff2";
+import montserrat600 from "@assets/fonts/montserrat/montserrat-latin-600-normal.woff2";
 
 interface Props {
   title?: string;
@@ -54,7 +55,8 @@ const socialImageUrl = new URL(toAssetUrl(socialImage), baseUrl).toString();
     <link rel="shortcut icon" href={toAssetUrl(faviconIco)} />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#091A38" />
-    <Font cssVariable="--font-montserrat" preload/>
+    <link rel="preload" href={montserrat400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={montserrat600} as="font" type="font/woff2" crossorigin />
 
     <title>{title}</title>
   </head>

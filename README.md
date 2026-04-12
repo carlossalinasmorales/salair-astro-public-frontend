@@ -61,8 +61,18 @@ src/
 - Arquitectura de componentes por **Atomic Design**.
 - Mantener componentes reutilizables en `atoms/` y `molecules/`; reservar `sections/` para composición de secciones de página.
 - `organisms/` se usa para bloques compuestos reutilizables, no como sinónimo de secciones completas.
+- `illustrations/` agrupa SVG/React decorativos o visuales compartidos; no mezclar allí lógica de negocio.
+- `scripts/` se reserva para comportamiento cliente diferido y específico de una sección/página, cuando NO vale la pena crear una island React.
 - Se usan aliases para importaciones limpias (`@`, `@atoms`, `@molecules`, `@organisms`, `@assets`, etc.).
 - Las imágenes deben usar `astro:assets` (`<Image />`) para mantener optimización y consistencia.
+
+### Regla práctica para evitar sobreingeniería
+
+- Si algo es estático, debe seguir siendo `.astro` sin JS cliente.
+- Si algo es interactivo y reutilizable, evaluar **island**.
+- Si algo es interacción puntual de una sola sección (por ejemplo, inicialización diferida o validación local), puede vivir en `src/scripts/`.
+- No crear helpers, utilidades o capas genéricas hasta que exista reutilización real en al menos 2-3 lugares.
+- Antes de agregar una carpeta nueva, preferir mantener la lógica cerca del componente o sección que la usa.
 
 ## Arquitectura y convenciones de estilos
 
