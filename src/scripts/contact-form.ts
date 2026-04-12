@@ -129,13 +129,13 @@ export const initContactForm = () => {
   const formStartedAt = performance.now();
 
   const fields: Record<ExtendedFieldName, Element | null> = {
-    company: form.elements.namedItem("company"),
-    firstName: form.elements.namedItem("firstName"),
-    lastName: form.elements.namedItem("lastName"),
-    role: form.elements.namedItem("role"),
-    email: form.elements.namedItem("email"),
-    message: form.elements.namedItem("message"),
-    website: form.elements.namedItem("website"),
+    company: form.elements.namedItem("company") as Element | null,
+    firstName: form.elements.namedItem("firstName") as Element | null,
+    lastName: form.elements.namedItem("lastName") as Element | null,
+    role: form.elements.namedItem("role") as Element | null,
+    email: form.elements.namedItem("email") as Element | null,
+    message: form.elements.namedItem("message") as Element | null,
+    website: form.elements.namedItem("website") as Element | null,
   };
 
   const getFieldElement = (name: ExtendedFieldName) => {
