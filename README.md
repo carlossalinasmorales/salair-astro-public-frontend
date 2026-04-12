@@ -44,15 +44,16 @@ npm run dev
 
 ```text
 src/
-  assets/                # imágenes, logos, videos e identidad
+  assets/                # imágenes, logos, videos, fuentes e identidad
   components/
-    atoms/               # piezas base (Button, Icon, Logo, SurfaceCard, etc.)
-    molecules/           # combinaciones reutilizables (ServiceCard, WorkAreaCard, SectionHeading, etc.)
-    organisms/           # bloques compuestos reutilizables (Header, Footer, islands puntuales)
+    atoms/               # piezas base (Button, NavLink, Logo)
+    molecules/           # combinaciones reutilizables (ServiceCard, SystemCard, StatCard, campos de formulario)
+    organisms/           # bloques compuestos reutilizables (Header, Footer, marquee, islands puntuales)
     sections/            # secciones completas de página/landing
     illustrations/       # ilustraciones SVG/React con estilos compartidos de dominio
   layouts/               # layout base y metadata global
   pages/                 # páginas Astro
+  scripts/               # comportamiento cliente diferido y específico de página/sección
   styles/                # tokens, patrones semánticos y estilos por dominio
 ```
 
@@ -83,7 +84,7 @@ src/
 
 ### `src/styles/patterns.css`
 - Patrones semánticos reutilizables construidos con `@apply`.
-- Ejemplos: shells de secciones, títulos, superficies compartidas, controles comunes y helpers de layout.
+- Ejemplos actuales: `section-shell`, `section-heading`, `section-title`, `surface-card`, `surface-panel` y controles comunes.
 - Preferir este archivo por sobre crear archivos `*.ts` que solo exportan strings de clases Tailwind.
 
 ### `src/styles/domains/*.css`
@@ -118,4 +119,5 @@ npm run test:run
 
 - Este proyecto prioriza claridad operativa y mantenibilidad del contenido.
 - Si agregás nuevas secciones, respetá naming y jerarquía de componentes para no degradar el sistema.
+- `surface-card` y `surface-panel` son patrones CSS en `src/styles/patterns.css`, no componentes Astro independientes.
 - `src/content.config.ts` está como placeholder técnico para evitar warnings de Astro Content (no hay collections activas por ahora).
