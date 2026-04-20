@@ -36,7 +36,6 @@ updates:
       types-and-utilities:
         patterns:
           - "@types/*"
-          - "@fontsource-variable/*"
           - "cssesc"
         update-types:
           - "minor"
