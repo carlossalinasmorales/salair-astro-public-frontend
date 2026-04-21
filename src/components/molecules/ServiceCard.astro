@@ -4,11 +4,11 @@ import ServiceOrbitIcon from "@/components/illustrations/ServiceOrbitIcon.tsx";
 interface Props {
   title: string;
   description: string;
-  iconVariant?: "orbit" | "maintenance" | "prism" | "layers" | "panels";
+  iconVariant?: "cooling" | "heating" | "compressor" | "thermostat" | "ventilation" | "heatpump";
   class?: string;
 }
 
-const { title, description, iconVariant = "orbit", class: className = "" } = Astro.props;
+const { title, description, iconVariant = "cooling", class: className = "" } = Astro.props;
 ---
 
 <article class={`service-card-reference surface-card px-8 py-10 ${className}`}>
