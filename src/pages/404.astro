@@ -1,0 +1,46 @@
+---
+import Button from '@atoms/Button.astro';
+import ServiceOrbitIcon from '@components/illustrations/ServiceOrbitIcon';
+import Footer from '@organisms/Footer.astro';
+import Header from '@organisms/Header.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="404 — Página no encontrada | Salair"
+  description="La página que buscas no está disponible o fue movida. Vuelve al inicio de Salair para continuar navegando."
+  robots="noindex, follow"
+>
+  <div class="page-404">
+    <Header />
+
+    <main class="section-shell bg-linear-to-b from-secondary-100 to-neutral-100 pt-22 lg:pt-44">
+      <section class="container flex items-center justify-center px-0 py-4 lg:py-5 p-12">
+        <div class="w-full max-w-md md:max-w-2xl text-center">
+          <div class="mx-auto flex w-fit items-center justify-center gap-4">
+            <ServiceOrbitIcon variant="cooling" className="scale-[1.55] sm:scale-[1.7]" />
+            <p class="text-6xl font-semibold leading-none tracking-tight text-secondary-500 sm:text-7xl">
+              404
+            </p>
+          </div>
+
+          <h1 class="mt-4 text-2xl font-semibold tracking-tight text-secondary-500 sm:text-3xl">
+            Esta página no está disponible.
+          </h1>
+
+          <p class="mx-auto mt-3 text-sm leading-relaxed text-secondary-300 sm:text-base">
+            La ruta que intentas abrir no existe, cambió o ya no está disponible. Vuelve al inicio o contáctanos para retomar el recorrido.
+          </p>
+
+          <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button href="/" variant="primary">Volver al inicio</Button>
+            <Button href="/#contacto" variant="outline-dark">Ir a contacto</Button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </div>
+</Layout>
+
