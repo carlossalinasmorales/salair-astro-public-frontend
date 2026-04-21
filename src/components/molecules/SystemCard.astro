@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image } from 'astro:assets';
 
 interface Props {
   title: string;
@@ -9,13 +9,7 @@ interface Props {
   class?: string;
 }
 
-const {
-  title,
-  description,
-  image,
-  alt,
-  class: className = "",
-} = Astro.props;
+const { title, description, image, alt, class: className = '' } = Astro.props;
 ---
 
 <article
@@ -31,10 +25,18 @@ const {
     loading="lazy"
     format="webp"
   />
-  <div aria-hidden="true" class="absolute inset-0 bg-linear-to-b from-secondary-900/20 via-secondary-900/35 to-secondary-900/88"></div>
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 bg-linear-to-b from-secondary-900/20 via-secondary-900/35 to-secondary-900/88"
+  >
+  </div>
 
   <div class="absolute inset-x-0 bottom-0 z-10 p-6">
-    <h3 class="min-h-14 text-xl leading-tight font-semibold tracking-tight text-neutral-100 md:text-2xl">{title}</h3>
+    <h3
+      class="min-h-14 text-xl leading-tight font-semibold tracking-tight text-neutral-100 md:text-2xl"
+    >
+      {title}
+    </h3>
     <p class="min-h-24 text-base leading-relaxed text-neutral-100">{description}</p>
   </div>
 </article>

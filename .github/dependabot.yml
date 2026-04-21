@@ -1,42 +1,42 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "monthly"
-      day: "monday"
-      time: "10:00"
+      interval: 'monthly'
+      day: 'monday'
+      time: '10:00'
     open-pull-requests-limit: 5
     commit-message:
-      prefix: "chore"
-      include: "scope"
+      prefix: 'chore'
+      include: 'scope'
     groups:
       astro-core:
         patterns:
-          - "astro"
-          - "@astrojs/*"
+          - 'astro'
+          - '@astrojs/*'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
       tooling-compatible:
         patterns:
-          - "@tailwindcss/vite"
-          - "tailwindcss"
-          - "vitest"
+          - '@tailwindcss/vite'
+          - 'tailwindcss'
+          - 'vitest'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
       react-runtime:
         patterns:
-          - "react"
-          - "react-dom"
+          - 'react'
+          - 'react-dom'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
       types-and-utilities:
         patterns:
-          - "@types/*"
-          - "cssesc"
+          - '@types/*'
+          - 'cssesc'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'

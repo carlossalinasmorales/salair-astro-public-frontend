@@ -9,91 +9,91 @@
  * Do not place reusable UI patterns or feature/domain-specific CSS here.
  */
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("@/assets/fonts/montserrat/montserrat-latin-400-normal.woff2") format("woff2");
+  font-family: 'Montserrat';
+  src: url('@/assets/fonts/montserrat/montserrat-latin-400-normal.woff2') format('woff2');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("@/assets/fonts/montserrat/montserrat-latin-500-normal.woff2") format("woff2");
+  font-family: 'Montserrat';
+  src: url('@/assets/fonts/montserrat/montserrat-latin-500-normal.woff2') format('woff2');
   font-style: normal;
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("@/assets/fonts/montserrat/montserrat-latin-600-normal.woff2") format("woff2");
+  font-family: 'Montserrat';
+  src: url('@/assets/fonts/montserrat/montserrat-latin-600-normal.woff2') format('woff2');
   font-style: normal;
   font-weight: 600;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("@/assets/fonts/montserrat/montserrat-latin-700-normal.woff2") format("woff2");
+  font-family: 'Montserrat';
+  src: url('@/assets/fonts/montserrat/montserrat-latin-700-normal.woff2') format('woff2');
   font-style: normal;
   font-weight: 700;
   font-display: swap;
 }
 
-
 @theme inline {
-
-  --font-montserrat: "Montserrat", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-montserrat:
+    'Montserrat', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
 
   /* FONTS */
   --font-sans: var(--font-montserrat);
 
   /* PRIMARY */
-  --color-primary-100: #E2F0FC;
-  --color-primary-200: #BEE1F9;
-  --color-primary-300: #84C9F5;
-  --color-primary-400: #43ADED;
-  --color-primary-500: #1989CE;
-  --color-primary-600: #0D74BC;
-  --color-primary-700: #0C5C98;
-  --color-primary-800: #0E4F7E;
+  --color-primary-100: #e2f0fc;
+  --color-primary-200: #bee1f9;
+  --color-primary-300: #84c9f5;
+  --color-primary-400: #43aded;
+  --color-primary-500: #1989ce;
+  --color-primary-600: #0d74bc;
+  --color-primary-700: #0c5c98;
+  --color-primary-800: #0e4f7e;
   --color-primary-900: #124268;
 
   /* SECONDARY */
-  --color-secondary-100: #A5B0C2;
-  --color-secondary-200: #6A7A9A;
-  --color-secondary-300: #3A4D6F;
-  --color-secondary-400: #1C2F52;
-  --color-secondary-500: #091A38;
+  --color-secondary-100: #a5b0c2;
+  --color-secondary-200: #6a7a9a;
+  --color-secondary-300: #3a4d6f;
+  --color-secondary-400: #1c2f52;
+  --color-secondary-500: #091a38;
   --color-secondary-600: #081830;
   --color-secondary-700: #061225;
-  --color-secondary-800: #040C1A;
-  --color-secondary-900: #02060F;
+  --color-secondary-800: #040c1a;
+  --color-secondary-900: #02060f;
 
   /* ACCENT */
-  --color-accent-100: #FBE1C9;
-  --color-accent-200: #F6C39B;
-  --color-accent-300: #F2AE7A;
-  --color-accent-400: #EE9A5A;
-  --color-accent-500: #E9863B;
-  --color-accent-600: #C76C2C;
-  --color-accent-700: #9E531F;
-  --color-accent-800: #7A3F16;
-  --color-accent-900: #5A2E0F;
+  --color-accent-100: #fbe1c9;
+  --color-accent-200: #f6c39b;
+  --color-accent-300: #f2ae7a;
+  --color-accent-400: #ee9a5a;
+  --color-accent-500: #e9863b;
+  --color-accent-600: #c76c2c;
+  --color-accent-700: #9e531f;
+  --color-accent-800: #7a3f16;
+  --color-accent-900: #5a2e0f;
 
   /* NEUTRAL */
-  --color-neutral-100: #F9FAFB;
-  --color-neutral-200: #E5E7EB;
-  --color-neutral-300: #C7C7C7;
-  --color-neutral-400: #9A9A9A;
-  --color-neutral-500: #6B6B6B;
+  --color-neutral-100: #f9fafb;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #c7c7c7;
+  --color-neutral-400: #9a9a9a;
+  --color-neutral-500: #6b6b6b;
   --color-neutral-600: #404040;
-  --color-neutral-700: #2E2E2E;
-  --color-neutral-800: #1F1F1F;
-  --color-neutral-900: #0D0D0D;
+  --color-neutral-700: #2e2e2e;
+  --color-neutral-800: #1f1f1f;
+  --color-neutral-900: #0d0d0d;
 }
 
 @layer base {
@@ -103,7 +103,6 @@
 
   body {
     @apply m-0 bg-neutral-100 text-secondary-500 antialiased font-sans;
-
   }
 
   ::selection {
@@ -117,6 +116,4 @@
   textarea {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100;
   }
-
-  
 }

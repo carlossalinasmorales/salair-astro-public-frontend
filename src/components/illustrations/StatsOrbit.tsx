@@ -1,12 +1,12 @@
-import "@styles/domains/stats-orbit.css";
-import { useId } from "react";
+import '@styles/domains/stats-orbit.css';
+import { useId } from 'react';
 
 interface StatsOrbitProps {
   className?: string;
 }
 
-export function StatsOrbit({ className = "" }: StatsOrbitProps) {
-  const uid = useId().replace(/:/g, "");
+export function StatsOrbit({ className = '' }: StatsOrbitProps) {
+  const uid = useId().replace(/:/g, '');
 
   const ids = {
     aura: `aura-${uid}`,
@@ -47,21 +47,51 @@ export function StatsOrbit({ className = "" }: StatsOrbitProps) {
         <circle cx="240" cy="240" r="190" fill={`url(#${ids.aura})`} className="so-soft-pulse" />
 
         <g className="so-ring-cw">
-          <circle cx="240" cy="240" r="176" stroke={`url(#${ids.ring})`} strokeWidth="1.2" fill="none" opacity="0.45" />
+          <circle
+            cx="240"
+            cy="240"
+            r="176"
+            stroke={`url(#${ids.ring})`}
+            strokeWidth="1.2"
+            fill="none"
+            opacity="0.45"
+          />
           <circle cx="240" cy="64" r="5" className="fill-primary-500 blur-xs" opacity="0.85" />
         </g>
 
         <g className="so-ring-ccw">
-          <circle cx="240" cy="240" r="132" stroke={`url(#${ids.ring})`} strokeWidth="1.2" fill="none" opacity="0.5" />
+          <circle
+            cx="240"
+            cy="240"
+            r="132"
+            stroke={`url(#${ids.ring})`}
+            strokeWidth="1.2"
+            fill="none"
+            opacity="0.5"
+          />
           <circle cx="372" cy="240" r="4.5" className="fill-secondary-500 blur-xs" opacity="0.8" />
         </g>
 
         <g className="so-ring-cw-slow">
-          <circle cx="240" cy="240" r="88" stroke={`url(#${ids.ring})`} strokeWidth="1.2" fill="none" opacity="0.55" />
+          <circle
+            cx="240"
+            cy="240"
+            r="88"
+            stroke={`url(#${ids.ring})`}
+            strokeWidth="1.2"
+            fill="none"
+            opacity="0.55"
+          />
           <circle cx="240" cy="328" r="4" className="fill-primary-500 blur-xs" opacity="0.8" />
         </g>
 
-        <circle cx="240" cy="240" r="30" fill={`url(#${ids.core})`} className="so-core-pulse fill-primary-500/50 blur-lg" />
+        <circle
+          cx="240"
+          cy="240"
+          r="30"
+          fill={`url(#${ids.core})`}
+          className="so-core-pulse fill-primary-500/50 blur-lg"
+        />
         <circle cx="240" cy="240" r="12" className="fill-primary-500/50 blur-xs" />
       </svg>
     </div>

@@ -1,12 +1,11 @@
 ---
-import SystemCard from "@molecules/SystemCard.astro";
-import { systems } from "@/lib/content/systems";
+import SystemCard from '@molecules/SystemCard.astro';
+import { systems } from '@/lib/content/systems';
 
 const systemsTopRow = systems.slice(0, 3);
 const systemsBottomRow = systems.slice(3);
 
-const systemsGridBaseClasses = "mx-auto grid bg-neutral-100";
-
+const systemsGridBaseClasses = 'mx-auto grid bg-neutral-100';
 ---
 
 <section id="sistemas" class="section-shell">
@@ -16,37 +15,43 @@ const systemsGridBaseClasses = "mx-auto grid bg-neutral-100";
     </div>
 
     <div class={`${systemsGridBaseClasses} max-w-6xl grid-cols-1 sm:grid-cols-2 lg:hidden`}>
-      {systems.map((system) => (
-        <SystemCard
-          title={system.title}
-          description={system.description}
-          image={system.image}
-          alt={system.alt}
-        />
-      ))}
+      {
+        systems.map((system) => (
+          <SystemCard
+            title={system.title}
+            description={system.description}
+            image={system.image}
+            alt={system.alt}
+          />
+        ))
+      }
     </div>
 
     <div class="hidden lg:block">
       <div class={`${systemsGridBaseClasses} max-w-6xl grid-cols-3`}>
-        {systemsTopRow.map((system) => (
-          <SystemCard
-            title={system.title}
-            description={system.description}
-            image={system.image}
-            alt={system.alt}
-          />
-        ))}
+        {
+          systemsTopRow.map((system) => (
+            <SystemCard
+              title={system.title}
+              description={system.description}
+              image={system.image}
+              alt={system.alt}
+            />
+          ))
+        }
       </div>
 
       <div class={`${systemsGridBaseClasses} max-w-4xl grid-cols-2`}>
-        {systemsBottomRow.map((system) => (
-          <SystemCard
-            title={system.title}
-            description={system.description}
-            image={system.image}
-            alt={system.alt}
-          />
-        ))}
+        {
+          systemsBottomRow.map((system) => (
+            <SystemCard
+              title={system.title}
+              description={system.description}
+              image={system.image}
+              alt={system.alt}
+            />
+          ))
+        }
       </div>
     </div>
   </div>

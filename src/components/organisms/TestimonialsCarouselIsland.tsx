@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type TouchEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type TouchEvent } from 'react';
 
 interface Testimonial {
   quote: string;
@@ -14,7 +14,10 @@ interface Props {
 }
 
 export default function TestimonialsCarouselIsland({ testimonials }: Props) {
-  const safeTestimonials = useMemo(() => testimonials.filter((item) => item.quote && item.name), [testimonials]);
+  const safeTestimonials = useMemo(
+    () => testimonials.filter((item) => item.quote && item.name),
+    [testimonials],
+  );
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -39,16 +42,16 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
   }, [testimonialsLength]);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const syncPreference = () => {
       setPrefersReducedMotion(mediaQuery.matches);
     };
 
     syncPreference();
-    mediaQuery.addEventListener("change", syncPreference);
+    mediaQuery.addEventListener('change', syncPreference);
 
     return () => {
-      mediaQuery.removeEventListener("change", syncPreference);
+      mediaQuery.removeEventListener('change', syncPreference);
     };
   }, []);
 
@@ -110,10 +113,7 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
   };
 
   return (
-    <section
-      className="mx-auto w-full max-w-6xl"
-      aria-label="Carrusel de testimonios de clientes"
-    >
+    <section className="mx-auto w-full max-w-6xl" aria-label="Carrusel de testimonios de clientes">
       <div
         className="relative overflow-hidden py-1"
         onMouseEnter={() => setIsAutoplayPaused(true)}
@@ -134,18 +134,18 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
               <article
                 key={`${testimonial.name}-${index}`}
                 aria-hidden={!isCenter}
-                aria-live={isCenter ? "polite" : undefined}
+                aria-live={isCenter ? 'polite' : undefined}
                 className={`col-start-1 row-start-1 w-5/6 justify-self-center rounded-sm border border-secondary-300/20 bg-neutral-100 p-6 text-secondary-500 sm:w-4/5 md:w-2/3 md:p-7 ${
-                  prefersReducedMotion ? "" : "transition-transform  duration-500 ease-out"
+                  prefersReducedMotion ? '' : 'transition-transform  duration-500 ease-out'
                 } ${
                   isCenter
-                    ? "z-30 scale-100 opacity-100"
+                    ? 'z-30 scale-100 opacity-100'
                     : isLeft
-                    ? "z-10 -translate-x-1/2 scale-95 opacity-35"
-                    : isRight
-                    ? "z-10 translate-x-1/2 scale-95 opacity-35"
-                    : "z-0 scale-90 opacity-0"
-                } ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+                      ? 'z-10 -translate-x-1/2 scale-95 opacity-35'
+                      : isRight
+                        ? 'z-10 translate-x-1/2 scale-95 opacity-35'
+                        : 'z-0 scale-90 opacity-0'
+                } ${isVisible ? 'pointer-events-auto' : 'pointer-events-none'}`}
               >
                 <blockquote className="text-sm leading-relaxed text-secondary-400 sm:text-base">
                   “{testimonial.quote}”
@@ -163,7 +163,9 @@ export default function TestimonialsCarouselIsland({ testimonials }: Props) {
                   <div>
                     <p className="text-sm font-bold text-secondary-500">{testimonial.name}</p>
                     <p className="text-xs text-secondary-500">{testimonial.role}</p>
-                    <p className="text-xs font-semibold text-secondary-500">{testimonial.company}</p>
+                    <p className="text-xs font-semibold text-secondary-500">
+                      {testimonial.company}
+                    </p>
                     <p className="text-xs text-secondary-300">{testimonial.location}</p>
                   </div>
                 </div>

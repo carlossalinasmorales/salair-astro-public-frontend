@@ -5,7 +5,7 @@ interface Props {
   class?: string;
 }
 
-const { value, label, class: className = "" } = Astro.props;
+const { value, label, class: className = '' } = Astro.props;
 ---
 
 <article class={`border-l-2 border-primary-500 pl-3 text-left ${className}`}>

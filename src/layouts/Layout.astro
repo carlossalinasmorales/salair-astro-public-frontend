@@ -1,13 +1,13 @@
 ---
-import "@styles/global.css";
-import "@styles/patterns.css";
-import appleTouchIcon from "@assets/identity/apple-touch-icon.png";
-import socialImage from "@assets/identity/android-chrome-512x512.png";
-import favicon16 from "@assets/identity/favicon-16x16.png";
-import favicon32 from "@assets/identity/favicon-32x32.png";
-import faviconIco from "@assets/identity/favicon.ico";
-import montserrat400 from "@assets/fonts/montserrat/montserrat-latin-400-normal.woff2";
-import montserrat600 from "@assets/fonts/montserrat/montserrat-latin-600-normal.woff2";
+import '@styles/global.css';
+import '@styles/patterns.css';
+import appleTouchIcon from '@assets/identity/apple-touch-icon.png';
+import socialImage from '@assets/identity/android-chrome-512x512.png';
+import favicon16 from '@assets/identity/favicon-16x16.png';
+import favicon32 from '@assets/identity/favicon-32x32.png';
+import faviconIco from '@assets/identity/favicon.ico';
+import montserrat400 from '@assets/fonts/montserrat/montserrat-latin-400-normal.woff2';
+import montserrat600 from '@assets/fonts/montserrat/montserrat-latin-600-normal.woff2';
 
 interface Props {
   title?: string;
@@ -15,13 +15,12 @@ interface Props {
 }
 
 const {
-  title = "Salair — Climatización y Refrigeración Industrial",
-  description = "Soluciones profesionales de climatización y refrigeración industrial en Chile. Ofrecemos servicios de instalación, mantención, reparación y atención de emergencias principalmente para sistemas industriales como aire acondicionado, camaras frigorificas, ductería, estractores de aire, entre otros.",  
-
+  title = 'Salair — Climatización y Refrigeración Industrial',
+  description = 'Soluciones profesionales de climatización y refrigeración industrial en Chile. Ofrecemos servicios de instalación, mantención, reparación y atención de emergencias principalmente para sistemas industriales como aire acondicionado, camaras frigorificas, ductería, estractores de aire, entre otros.',
 } = Astro.props;
 
 const toAssetUrl = (asset: string | { src: string }) =>
-  typeof asset === "string" ? asset : asset.src;
+  typeof asset === 'string' ? asset : asset.src;
 
 const baseUrl = Astro.site ?? new URL(Astro.url.origin);
 const canonicalUrl = new URL(Astro.url.pathname, baseUrl).toString();
@@ -60,8 +59,6 @@ const socialImageUrl = new URL(toAssetUrl(socialImage), baseUrl).toString();
     <title>{title}</title>
   </head>
   <body>
-
-
     <slot />
   </body>
 </html>
