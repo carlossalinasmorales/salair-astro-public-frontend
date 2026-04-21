@@ -1,3 +1,5 @@
+import "@styles/domains/service-orbit-icon.css";
+
 export type ServiceIconVariant =
   | "cooling"
   | "heating"
