@@ -1,8 +1,8 @@
 ---
-import Button from "@atoms/Button.astro";
-import Logo from "@atoms/Logo.astro";
-import NavLink from "@atoms/NavLink.astro";
-import { mainNavLinks } from "@/lib/navigation/nav-links";
+import Button from '@atoms/Button.astro';
+import Logo from '@atoms/Logo.astro';
+import NavLink from '@atoms/NavLink.astro';
+import { mainNavLinks } from '@/lib/navigation/nav-links';
 ---
 
 <header
@@ -10,10 +10,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
   class="is-transparent fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent transition-colors duration-300 ease-out"
 >
   <div class="container">
-    <nav
-      class="flex h-20 items-center justify-between"
-      aria-label="Navegación principal"
-    >
+    <nav class="flex h-20 items-center justify-between" aria-label="Navegación principal">
       <a href="/" aria-label="Salair - Inicio">
         <Logo variant="auto" size="md" priority class="header-logo" />
       </a>
@@ -22,11 +19,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
           {
             mainNavLinks.map((link) => (
               <li>
-                <NavLink
-                  href={link.href}
-                  label={link.label}
-                  variant="desktop"
-                />
+                <NavLink href={link.href} label={link.label} variant="desktop" />
               </li>
             ))
           }
@@ -54,20 +47,14 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
           stroke-linecap="round"
           class="h-6 w-6"
         >
-          <line class="menu-line menu-line-top" x1="3" y1="7" x2="21" y2="7"
-          ></line>
-          <line class="menu-line menu-line-mid" x1="3" y1="12" x2="21" y2="12"
-          ></line>
-          <line class="menu-line menu-line-bot" x1="3" y1="17" x2="21" y2="17"
-          ></line>
+          <line class="menu-line menu-line-top" x1="3" y1="7" x2="21" y2="7"></line>
+          <line class="menu-line menu-line-mid" x1="3" y1="12" x2="21" y2="12"></line>
+          <line class="menu-line menu-line-bot" x1="3" y1="17" x2="21" y2="17"></line>
         </svg>
       </button>
     </nav>
 
-    <div
-      id="mobile-menu"
-      class="header-mobile-menu lg:hidden overflow-hidden"
-    >
+    <div id="mobile-menu" class="header-mobile-menu lg:hidden overflow-hidden">
       <div class="border-t border-secondary-200 py-5 px-1">
         <ul class="flex flex-col gap-1">
           {
@@ -78,9 +65,7 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
             ))
           }
           <li class="pt-4 pb-1">
-            <Button href="#contacto" class="w-full justify-center">
-              Contacto
-            </Button>
+            <Button href="#contacto" class="w-full justify-center"> Contacto </Button>
           </li>
         </ul>
       </div>
@@ -90,74 +75,73 @@ import { mainNavLinks } from "@/lib/navigation/nav-links";
 
 <script>
   const initHeader = () => {
-    const header = document.getElementById("smart-header");
-    const btn = document.getElementById("mobile-menu-btn");
-    const menu = document.getElementById("mobile-menu");
+    const header = document.getElementById('smart-header');
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
 
     if (!header || !btn || !menu) return;
-    if (btn.dataset.headerInit === "true") return;
-    btn.dataset.headerInit = "true";
+    if (btn.dataset.headerInit === 'true') return;
+    btn.dataset.headerInit = 'true';
 
     const SOLID_SCROLL_THRESHOLD = 120;
 
     const updateHeaderState = () => {
-      const isMenuExpanded = btn.getAttribute("aria-expanded") === "true";
-      const shouldBeSolid =
-        isMenuExpanded || window.scrollY > SOLID_SCROLL_THRESHOLD;
-      header.classList.toggle("is-solid", shouldBeSolid);
-      header.classList.toggle("is-transparent", !shouldBeSolid);
+      const isMenuExpanded = btn.getAttribute('aria-expanded') === 'true';
+      const shouldBeSolid = isMenuExpanded || window.scrollY > SOLID_SCROLL_THRESHOLD;
+      header.classList.toggle('is-solid', shouldBeSolid);
+      header.classList.toggle('is-transparent', !shouldBeSolid);
     };
 
     const openMenu = () => {
-      btn.setAttribute("aria-expanded", "true");
-      btn.setAttribute("aria-label", "Cerrar menú");
-      btn.classList.add("is-open");
-      menu.classList.add("is-open");
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Cerrar menú');
+      btn.classList.add('is-open');
+      menu.classList.add('is-open');
       updateHeaderState();
     };
 
     const closeMenu = () => {
-      btn.setAttribute("aria-expanded", "false");
-      btn.setAttribute("aria-label", "Abrir menú");
-      btn.classList.remove("is-open");
-      menu.classList.remove("is-open");
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Abrir menú');
+      btn.classList.remove('is-open');
+      menu.classList.remove('is-open');
       updateHeaderState();
     };
 
-    btn.addEventListener("click", () => {
-      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
       isExpanded ? closeMenu() : openMenu();
     });
 
     // Cerrar al hacer click fuera
-    document.addEventListener("click", (e) => {
-      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+    document.addEventListener('click', (e) => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
       if (isExpanded && !header.contains(e.target)) {
         closeMenu();
       }
     });
 
-    menu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeMenu);
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
     });
 
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       if (window.innerWidth >= 1024) closeMenu();
       updateHeaderState();
     });
 
-    window.addEventListener("scroll", updateHeaderState, { passive: true });
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
 
     updateHeaderState();
   };
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initHeader, { once: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeader, { once: true });
   } else {
     initHeader();
   }
 
-  document.addEventListener("astro:page-load", initHeader);
+  document.addEventListener('astro:page-load', initHeader);
 </script>
 
 <style is:global>

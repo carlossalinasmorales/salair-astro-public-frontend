@@ -1,25 +1,25 @@
 ---
-import { Image } from "astro:assets";
+import { Image } from 'astro:assets';
 
-import burgerKingLogo from "@assets/images/empresas/burger-king.webp";
-import chinaWokLogo from "@assets/images/empresas/china-wok.webp";
-import degasaLogo from "@assets/images/empresas/degasa.webp";
-import johnnyRocketsLogo from "@assets/images/empresas/johnny-rockets.webp";
-import kfcLogo from "@assets/images/empresas/kfc.webp";
-import tarragonaLogo from "@assets/images/empresas/tarragona.webp";
-import telepizzaLogo from "@assets/images/empresas/telepizza.webp";
-import unoSaludLogo from "@assets/images/empresas/uno-salud.webp";
-import wendysLogo from "@assets/images/empresas/wendys.webp";
+import burgerKingLogo from '@assets/images/empresas/burger-king.webp';
+import chinaWokLogo from '@assets/images/empresas/china-wok.webp';
+import degasaLogo from '@assets/images/empresas/degasa.webp';
+import johnnyRocketsLogo from '@assets/images/empresas/johnny-rockets.webp';
+import kfcLogo from '@assets/images/empresas/kfc.webp';
+import tarragonaLogo from '@assets/images/empresas/tarragona.webp';
+import telepizzaLogo from '@assets/images/empresas/telepizza.webp';
+import unoSaludLogo from '@assets/images/empresas/uno-salud.webp';
+import wendysLogo from '@assets/images/empresas/wendys.webp';
 
 const companies = [
-  { name: "Burger King", logo: burgerKingLogo },
-  { name: "China Wok", logo: chinaWokLogo },
-  { name: "Degasa", logo: degasaLogo },
-  { name: "Johnny Rockets", logo: johnnyRocketsLogo },
-  { name: "KFC", logo: kfcLogo },
-  { name: "Tarragona", logo: tarragonaLogo },
-  { name: "Telepizza", logo: telepizzaLogo },
-  { name: "Uno Salud", logo: unoSaludLogo },
+  { name: 'Burger King', logo: burgerKingLogo },
+  { name: 'China Wok', logo: chinaWokLogo },
+  { name: 'Degasa', logo: degasaLogo },
+  { name: 'Johnny Rockets', logo: johnnyRocketsLogo },
+  { name: 'KFC', logo: kfcLogo },
+  { name: 'Tarragona', logo: tarragonaLogo },
+  { name: 'Telepizza', logo: telepizzaLogo },
+  { name: 'Uno Salud', logo: unoSaludLogo },
   { name: "Wendy's", logo: wendysLogo },
 ];
 
@@ -28,86 +28,82 @@ interface Props {
   class?: string;
 }
 
-const { embedded = false, class: className = "" } = Astro.props;
-const headingId = "empresas-atendidas";
+const { embedded = false, class: className = '' } = Astro.props;
+const headingId = 'empresas-atendidas';
 
-const embeddedLogoClasses = "h-12 w-auto object-contain lg:h-16";
-const defaultLogoClasses = "h-12 w-auto object-contain md:h-18";
+const embeddedLogoClasses = 'h-12 w-auto object-contain lg:h-16';
+const defaultLogoClasses = 'h-12 w-auto object-contain md:h-18';
 ---
 
 {
   embedded ? (
-    <div class:list={["w-full", className]} aria-labelledby={headingId}>
-      <h2 id={headingId} class="sr-only">Empresas atendidas</h2>
+    <div class:list={['w-full', className]} aria-labelledby={headingId}>
+      <h2 id={headingId} class="sr-only">
+        Empresas atendidas
+      </h2>
       <div class="marquee rounded-xl px-3 py-3 shadow-lg" aria-label="Logos de empresas atendidas">
         <ul class="marquee__track" role="list">
-          {
-            companies.map((company) => (
-              <li class="marquee__item">
-                <Image
-                  src={company.logo}
-                  alt={`Logo de ${company.name}`}
-                  class={embeddedLogoClasses}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </li>
-            ))
-          }
+          {companies.map((company) => (
+            <li class="marquee__item">
+              <Image
+                src={company.logo}
+                alt={`Logo de ${company.name}`}
+                class={embeddedLogoClasses}
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+          ))}
         </ul>
 
         <ul class="marquee__track" aria-hidden="true" role="presentation">
-          {
-            companies.map((company) => (
-              <li class="marquee__item">
-                <Image
-                  src={company.logo}
-                  alt=""
-                  class={embeddedLogoClasses}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </li>
-            ))
-          }
+          {companies.map((company) => (
+            <li class="marquee__item">
+              <Image
+                src={company.logo}
+                alt=""
+                class={embeddedLogoClasses}
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </div>
   ) : (
     <section aria-labelledby={headingId} class:list={[className]}>
-      <h2 id={headingId} class="sr-only">Empresas atendidas</h2>
+      <h2 id={headingId} class="sr-only">
+        Empresas atendidas
+      </h2>
       <div class="container min-h-20 content-center">
         <div class="marquee" aria-label="Logos de empresas atendidas">
           <ul class="marquee__track" role="list">
-            {
-              companies.map((company) => (
-                <li class="marquee__item">
-                  <Image
-                    src={company.logo}
-                    alt={`Logo de ${company.name}`}
-                    class={defaultLogoClasses}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </li>
-              ))
-            }
+            {companies.map((company) => (
+              <li class="marquee__item">
+                <Image
+                  src={company.logo}
+                  alt={`Logo de ${company.name}`}
+                  class={defaultLogoClasses}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </li>
+            ))}
           </ul>
 
           <ul class="marquee__track" aria-hidden="true" role="presentation">
-            {
-              companies.map((company) => (
-                <li class="marquee__item">
-                  <Image
-                    src={company.logo}
-                    alt=""
-                    class={defaultLogoClasses}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </li>
-              ))
-            }
+            {companies.map((company) => (
+              <li class="marquee__item">
+                <Image
+                  src={company.logo}
+                  alt=""
+                  class={defaultLogoClasses}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </li>
+            ))}
           </ul>
         </div>
       </div>

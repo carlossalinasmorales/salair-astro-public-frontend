@@ -1,13 +1,12 @@
 ---
-import ServiceCard from "@molecules/ServiceCard.astro";
-import { services } from "@/lib/content/services";
+import ServiceCard from '@molecules/ServiceCard.astro';
+import { services } from '@/lib/content/services';
 
 const servicesTopRow = services.slice(0, 3);
 const servicesBottomRow = services.slice(3);
 
-const servicesGridBaseClasses = "services-grid-reference mx-auto grid bg-neutral-100";
-const serviceCardEqualizedClass = "service-card-equalized";
-
+const servicesGridBaseClasses = 'services-grid-reference mx-auto grid bg-neutral-100';
+const serviceCardEqualizedClass = 'service-card-equalized';
 ---
 
 <section id="servicios" class="section-shell" data-services-grid>
@@ -17,37 +16,43 @@ const serviceCardEqualizedClass = "service-card-equalized";
     </div>
 
     <div class={`${servicesGridBaseClasses} max-w-6xl grid-cols-1 sm:grid-cols-2 lg:hidden`}>
-      {services.map((service) => (
-        <ServiceCard
-          title={service.title}
-          description={service.description}
-          iconVariant={service.iconVariant}
-          class={serviceCardEqualizedClass}
-        />
-      ))}
+      {
+        services.map((service) => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            iconVariant={service.iconVariant}
+            class={serviceCardEqualizedClass}
+          />
+        ))
+      }
     </div>
 
     <div class="hidden lg:block">
       <div class={`${servicesGridBaseClasses} max-w-6xl grid-cols-3`}>
-        {servicesTopRow.map((service) => (
-          <ServiceCard
-            title={service.title}
-            description={service.description}
-            iconVariant={service.iconVariant}
-            class={serviceCardEqualizedClass}
-          />
-        ))}
+        {
+          servicesTopRow.map((service) => (
+            <ServiceCard
+              title={service.title}
+              description={service.description}
+              iconVariant={service.iconVariant}
+              class={serviceCardEqualizedClass}
+            />
+          ))
+        }
       </div>
 
       <div class={`${servicesGridBaseClasses} max-w-4xl grid-cols-2`}>
-        {servicesBottomRow.map((service) => (
-          <ServiceCard
-            title={service.title}
-            description={service.description}
-            iconVariant={service.iconVariant}
-            class={serviceCardEqualizedClass}
-          />
-        ))}
+        {
+          servicesBottomRow.map((service) => (
+            <ServiceCard
+              title={service.title}
+              description={service.description}
+              iconVariant={service.iconVariant}
+              class={serviceCardEqualizedClass}
+            />
+          ))
+        }
       </div>
     </div>
   </div>

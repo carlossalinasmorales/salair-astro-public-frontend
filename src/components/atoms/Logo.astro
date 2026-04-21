@@ -1,11 +1,11 @@
 ---
-import { Image } from "astro:assets";
-import defaultLogo from "@assets/logos/salair-logo.webp";
-import whiteLogo from "@assets/logos/salair-white-logo.webp";
-import secondaryLogo from "@assets/logos/salair-secondary-logo.webp";
+import { Image } from 'astro:assets';
+import defaultLogo from '@assets/logos/salair-logo.webp';
+import whiteLogo from '@assets/logos/salair-white-logo.webp';
+import secondaryLogo from '@assets/logos/salair-secondary-logo.webp';
 
-type LogoVariant = "default" | "white" | "secondary" | "auto";
-type LogoSize = "sm" | "md" | "lg";
+type LogoVariant = 'default' | 'white' | 'secondary' | 'auto';
+type LogoSize = 'sm' | 'md' | 'lg';
 
 interface Props {
   variant?: LogoVariant;
@@ -16,17 +16,17 @@ interface Props {
 }
 
 const {
-  variant = "default",
-  size = "md",
-  alt = "Salair",
-  class: className = "",
+  variant = 'default',
+  size = 'md',
+  alt = 'Salair',
+  class: className = '',
   priority = false,
 } = Astro.props;
 
 const sizeClasses: Record<LogoSize, string> = {
-  sm: "h-4 lg:h-6",
-  md: "h-6 lg:h-8",
-  lg: "h-8 lg:h-10",
+  sm: 'h-4 lg:h-6',
+  md: 'h-6 lg:h-8',
+  lg: 'h-8 lg:h-10',
 };
 
 const logosByVariant = {
@@ -35,18 +35,20 @@ const logosByVariant = {
   secondary: secondaryLogo,
 } as const;
 
-const selectedVariant = variant === "auto" ? "default" : variant;
+const selectedVariant = variant === 'auto' ? 'default' : variant;
 const selectedLogo = logosByVariant[selectedVariant];
 const sharedImageAttributes = {
-  loading: priority ? "eager" as const : "lazy" as const,
-  decoding: priority ? "sync" as const : "async" as const,
-  fetchpriority: priority ? "high" as const : "auto" as const,
+  loading: priority ? ('eager' as const) : ('lazy' as const),
+  decoding: priority ? ('sync' as const) : ('async' as const),
+  fetchpriority: priority ? ('high' as const) : ('auto' as const),
 };
 ---
 
 {
-  variant === "auto" ? (
-    <span class:list={["logo-auto relative inline-flex items-center", sizeClasses[size], className]}>
+  variant === 'auto' ? (
+    <span
+      class:list={['logo-auto relative inline-flex items-center', sizeClasses[size], className]}
+    >
       <Image
         src={defaultLogo}
         alt={alt}
@@ -65,7 +67,7 @@ const sharedImageAttributes = {
     <Image
       src={selectedLogo}
       alt={alt}
-      class:list={["w-auto", sizeClasses[size], className]}
+      class:list={['w-auto', sizeClasses[size], className]}
       {...sharedImageAttributes}
     />
   )

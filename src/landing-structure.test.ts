@@ -44,13 +44,17 @@ describe('landing pública: estructura crítica', () => {
   });
 
   it('el componente de logos de empresas existe y está integrado en la landing', () => {
-    const marqueePath = resolve(projectRoot, 'src/components/organisms/TrustedCompaniesMarquee.astro');
+    const marqueePath = resolve(
+      projectRoot,
+      'src/components/organisms/TrustedCompaniesMarquee.astro',
+    );
     expect(existsSync(marqueePath)).toBe(true);
 
     const indexSource = readSource('src/pages/index.astro');
     const heroSource = readSource('src/components/sections/Hero.astro');
     const isIntegrated =
-      indexSource.includes('<TrustedCompaniesMarquee') || heroSource.includes('<TrustedCompaniesMarquee');
+      indexSource.includes('<TrustedCompaniesMarquee') ||
+      heroSource.includes('<TrustedCompaniesMarquee');
 
     expect(isIntegrated).toBe(true);
   });

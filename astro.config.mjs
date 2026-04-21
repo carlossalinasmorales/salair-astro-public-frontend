@@ -54,5 +54,5 @@ export default defineConfig({
     },
   },
 
-  integrations: [react(), sitemap()]
+  integrations: [react(), sitemap()],
 });

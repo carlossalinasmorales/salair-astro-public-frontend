@@ -1,5 +1,4 @@
 ---
-
 interface Props {
   number: string;
   title: string;
@@ -7,7 +6,7 @@ interface Props {
   class?: string;
 }
 
-const { number, title, description, class: className = "" } = Astro.props;
+const { number, title, description, class: className = '' } = Astro.props;
 ---
 
 <div class={`surface-card px-8 py-8 ${className}`}>
@@ -18,7 +17,11 @@ const { number, title, description, class: className = "" } = Astro.props;
       {number}
     </span>
     <div>
-      <h3 class="mb-2 text-xl leading-tight font-semibold tracking-tight text-secondary-500 md:text-2xl">{title}</h3>
+      <h3
+        class="mb-2 text-xl leading-tight font-semibold tracking-tight text-secondary-500 md:text-2xl"
+      >
+        {title}
+      </h3>
       <p class="text-base leading-relaxed text-secondary-300">{description}</p>
     </div>
   </div>

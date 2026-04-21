@@ -1,36 +1,28 @@
-import "@styles/domains/service-orbit-icon.css";
+import '@styles/domains/service-orbit-icon.css';
 
 export type ServiceIconVariant =
-  | "cooling"
-  | "heating"
-  | "compressor"
-  | "thermostat"
-  | "ventilation"
-  | "heatpump";
+  | 'cooling'
+  | 'heating'
+  | 'compressor'
+  | 'thermostat'
+  | 'ventilation'
+  | 'heatpump';
 
 export interface ServiceOrbitIconProps {
   variant?: ServiceIconVariant;
   className?: string;
 }
 
-export function ServiceOrbitIcon({
-  variant = "cooling",
-  className = "",
-}: ServiceOrbitIconProps) {
+export function ServiceOrbitIcon({ variant = 'cooling', className = '' }: ServiceOrbitIconProps) {
   return (
     <span
       className={`service-orbit-icon relative inline-flex h-14 w-14 md:h-18 md:w-18 items-center justify-center ${className}`}
       aria-hidden="true"
     >
       {/* ── COOLING: rotating snowflake ── */}
-      {variant === "cooling" && (
+      {variant === 'cooling' && (
         <svg viewBox="0 0 56 56" className="text-primary-500">
-          <g
-            className="so-snow-spin"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-          >
+          <g className="so-snow-spin" fill="none" stroke="currentColor" strokeLinecap="round">
             <line x1="28" y1="11" x2="28" y2="45" strokeWidth="1.8" />
             <line x1="11" y1="28" x2="45" y2="28" strokeWidth="1.8" />
             <line x1="16" y1="16" x2="40" y2="40" strokeWidth="1.6" />
@@ -50,7 +42,7 @@ export function ServiceOrbitIcon({
       )}
 
       {/* ── HEATING: flickering flame outline ── */}
-      {variant === "heating" && (
+      {variant === 'heating' && (
         <svg viewBox="0 0 56 56" className="text-primary-500">
           <g
             className="so-flame-group"
@@ -73,18 +65,10 @@ export function ServiceOrbitIcon({
       )}
 
       {/* ── COMPRESSOR: spinning rotor inside ring ── */}
-      {variant === "compressor" && (
+      {variant === 'compressor' && (
         <svg viewBox="0 0 56 56" className="text-primary-500">
-          <circle
-            cx="28" cy="28" r="17"
-            fill="none" stroke="currentColor" strokeWidth="1.6"
-          />
-          <g
-            className="so-comp-rotor"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-          >
+          <circle cx="28" cy="28" r="17" fill="none" stroke="currentColor" strokeWidth="1.6" />
+          <g className="so-comp-rotor" fill="none" stroke="currentColor" strokeLinecap="round">
             <line x1="28" y1="18" x2="28" y2="38" strokeWidth="1.5" />
             <line x1="18" y1="28" x2="38" y2="28" strokeWidth="1.5" />
             <line x1="21" y1="21" x2="35" y2="35" strokeWidth="1.3" />
@@ -98,37 +82,66 @@ export function ServiceOrbitIcon({
       )}
 
       {/* ── THERMOSTAT: thermometer with animated mercury ── */}
-      {variant === "thermostat" && (
+      {variant === 'thermostat' && (
         <svg viewBox="0 0 56 56" className="text-primary-500">
           <rect
-            x="24.5" y="9" width="7" height="30" rx="3.5"
-            fill="none" stroke="currentColor" strokeWidth="1.7"
+            x="24.5"
+            y="9"
+            width="7"
+            height="30"
+            rx="3.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
           />
           <g className="so-merc">
-            <rect
-              x="26.5" y="24" width="3" height="15" rx="1.5"
-              className="fill-primary-500"
-            />
+            <rect x="26.5" y="24" width="3" height="15" rx="1.5" className="fill-primary-500" />
           </g>
-          <circle
-            cx="28" cy="43" r="5.5"
-            fill="none" stroke="currentColor" strokeWidth="1.7"
-          />
+          <circle cx="28" cy="43" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.7" />
           <circle cx="28" cy="43" r="3" className="fill-primary-700" />
-          <line x1="31.5" y1="15" x2="35" y2="15" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-          <line x1="31.5" y1="21" x2="34" y2="21" stroke="currentColor" strokeWidth="1.0" strokeLinecap="round" />
-          <line x1="31.5" y1="27" x2="35" y2="27" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-          <line x1="31.5" y1="33" x2="34" y2="33" stroke="currentColor" strokeWidth="1.0" strokeLinecap="round" />
+          <line
+            x1="31.5"
+            y1="15"
+            x2="35"
+            y2="15"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+          <line
+            x1="31.5"
+            y1="21"
+            x2="34"
+            y2="21"
+            stroke="currentColor"
+            strokeWidth="1.0"
+            strokeLinecap="round"
+          />
+          <line
+            x1="31.5"
+            y1="27"
+            x2="35"
+            y2="27"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+          <line
+            x1="31.5"
+            y1="33"
+            x2="34"
+            y2="33"
+            stroke="currentColor"
+            strokeWidth="1.0"
+            strokeLinecap="round"
+          />
         </svg>
       )}
 
       {/* ── VENTILATION: spinning fan blades inside ring ── */}
-      {variant === "ventilation" && (
+      {variant === 'ventilation' && (
         <svg viewBox="0 0 56 56" className="text-primary-500">
-          <circle
-            cx="28" cy="28" r="17"
-            fill="none" stroke="currentColor" strokeWidth="1.6"
-          />
+          <circle cx="28" cy="28" r="17" fill="none" stroke="currentColor" strokeWidth="1.6" />
           <g
             className="so-fan-spin"
             fill="none"
@@ -146,22 +159,25 @@ export function ServiceOrbitIcon({
       )}
 
       {/* ── HEAT PUMP: dual opposing arcs with flowing dashes ── */}
-      {variant === "heatpump" && (
+      {variant === 'heatpump' && (
         <svg viewBox="0 0 56 56" className="text-primary-500">
           <path
             className="so-flow-hot"
             d="M13 22 A17 17 0 0 1 43 22"
-            fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
           />
           <path
             className="so-flow-cold"
             d="M43 34 A17 17 0 0 1 13 34"
-            fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
           />
-          <circle
-            cx="28" cy="28" r="6"
-            fill="none" stroke="currentColor" strokeWidth="1.6"
-          />
+          <circle cx="28" cy="28" r="6" fill="none" stroke="currentColor" strokeWidth="1.6" />
           <circle cx="28" cy="28" r="2.8" className="fill-primary-700" />
           <path d="M12 20 L13 24 L17 22Z" className="fill-primary-500" />
           <path d="M44 36 L43 32 L39 34Z" className="fill-primary-500" />

@@ -1,10 +1,10 @@
-import type { ImageMetadata } from "astro";
+import type { ImageMetadata } from 'astro';
 
-import aireAcondicionadoIndustrial from "@/assets/images/equipos/aire-acondicionado-industrial.webp";
-import camarasDeRefrigeracion from "@/assets/images/equipos/camaras-de-refrigeracion.webp";
-import camarasDeCongelado from "@/assets/images/equipos/camaras-de-congelado.webp";
-import ductosDeVentilacion from "@/assets/images/equipos/ductos-de-ventilacion.webp";
-import extractoresDeAire from "@/assets/images/equipos/extractores-de-aire.webp";
+import aireAcondicionadoIndustrial from '@/assets/images/equipos/aire-acondicionado-industrial.webp';
+import camarasDeRefrigeracion from '@/assets/images/equipos/camaras-de-refrigeracion.webp';
+import camarasDeCongelado from '@/assets/images/equipos/camaras-de-congelado.webp';
+import ductosDeVentilacion from '@/assets/images/equipos/ductos-de-ventilacion.webp';
+import extractoresDeAire from '@/assets/images/equipos/extractores-de-aire.webp';
 
 export interface SystemItem {
   title: string;
@@ -15,38 +15,38 @@ export interface SystemItem {
 
 export const systems: SystemItem[] = [
   {
-    title: "Aires acondicionados",
+    title: 'Aires acondicionados',
     description:
-      "Climatización para espacios comerciales e industriales con control térmico estable y continuidad operativa.",
+      'Climatización para espacios comerciales e industriales con control térmico estable y continuidad operativa.',
     image: aireAcondicionadoIndustrial,
-    alt: "Equipo de aire acondicionado industrial",
+    alt: 'Equipo de aire acondicionado industrial',
   },
   {
-    title: "Cámaras de mantención",
+    title: 'Cámaras de mantención',
     description:
-      "Refrigeración para conservación de productos con monitoreo térmico constante y funcionamiento confiable.",
+      'Refrigeración para conservación de productos con monitoreo térmico constante y funcionamiento confiable.',
     image: camarasDeRefrigeracion,
-    alt: "Cámara de mantención frigorífica",
+    alt: 'Cámara de mantención frigorífica',
   },
   {
-    title: "Cámaras de congelado",
+    title: 'Cámaras de congelado',
     description:
-      "Cadena de frío de baja temperatura para operaciones con alta exigencia sanitaria y logística.",
+      'Cadena de frío de baja temperatura para operaciones con alta exigencia sanitaria y logística.',
     image: camarasDeCongelado,
-    alt: "Cámara de congelado industrial",
+    alt: 'Cámara de congelado industrial',
   },
   {
-    title: "Ductería",
+    title: 'Ductería',
     description:
-      "Diseño e instalación de ductos para ventilación y climatización con distribución de aire eficiente.",
+      'Diseño e instalación de ductos para ventilación y climatización con distribución de aire eficiente.',
     image: ductosDeVentilacion,
-    alt: "Sistema de ductería de ventilación",
+    alt: 'Sistema de ductería de ventilación',
   },
   {
-    title: "Extractores de aire",
+    title: 'Extractores de aire',
     description:
-      "Extracción y renovación de aire para áreas productivas con alta carga térmica y contaminantes.",
+      'Extracción y renovación de aire para áreas productivas con alta carga térmica y contaminantes.',
     image: extractoresDeAire,
-    alt: "Extractores de aire instalados en operación",
+    alt: 'Extractores de aire instalados en operación',
   },
 ];

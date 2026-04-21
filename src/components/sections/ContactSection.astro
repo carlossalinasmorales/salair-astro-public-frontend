@@ -1,7 +1,7 @@
 ---
-import Button from "@atoms/Button.astro";
-import FormField from "@molecules/FormField.astro";
-import FormTextareaField from "@molecules/FormTextareaField.astro";
+import Button from '@atoms/Button.astro';
+import FormField from '@molecules/FormField.astro';
+import FormTextareaField from '@molecules/FormTextareaField.astro';
 ---
 
 <section id="contacto" class="section-shell">
@@ -12,7 +12,13 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
     <div class="max-w-3xl gap-10">
       <div class="surface-panel p-8">
         <form id="contact-form" class="space-y-5" data-state="idle">
-          <div id="form-feedback" class="hidden rounded-sm border bg-primary-500 text-neutral-100 p-4 text-sm" role="status" aria-live="polite"></div>
+          <div
+            id="form-feedback"
+            class="hidden rounded-sm border bg-primary-500 text-neutral-100 p-4 text-sm"
+            role="status"
+            aria-live="polite"
+          >
+          </div>
 
           <FormField
             id="company"
@@ -82,7 +88,10 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
             description="Entre 20 y 2000 caracteres. Entre más contexto entregue, mejor propuesta técnica recibirá."
           />
 
-          <div class="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+          <div
+            class="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+            aria-hidden="true"
+          >
             <label for="website">No completar este campo</label>
             <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
           </div>
@@ -92,11 +101,13 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
           </Button>
 
           <p class="text-xs text-secondary-400">
-            Al enviar este formulario acepta que usemos estos datos para contactarlo y preparar una propuesta.
+            Al enviar este formulario acepta que usemos estos datos para contactarlo y preparar una
+            propuesta.
           </p>
 
           <p class="text-xs text-secondary-400">
-            Nota: el envío actual es una simulación local. No existe conexión real con backend todavía.
+            Nota: el envío actual es una simulación local. No existe conexión real con backend
+            todavía.
           </p>
         </form>
       </div>
@@ -106,27 +117,27 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
 
 <script>
   const setupDeferredContactFormInit = () => {
-    const section = document.getElementById("contacto");
-    const form = document.getElementById("contact-form");
+    const section = document.getElementById('contacto');
+    const form = document.getElementById('contact-form');
 
     if (!(section instanceof HTMLElement) || !(form instanceof HTMLFormElement)) {
       return;
     }
 
-    if (section.dataset.deferredInit === "true") {
+    if (section.dataset.deferredInit === 'true') {
       return;
     }
 
-    section.dataset.deferredInit = "true";
+    section.dataset.deferredInit = 'true';
 
     let hasLoadedModule = false;
     let observer: IntersectionObserver | null = null;
 
     const cleanup = () => {
       observer?.disconnect();
-      document.removeEventListener("focusin", onFocusIn, true);
-      section.removeEventListener("pointerenter", triggerInit);
-      section.removeEventListener("touchstart", triggerInit);
+      document.removeEventListener('focusin', onFocusIn, true);
+      section.removeEventListener('pointerenter', triggerInit);
+      section.removeEventListener('touchstart', triggerInit);
     };
 
     const loadAndInit = async () => {
@@ -137,7 +148,7 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
       hasLoadedModule = true;
 
       try {
-        const { initContactForm } = await import("@/scripts/contact-form");
+        const { initContactForm } = await import('@/scripts/contact-form');
         initContactForm();
         cleanup();
       } catch {
@@ -156,11 +167,11 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
       }
     };
 
-    document.addEventListener("focusin", onFocusIn, true);
-    section.addEventListener("pointerenter", triggerInit, { once: true, passive: true });
-    section.addEventListener("touchstart", triggerInit, { once: true, passive: true });
+    document.addEventListener('focusin', onFocusIn, true);
+    section.addEventListener('pointerenter', triggerInit, { once: true, passive: true });
+    section.addEventListener('touchstart', triggerInit, { once: true, passive: true });
 
-    if ("IntersectionObserver" in window) {
+    if ('IntersectionObserver' in window) {
       observer = new IntersectionObserver(
         (entries) => {
           const [entry] = entries;
@@ -168,7 +179,7 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
             triggerInit();
           }
         },
-        { rootMargin: "220px 0px" },
+        { rootMargin: '220px 0px' },
       );
 
       observer.observe(section);
@@ -178,11 +189,11 @@ import FormTextareaField from "@molecules/FormTextareaField.astro";
     triggerInit();
   };
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupDeferredContactFormInit, { once: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupDeferredContactFormInit, { once: true });
   } else {
     setupDeferredContactFormInit();
   }
 
-  document.addEventListener("astro:page-load", setupDeferredContactFormInit);
+  document.addEventListener('astro:page-load', setupDeferredContactFormInit);
 </script>

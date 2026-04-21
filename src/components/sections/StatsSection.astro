@@ -1,7 +1,7 @@
 ---
-import StatCard from "@molecules/StatCard.astro";
-import { StatsOrbit } from "@/components/illustrations/StatsOrbit.tsx";
-import { stats } from "@/lib/content/stats";
+import StatCard from '@molecules/StatCard.astro';
+import { StatsOrbit } from '@/components/illustrations/StatsOrbit.tsx';
+import { stats } from '@/lib/content/stats';
 ---
 
 <section id="nosotros" class="section-shell relative overflow-hidden">
@@ -16,9 +16,7 @@ import { stats } from "@/lib/content/stats";
       </div>
 
       <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
-        {stats.map((stat) => (
-          <StatCard value={stat.value} label={stat.label} />
-        ))}
+        {stats.map((stat) => <StatCard value={stat.value} label={stat.label} />)}
       </div>
     </div>
   </div>
@@ -26,17 +24,17 @@ import { stats } from "@/lib/content/stats";
 
 <script>
   const TIMING_BY_VALUE: Record<string, { duration: number; delay: number }> = {
-    "30+": { duration: 1.4, delay: 0.0 },
-    "6000+": { duration: 2.2, delay: 0.12 },
-    "100+": { duration: 1.6, delay: 0.24 },
-    "10+": { duration: 1.2, delay: 0.36 },
+    '30+': { duration: 1.4, delay: 0.0 },
+    '6000+': { duration: 2.2, delay: 0.12 },
+    '100+': { duration: 1.6, delay: 0.24 },
+    '10+': { duration: 1.2, delay: 0.36 },
   };
 
   const formatValue = (raw: string, value: number) => {
-    const hasPlus = raw.includes("+");
-    const hasPercent = raw.includes("%");
+    const hasPlus = raw.includes('+');
+    const hasPercent = raw.includes('%');
     const rounded = Math.round(value);
-    const formatted = rounded.toLocaleString("es-CL");
+    const formatted = rounded.toLocaleString('es-CL');
 
     if (hasPercent) return `${formatted}%`;
     if (hasPlus) return `${formatted}+`;
@@ -44,12 +42,12 @@ import { stats } from "@/lib/content/stats";
   };
 
   const animateCounters = async (statNodes: HTMLElement[]) => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
       statNodes.forEach((node) => {
-        const raw = node.dataset.statValue?.trim() ?? node.textContent?.trim() ?? "0";
-        const target = Number.parseInt(raw.replace(/[^\d]/g, ""), 10);
+        const raw = node.dataset.statValue?.trim() ?? node.textContent?.trim() ?? '0';
+        const target = Number.parseInt(raw.replace(/[^\d]/g, ''), 10);
 
         if (Number.isFinite(target)) {
           node.textContent = formatValue(raw, target);
@@ -58,11 +56,11 @@ import { stats } from "@/lib/content/stats";
       return;
     }
 
-    const { gsap } = await import("gsap");
+    const { gsap } = await import('gsap');
 
     statNodes.forEach((node, index) => {
-      const raw = node.dataset.statValue?.trim() ?? node.textContent?.trim() ?? "0";
-      const target = Number.parseInt(raw.replace(/[^\d]/g, ""), 10);
+      const raw = node.dataset.statValue?.trim() ?? node.textContent?.trim() ?? '0';
+      const target = Number.parseInt(raw.replace(/[^\d]/g, ''), 10);
       const fallbackTiming = { duration: 1.5, delay: index * 0.1 };
       const timing = TIMING_BY_VALUE[raw] ?? fallbackTiming;
 
@@ -74,7 +72,7 @@ import { stats } from "@/lib/content/stats";
         value: target,
         duration: timing.duration,
         delay: timing.delay,
-        ease: "power3.out",
+        ease: 'power3.out',
         onUpdate: () => {
           node.textContent = formatValue(raw, counter.value);
         },
@@ -83,26 +81,28 @@ import { stats } from "@/lib/content/stats";
   };
 
   const initStatsSection = () => {
-    const section = document.getElementById("nosotros");
+    const section = document.getElementById('nosotros');
 
-    if (!(section instanceof HTMLElement) || section.dataset.statsInit === "true") {
+    if (!(section instanceof HTMLElement) || section.dataset.statsInit === 'true') {
       return;
     }
 
-    section.dataset.statsInit = "true";
+    section.dataset.statsInit = 'true';
 
     let hasAnimated = false;
     const runAnimation = async () => {
       if (hasAnimated) return;
       hasAnimated = true;
 
-      const statNodes = Array.from(document.querySelectorAll<HTMLElement>("#nosotros .js-stat-value"));
+      const statNodes = Array.from(
+        document.querySelectorAll<HTMLElement>('#nosotros .js-stat-value'),
+      );
       if (statNodes.length === 0) return;
 
       await animateCounters(statNodes);
     };
 
-    if (!("IntersectionObserver" in window)) {
+    if (!('IntersectionObserver' in window)) {
       void runAnimation();
       return;
     }
@@ -117,18 +117,18 @@ import { stats } from "@/lib/content/stats";
       },
       {
         threshold: 0.35,
-        rootMargin: "0px 0px -10% 0px",
+        rootMargin: '0px 0px -10% 0px',
       },
     );
 
     observer.observe(section);
   };
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initStatsSection, { once: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStatsSection, { once: true });
   } else {
     initStatsSection();
   }
 
-  document.addEventListener("astro:page-load", initStatsSection);
+  document.addEventListener('astro:page-load', initStatsSection);
 </script>

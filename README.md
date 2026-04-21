@@ -1,123 +1,106 @@
-# Salair Public Frontend (Astro)
+# Salair Public Frontend
 
-Landing pública de **SALAIR** construida con Astro, Tailwind y componentes bajo enfoque **Atomic Design**.
+Landing pública de **SALAIR** construida con Astro, Tailwind y arquitectura de componentes basada en **Atomic Design**.
 
-## Objetivo del proyecto
+![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.12.0-339933?logo=node.js&logoColor=white)
+![Astro](https://img.shields.io/badge/Astro-6-FF5D01?logo=astro&logoColor=white)
+![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-9-4B32C3?logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-3-F7B93E?logo=prettier&logoColor=1A2B34)
 
-Este repositorio concentra el frontend del sitio público, con foco en:
+## Objetivo
+
+Este repositorio concentra el frontend del sitio público con foco en:
 
 - rendimiento y SEO técnico,
-- diseño consistente por sistema de componentes,
-- contenido comercial claro y mantenible.
-
-## Stack
-
-- **Astro 6**
-- **Tailwind CSS 4** (`@tailwindcss/vite`)
-- **React 19** (islands puntuales)
-- **GSAP 3** (animaciones puntuales)
-- **Vitest** para pruebas
-- **Node.js >= 22.12.0**
+- consistencia visual vía sistema de componentes,
+- mantenibilidad operativa del contenido y estilos.
 
 ## Requisitos
 
 - Node.js `>=22.12.0`
 - npm
 
-## Instalación y uso
+## Inicio rápido
 
 ```bash
 npm install
 npm run dev
 ```
 
-### Scripts disponibles
+## Scripts disponibles
 
-- `npm run dev` — entorno local
-- `npm run build` — build de producción
-- `npm run preview` — preview del build
-- `npm run test` — vitest en modo interactivo
-- `npm run test:run` — ejecución única de tests
-- `npm run test:watch` — tests en watch mode
+| Script | Descripción |
+| --- | --- |
+| `npm run dev` | Levanta el entorno local de desarrollo |
+| `npm run build` | Genera build de producción |
+| `npm run preview` | Sirve localmente el build generado |
+| `npm run lint` | Ejecuta ESLint en todo el proyecto |
+| `npm run lint:fix` | Corrige automáticamente problemas de lint soportados |
+| `npm run format` | Formatea el proyecto con Prettier |
+| `npm run format:check` | Verifica formato sin modificar archivos |
+| `npm run test` | Ejecuta Vitest en modo interactivo |
+| `npm run test:run` | Ejecuta tests una sola vez |
+| `npm run test:watch` | Ejecuta tests en modo watch |
 
 ## Estructura del proyecto
 
 ```text
 src/
-  assets/                # imágenes, logos, videos, fuentes e identidad
+  assets/                # imágenes, logos, videos e identidad
   components/
     atoms/               # piezas base (Button, NavLink, Logo)
-    molecules/           # combinaciones reutilizables (ServiceCard, SystemCard, StatCard, campos de formulario)
-    organisms/           # bloques compuestos reutilizables (Header, Footer, marquee, islands puntuales)
-    sections/            # secciones completas de página/landing
-    illustrations/       # ilustraciones SVG/React con estilos compartidos de dominio
+    molecules/           # combinaciones reutilizables (cards, campos de formulario)
+    organisms/           # bloques compuestos reutilizables (Header, Footer, marquee, islands)
+    sections/            # secciones completas de la landing
+    illustrations/       # ilustraciones SVG/React compartidas
   layouts/               # layout base y metadata global
-  pages/                 # páginas Astro
-  scripts/               # comportamiento cliente diferido y específico de página/sección
+  lib/content/           # contenido comercial centralizado (servicios, beneficios, stats, etc.)
+  lib/navigation/        # enlaces de navegación y footer
+  pages/                 # rutas Astro
+  scripts/               # comportamiento cliente puntual por sección/página
   styles/                # tokens, patrones semánticos y estilos por dominio
 ```
 
-## Convenciones del frontend
+## Convenciones clave
 
-- Arquitectura de componentes por **Atomic Design**.
-- Mantener componentes reutilizables en `atoms/` y `molecules/`; reservar `sections/` para composición de secciones de página.
-- `organisms/` se usa para bloques compuestos reutilizables, no como sinónimo de secciones completas.
-- `illustrations/` agrupa SVG/React decorativos o visuales compartidos; no mezclar allí lógica de negocio.
-- `scripts/` se reserva para comportamiento cliente diferido y específico de una sección/página, cuando NO vale la pena crear una island React.
-- Se usan aliases para importaciones limpias (`@`, `@atoms`, `@molecules`, `@organisms`, `@assets`, etc.).
-- Las imágenes deben usar `astro:assets` (`<Image />`) para mantener optimización y consistencia.
+- Mantener la jerarquía **Atomic Design** (`atoms` → `molecules` → `organisms` → `sections`).
+- Si algo es estático, debe permanecer en `.astro` sin JS cliente.
+- Si algo es interactivo y reutilizable, evaluar island de React.
+- Si la interacción es puntual de una sola sección, ubicarla en `src/scripts/`.
+- Usar alias definidos en `astro.config.mjs` (`@`, `@atoms`, `@molecules`, `@organisms`, `@assets`, etc.).
 
-### Regla práctica para evitar sobreingeniería
+## Estilos
 
-- Si algo es estático, debe seguir siendo `.astro` sin JS cliente.
-- Si algo es interactivo y reutilizable, evaluar **island**.
-- Si algo es interacción puntual de una sola sección (por ejemplo, inicialización diferida o validación local), puede vivir en `src/scripts/`.
-- No crear helpers, utilidades o capas genéricas hasta que exista reutilización real en al menos 2-3 lugares.
-- Antes de agregar una carpeta nueva, preferir mantener la lógica cerca del componente o sección que la usa.
+- `src/styles/global.css`: tema/base y reglas globales.
+- `src/styles/patterns.css`: patrones semánticos reutilizables (`@apply`).
+- `src/styles/domains/*.css`: estilos transversales por dominio visual.
 
-## Arquitectura y convenciones de estilos
+> Bajo CSP, evita `<style>{...}</style>` embebido en JSX. Mueve ese CSS a estilos de dominio o a un componente `.astro`.
 
-### `src/styles/global.css`
-- Tokens de tema (`@theme`) y reglas base de elementos.
-- Defaults de accesibilidad a nivel de elemento.
-- No agregar aquí patrones reutilizables de UI ni estilos específicos de feature/dominio.
+## SEO, seguridad y configuración
 
-### `src/styles/patterns.css`
-- Patrones semánticos reutilizables construidos con `@apply`.
-- Ejemplos actuales: `section-shell`, `section-heading`, `section-title`, `surface-card`, `surface-panel` y controles comunes.
-- Preferir este archivo por sobre crear archivos `*.ts` que solo exportan strings de clases Tailwind.
-
-### `src/styles/domains/*.css`
-- CSS transversal para un dominio visual/funcional específico.
-- Usarlo cuando los estilos se comparten entre múltiples componentes y no corresponde llevarlos a `global.css`.
-- Ejemplo actual: `src/styles/domains/illustrations.css`.
-
-### Estilos locales por componente
-- Preferir `<style>` dentro de componentes `.astro` cuando el CSS pertenece a un único componente.
-- Evitar archivos CSS standalone por componente salvo que exista una necesidad clara de reutilización.
-
-### Nota para React/JSX (CSP)
-- No incrustar bloques `<style>{...}</style>` dentro de componentes JSX bajo CSP.
-- Mover ese CSS a un stylesheet de dominio o al stylesheet de un componente Astro, según corresponda.
-
-## SEO y configuración relevante
-
-- Dominio canónico configurado en `astro.config.mjs`:
-  - `site: https://www.salair.cl`
-- Integración de sitemap habilitada con `@astrojs/sitemap`.
-- Metadata base y estructura SEO centralizadas en `src/layouts/Layout.astro`.
+- Dominio canónico: `https://www.salair.cl` (`astro.config.mjs`).
+- Sitemap habilitado con `@astrojs/sitemap`.
+- Metadata principal en `src/layouts/Layout.astro`.
+- CSP configurada en `astro.config.mjs` para endurecer seguridad de recursos.
 
 ## Testing
 
-Las pruebas actuales validan estructura crítica de la landing (orden de secciones y presencia de componentes clave):
+Las pruebas actuales validan estructura crítica de la landing (orden de secciones, presencia de bloques clave y CTAs principales).
 
 ```bash
 npm run test:run
 ```
 
-## Notas
+## Mantenimiento del proyecto
 
-- Este proyecto prioriza claridad operativa y mantenibilidad del contenido.
-- Si agregás nuevas secciones, respetá naming y jerarquía de componentes para no degradar el sistema.
-- `surface-card` y `surface-panel` son patrones CSS en `src/styles/patterns.css`, no componentes Astro independientes.
-- `src/content.config.ts` está como placeholder técnico para evitar warnings de Astro Content (no hay collections activas por ahora).
+Guía operativa paso a paso:
+
+- [`MAINTENANCE.md`](MAINTENANCE.md)
+
+## Nota sobre licencia
+
+Actualmente no hay archivo `LICENSE` en el repositorio. Antes de abrir el proyecto a terceros, define y agrega una licencia explícita.

@@ -24,12 +24,12 @@ const {
   maxLength,
   description,
   describedBy,
-  class: className = "",
+  class: className = '',
 } = Astro.props;
 
 const hintId = description ? `${id}-hint` : undefined;
 const errorId = `${id}-error`;
-const describedByIds = [describedBy, hintId, errorId].filter(Boolean).join(" ");
+const describedByIds = [describedBy, hintId, errorId].filter(Boolean).join(' ');
 ---
 
 <div class={className} data-field-wrapper={id}>
@@ -47,14 +47,21 @@ const describedByIds = [describedBy, hintId, errorId].filter(Boolean).join(" ");
     aria-invalid="false"
     aria-describedby={describedByIds}
     placeholder={placeholder}
-    class="form-control resize-none border-secondary-200/20 rounded-sm"
-  ></textarea>
+    class="form-control resize-none border-secondary-200/20 rounded-sm"></textarea>
 
-  {description && (
-    <p id={hintId} class="mt-2 text-xs text-secondary-400">
-      {description}
-    </p>
-  )}
+  {
+    description && (
+      <p id={hintId} class="mt-2 text-xs text-secondary-400">
+        {description}
+      </p>
+    )
+  }
 
-  <p id={errorId} class="mt-2 hidden text-sm font-semibold text-primary-600" data-field-error aria-live="polite"></p>
+  <p
+    id={errorId}
+    class="mt-2 hidden text-sm font-semibold text-primary-600"
+    data-field-error
+    aria-live="polite"
+  >
+  </p>
 </div>
