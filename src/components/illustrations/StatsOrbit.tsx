@@ -1,3 +1,4 @@
+import "@styles/domains/stats-orbit.css";
 import { useId } from "react";
 
 interface StatsOrbitProps {
