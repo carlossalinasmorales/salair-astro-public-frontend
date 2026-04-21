@@ -12,11 +12,13 @@ import montserrat600 from '@assets/fonts/montserrat/montserrat-latin-600-normal.
 interface Props {
   title?: string;
   description?: string;
+  robots?: string;
 }
 
 const {
   title = 'Salair — Climatización y Refrigeración Industrial',
   description = 'Soluciones profesionales de climatización y refrigeración industrial en Chile. Ofrecemos servicios de instalación, mantención, reparación y atención de emergencias principalmente para sistemas industriales como aire acondicionado, camaras frigorificas, ductería, estractores de aire, entre otros.',
+  robots = 'index, follow',
 } = Astro.props;
 
 const toAssetUrl = (asset: string | { src: string }) =>
@@ -33,7 +35,7 @@ const socialImageUrl = new URL(toAssetUrl(socialImage), baseUrl).toString();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots} />
     <link rel="canonical" href={canonicalUrl} />
 
     <meta property="og:title" content={title} />
