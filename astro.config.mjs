@@ -1,13 +1,16 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { loadEnv } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
+
+const env = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '');
 const TURNSTILE_ORIGIN = 'https://challenges.cloudflare.com';
 
 const resolveFormsApiOrigin = () => {
-  const formsApiBaseUrl = process.env.PUBLIC_FORMS_API_BASE_URL;
+  const formsApiBaseUrl = env.PUBLIC_FORMS_API_BASE_URL;
   if (!formsApiBaseUrl) {
     return null;
   }
