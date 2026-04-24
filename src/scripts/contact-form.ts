@@ -3,8 +3,7 @@ const GENERIC_PLAIN_TEXT_MESSAGE =
   'Este campo debe contener solo texto plano. No use HTML ni scripts.';
 const DISALLOWED_CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/;
 const DISALLOWED_INLINE_MARKUP = /<[^>]*>|[<>]/;
-const CONTACT_INQUIRIES_PATH = '/api/v1/public/contact-inquiries';
-const DEFAULT_SOURCE = 'contact-section';
+const WEBSITE_CONTACTS_API_PATH = '/api/v1/public/contact-inquiries';
 const TURNSTILE_RESPONSE_FIELD_NAME = 'cf-turnstile-response';
 
 type FieldName = 'company' | 'firstName' | 'lastName' | 'role' | 'email' | 'message';
@@ -93,7 +92,7 @@ const normalizeByField = (fieldName: ExtendedFieldName, value: string) => {
 const containsDisallowedMarkup = (value: string) => DISALLOWED_INLINE_MARKUP.test(value);
 const containsDisallowedControlChars = (value: string) => DISALLOWED_CONTROL_CHARS.test(value);
 
-interface ContactInquiryPayload {
+interface WebsiteContactPayload {
   company: string;
   first_name: string;
   last_name: string;
@@ -102,18 +101,18 @@ interface ContactInquiryPayload {
   message: string;
   turnstile_token: string;
   website: string;
-  source: string;
+  entry_point: string;
 }
 
 const normalizeApiBaseUrl = (value: string) => value.replace(/\/+$/, '');
 
-const buildContactInquiriesUrl = () => {
+const buildWebsiteContactsUrl = () => {
   const baseUrl = import.meta.env.PUBLIC_FORMS_API_BASE_URL;
   if (typeof baseUrl !== 'string' || !baseUrl.trim()) {
     return null;
   }
 
-  return `${normalizeApiBaseUrl(baseUrl.trim())}${CONTACT_INQUIRIES_PATH}`;
+  return `${normalizeApiBaseUrl(baseUrl.trim())}${WEBSITE_CONTACTS_API_PATH}`;
 };
 
 const getBackendErrorMessage = async (response: Response) => {
@@ -135,7 +134,7 @@ const getBackendErrorMessage = async (response: Response) => {
   }
 };
 
-const submitContactInquiry = async (url: string, payload: ContactInquiryPayload) => {
+const submitWebsiteContact = async (url: string, payload: WebsiteContactPayload) => {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -171,6 +170,7 @@ export const initContactForm = () => {
 
   form.dataset.init = 'true';
   const formStartedAt = performance.now();
+  const entryPoint = form.dataset.entryPoint?.trim() || 'home-contact';
 
   const fields: Record<ExtendedFieldName, Element | null> = {
     company: form.elements.namedItem('company') as Element | null,
@@ -333,7 +333,7 @@ export const initContactForm = () => {
     form.setAttribute('aria-busy', locked ? 'true' : 'false');
   };
 
-  const buildPayload = (values: FieldValues): ContactInquiryPayload => {
+  const buildPayload = (values: FieldValues): WebsiteContactPayload => {
     const website = getFieldElement('website');
     const turnstileToken = getFieldElement('turnstileToken');
     const turnstileResponseField = form.elements.namedItem(TURNSTILE_RESPONSE_FIELD_NAME);
@@ -352,7 +352,7 @@ export const initContactForm = () => {
       turnstile_token:
         normalizeByField('turnstileToken', turnstileToken?.value || '') || fallbackTurnstileToken,
       website: normalizeByField('website', website?.value || ''),
-      source: DEFAULT_SOURCE,
+      entry_point: entryPoint,
     };
   };
 
@@ -425,7 +425,7 @@ export const initContactForm = () => {
       return;
     }
 
-    const apiUrl = buildContactInquiriesUrl();
+    const apiUrl = buildWebsiteContactsUrl();
     if (!apiUrl) {
       setState('error', 'Falta configurar la URL pública de formularios. Contacte al equipo técnico.');
       return;
@@ -436,7 +436,7 @@ export const initContactForm = () => {
     setState('submitting', 'Enviando solicitud...');
 
     try {
-      await submitContactInquiry(apiUrl, payload);
+      await submitWebsiteContact(apiUrl, payload);
 
       form.reset();
       clearAllErrors();
