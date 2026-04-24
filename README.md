@@ -30,6 +30,13 @@ npm install
 npm run dev
 ```
 
+## Variables de entorno
+
+Copie `.env.example` a `.env` y ajuste valores según entorno:
+
+- `PUBLIC_FORMS_API_BASE_URL`: URL base pública del backend de formularios (ej: `http://127.0.0.1:8000`).
+- `PUBLIC_TURNSTILE_SITE_KEY`: llave pública de sitio de Turnstile para renderizar el widget en frontend (en local puede usar la test key de Cloudflare).
+
 ## Scripts disponibles
 
 | Script | Descripción |

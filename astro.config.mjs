@@ -4,6 +4,28 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
+const TURNSTILE_ORIGIN = 'https://challenges.cloudflare.com';
+
+const resolveFormsApiOrigin = () => {
+  const formsApiBaseUrl = process.env.PUBLIC_FORMS_API_BASE_URL;
+  if (!formsApiBaseUrl) {
+    return null;
+  }
+
+  try {
+    return new URL(formsApiBaseUrl).origin;
+  } catch {
+    return null;
+  }
+};
+
+const formsApiOrigin = resolveFormsApiOrigin();
+const connectSrcResources = ["'self'", TURNSTILE_ORIGIN];
+
+if (formsApiOrigin) {
+  connectSrcResources.push(formsApiOrigin);
+}
+
 // https://astro.build/config
 export default defineConfig({
   // TODO: ajustar este dominio si cambia el dominio canónico del sitio.
@@ -23,10 +45,11 @@ export default defineConfig({
         "form-action 'self'",
         "img-src 'self' data: blob:",
         "font-src 'self' data:",
-        "connect-src 'self'",
+        `connect-src ${connectSrcResources.join(' ')}`,
+        `frame-src ${TURNSTILE_ORIGIN}`,
       ],
       scriptDirective: {
-        resources: ["'self'"],
+        resources: ["'self'", TURNSTILE_ORIGIN],
       },
       styleDirective: {
         resources: ["'self'"],

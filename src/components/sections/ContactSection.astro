@@ -2,6 +2,9 @@
 import Button from '@atoms/Button.astro';
 import FormField from '@molecules/FormField.astro';
 import FormTextareaField from '@molecules/FormTextareaField.astro';
+
+const turnstileSiteKey =
+  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim() || import.meta.env.TURNSTILE_SITE_KEY?.trim() || '';
 ---
 
 <section id="contacto" class="section-shell">
@@ -96,6 +99,14 @@ import FormTextareaField from '@molecules/FormTextareaField.astro';
             <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
           </div>
 
+          <input id="turnstileToken" name="turnstileToken" type="hidden" value="" />
+
+          {
+            turnstileSiteKey ? (
+              <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"></div>
+            ) : null
+          }
+
           <Button type="submit" variant="primary" class="w-full">
             <span id="btn-text" aria-live="polite">Enviar</span>
           </Button>
@@ -105,15 +116,13 @@ import FormTextareaField from '@molecules/FormTextareaField.astro';
             propuesta.
           </p>
 
-          <p class="text-xs text-secondary-400">
-            Nota: el envío actual es una simulación local. No existe conexión real con backend
-            todavía.
-          </p>
         </form>
       </div>
     </div>
   </div>
 </section>
+
+{turnstileSiteKey ? <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> : null}
 
 <script>
   const setupDeferredContactFormInit = () => {

@@ -3,9 +3,12 @@ const GENERIC_PLAIN_TEXT_MESSAGE =
   'Este campo debe contener solo texto plano. No use HTML ni scripts.';
 const DISALLOWED_CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/;
 const DISALLOWED_INLINE_MARKUP = /<[^>]*>|[<>]/;
+const CONTACT_INQUIRIES_PATH = '/api/v1/public/contact-inquiries';
+const DEFAULT_SOURCE = 'contact-section';
+const TURNSTILE_RESPONSE_FIELD_NAME = 'cf-turnstile-response';
 
 type FieldName = 'company' | 'firstName' | 'lastName' | 'role' | 'email' | 'message';
-type ExtendedFieldName = FieldName | 'website';
+type ExtendedFieldName = FieldName | 'website' | 'turnstileToken';
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
 interface FieldRule {
@@ -90,22 +93,62 @@ const normalizeByField = (fieldName: ExtendedFieldName, value: string) => {
 const containsDisallowedMarkup = (value: string) => DISALLOWED_INLINE_MARKUP.test(value);
 const containsDisallowedControlChars = (value: string) => DISALLOWED_CONTROL_CHARS.test(value);
 
-interface MockSubmitSuccess {
-  ok: true;
-  data: {
-    requestId: string;
-  };
+interface ContactInquiryPayload {
+  company: string;
+  first_name: string;
+  last_name: string;
+  job_title: string;
+  email: string;
+  message: string;
+  turnstile_token: string;
+  website: string;
+  source: string;
 }
 
-interface MockSubmitError {
-  ok: false;
-  error: {
-    code: string;
-    message: string;
-  };
-}
+const normalizeApiBaseUrl = (value: string) => value.replace(/\/+$/, '');
 
-type MockSubmitResult = MockSubmitSuccess | MockSubmitError;
+const buildContactInquiriesUrl = () => {
+  const baseUrl = import.meta.env.PUBLIC_FORMS_API_BASE_URL;
+  if (typeof baseUrl !== 'string' || !baseUrl.trim()) {
+    return null;
+  }
+
+  return `${normalizeApiBaseUrl(baseUrl.trim())}${CONTACT_INQUIRIES_PATH}`;
+};
+
+const getBackendErrorMessage = async (response: Response) => {
+  try {
+    const data = (await response.json()) as {
+      detail?: string;
+      message?: string;
+      error?: { message?: string };
+    };
+
+    return (
+      data.detail ||
+      data.message ||
+      data.error?.message ||
+      'No se pudo enviar su solicitud en este momento. Intente nuevamente.'
+    );
+  } catch {
+    return 'No se pudo enviar su solicitud en este momento. Intente nuevamente.';
+  }
+};
+
+const submitContactInquiry = async (url: string, payload: ContactInquiryPayload) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    throw new Error(await getBackendErrorMessage(response));
+  }
+};
 
 export const initContactForm = () => {
   const form = document.getElementById('contact-form');
@@ -137,6 +180,7 @@ export const initContactForm = () => {
     email: form.elements.namedItem('email') as Element | null,
     message: form.elements.namedItem('message') as Element | null,
     website: form.elements.namedItem('website') as Element | null,
+    turnstileToken: form.elements.namedItem('turnstileToken') as Element | null,
   };
 
   const getFieldElement = (name: ExtendedFieldName) => {
@@ -289,48 +333,26 @@ export const initContactForm = () => {
     form.setAttribute('aria-busy', locked ? 'true' : 'false');
   };
 
-  const buildPayload = (values: FieldValues) => {
+  const buildPayload = (values: FieldValues): ContactInquiryPayload => {
+    const website = getFieldElement('website');
+    const turnstileToken = getFieldElement('turnstileToken');
+    const turnstileResponseField = form.elements.namedItem(TURNSTILE_RESPONSE_FIELD_NAME);
+    const fallbackTurnstileToken =
+      turnstileResponseField instanceof HTMLInputElement
+        ? normalizeByField('turnstileToken', turnstileResponseField.value)
+        : '';
+
     return {
       company: values.company,
-      contact: {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        fullName: `${values.firstName} ${values.lastName}`.trim(),
-        role: values.role || null,
-        email: values.email,
-      },
+      first_name: values.firstName,
+      last_name: values.lastName,
+      job_title: values.role,
+      email: values.email,
       message: values.message,
-      metadata: {
-        contractVersion: 1,
-        source: 'contact-section',
-        locale: document.documentElement.lang || 'es',
-        submittedAt: new Date().toISOString(),
-        honeypotPassed: true,
-      },
-    };
-  };
-
-  const mockSubmitContact = async (
-    payload: ReturnType<typeof buildPayload>,
-  ): Promise<MockSubmitResult> => {
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-
-    const forceError = payload.message.toLowerCase().includes('[force-error]');
-    if (forceError) {
-      return {
-        ok: false,
-        error: {
-          code: 'MOCK_VALIDATION_ERROR',
-          message: 'No fue posible procesar su solicitud. Revise el mensaje y vuelva a intentarlo.',
-        },
-      };
-    }
-
-    return {
-      ok: true,
-      data: {
-        requestId: `mock-${Date.now()}`,
-      },
+      turnstile_token:
+        normalizeByField('turnstileToken', turnstileToken?.value || '') || fallbackTurnstileToken,
+      website: normalizeByField('website', website?.value || ''),
+      source: DEFAULT_SOURCE,
     };
   };
 
@@ -403,29 +425,31 @@ export const initContactForm = () => {
       return;
     }
 
+    const apiUrl = buildContactInquiriesUrl();
+    if (!apiUrl) {
+      setState('error', 'Falta configurar la URL pública de formularios. Contacte al equipo técnico.');
+      return;
+    }
+
     const payload = buildPayload(values);
     setFormLocked(true);
-    setState('submitting', 'Validando y preparando su solicitud...');
+    setState('submitting', 'Enviando solicitud...');
 
     try {
-      const result = await mockSubmitContact(payload);
-
-      if (!result.ok) {
-        setState(
-          'error',
-          result.error.message || 'No se pudo enviar su solicitud en este momento.',
-        );
-        return;
-      }
+      await submitContactInquiry(apiUrl, payload);
 
       form.reset();
       clearAllErrors();
       setState(
         'success',
-        'Solicitud enviada correctamente (simulación local). Nuestro equipo se contactará a la brevedad.',
+        'Solicitud enviada correctamente. Nuestro equipo se contactará a la brevedad.',
       );
-    } catch {
-      setState('error', 'Ocurrió un problema inesperado al preparar el envío. Intente nuevamente.');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : '';
+      setState(
+        'error',
+        message || 'Ocurrió un problema inesperado al enviar la solicitud. Intente nuevamente.',
+      );
     } finally {
       setFormLocked(false);
     }
