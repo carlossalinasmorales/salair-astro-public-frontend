@@ -1,20 +1,17 @@
 ---
+import { Image } from 'astro:assets';
 import Button from '@atoms/Button.astro';
-import heroVideo from '@assets/videos/hero-video.mp4';
+import heroImage from '@assets/images/hero-image.webp';
 ---
 
 <section class="relative content-end overflow-hidden py-20 pt-24 lg:py-28 lg:pt-32 min-h-[90dvh]">
-  <video
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    aria-hidden="true"
-    class="absolute inset-0 h-full w-full object-cover"
-  >
-    <source src={heroVideo} type="video/mp4" />
-  </video>
+  <Image
+    src={heroImage}
+    alt=""
+    loading="lazy"
+    sizes="100vw"
+    class="absolute inset-0 h-full w-full object-cover object-[78%_center] md:object-center"
+    />
 
   <div
     class="absolute inset-0 bg-linear-to-b from-secondary-900/80 from-50% to-neutral-100 to-100%"
