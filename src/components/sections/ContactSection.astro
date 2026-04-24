@@ -30,7 +30,6 @@ const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY?.trim();
             required
             minLength={2}
             maxLength={120}
-            placeholder="Ej: Planta Andina SpA"
           />
 
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -43,7 +42,6 @@ const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY?.trim();
               minLength={2}
               maxLength={60}
               pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+$"
-              placeholder="Nombre"
             />
             <FormField
               id="lastName"
@@ -54,7 +52,6 @@ const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY?.trim();
               minLength={2}
               maxLength={60}
               pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+$"
-              placeholder="Apellido"
             />
           </div>
 
@@ -63,7 +60,6 @@ const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY?.trim();
             name="role"
             label="Cargo"
             maxLength={80}
-            placeholder="Ej: Jefe de Operaciones"
           />
 
           <FormField
@@ -75,7 +71,7 @@ const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY?.trim();
             required
             inputMode="email"
             maxLength={254}
-            placeholder="su@empresa.cl"
+            placeholder="ejemplo@empresa.cl"
           />
 
           <FormTextareaField
@@ -86,8 +82,7 @@ const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY?.trim();
             required
             minLength={20}
             maxLength={2000}
-            placeholder="Contexto operativo, metraje estimado, criticidad y plazo objetivo"
-            description="Entre 20 y 2000 caracteres. Entre más contexto entregue, mejor propuesta técnica recibirá."
+            placeholder="Escribe aquí los detalles, incluyendo cualquier información relevante que nos ayude a entender mejor tu situación y cómo podemos ayudarte."
           />
 
           <div
@@ -111,8 +106,7 @@ const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY?.trim();
           </Button>
 
           <p class="text-xs text-secondary-400">
-            Al enviar este formulario acepta que usemos estos datos para contactarlo y preparar una
-            propuesta.
+            Al enviar este formulario acepta que usemos estos datos para contactarte.
           </p>
 
         </form>

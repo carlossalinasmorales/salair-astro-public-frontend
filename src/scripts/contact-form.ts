@@ -170,7 +170,7 @@ export const initContactForm = () => {
 
   form.dataset.init = 'true';
   const formStartedAt = performance.now();
-  const entryPoint = form.dataset.entryPoint?.trim() || 'home-contact';
+  const entryPoint = form.dataset.entryPoint?.trim();
 
   const fields: Record<ExtendedFieldName, Element | null> = {
     company: form.elements.namedItem('company') as Element | null,
@@ -352,7 +352,7 @@ export const initContactForm = () => {
       turnstile_token:
         normalizeByField('turnstileToken', turnstileToken?.value || '') || fallbackTurnstileToken,
       website: normalizeByField('website', website?.value || ''),
-      entry_point: entryPoint,
+      entry_point: entryPoint || '',
     };
   };
 
@@ -398,7 +398,7 @@ export const initContactForm = () => {
 
     const honeypotField = getFieldElement('website');
     if (honeypotField && normalizeWhitespace(honeypotField.value)) {
-      setState('error', 'No se pudo enviar el formulario. Intente nuevamente.');
+      setState('error', 'No se pudo enviar el formulario. Intente nuevamente o contacte a través del mail contacto@salair.cl.');
       return;
     }
 
@@ -427,7 +427,7 @@ export const initContactForm = () => {
 
     const apiUrl = buildWebsiteContactsUrl();
     if (!apiUrl) {
-      setState('error', 'Falta configurar la URL pública de formularios. Contacte al equipo técnico.');
+      setState('error', 'Falta configurar la URL pública de formularios. Contacte directamente a traves del mail contacto@salair.cl.');
       return;
     }
 
@@ -448,7 +448,7 @@ export const initContactForm = () => {
       const message = error instanceof Error ? error.message : '';
       setState(
         'error',
-        message || 'Ocurrió un problema inesperado al enviar la solicitud. Intente nuevamente.',
+        message || 'Ocurrió un problema inesperado al enviar la solicitud. Contacte directamente a traves del mail contacto@salair.cl.',
       );
     } finally {
       setFormLocked(false);

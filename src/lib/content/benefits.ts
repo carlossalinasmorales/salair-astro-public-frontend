@@ -15,7 +15,7 @@ export const benefits: BenefitItem[] = [
     number: '02',
     title: 'Comunicación clara y directa',
     description:
-      'Le informamos lo necesario, en términos claros, para que pueda decidir con respaldo técnico.',
+      'Les informamos lo necesario, en términos claros, para que pueda decidir con respaldo técnico.',
   },
   {
     number: '03',
@@ -43,7 +43,7 @@ export const benefits: BenefitItem[] = [
   },
   {
     number: '07',
-    title: 'Calidad de Servicio',
+    title: 'Calidad de servicio',
     description:
       'Trabajamos con empresas de alto estándar operativo en distintos rubros productivos y comerciales.',
   },

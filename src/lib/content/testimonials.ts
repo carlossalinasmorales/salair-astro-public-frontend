@@ -23,7 +23,7 @@ export const testimonials: TestimonialItem[] = [
   },
   {
     quote:
-      'SALAIR lleva años cubriendo nuestros mas de  120 locales a lo largo de Chile siendo una parte importante en la continuidad operativa de nuestros restaurantes.',
+      'SALAIR lleva años cubriendo nuestros más de 120 locales a lo largo de Chile, siendo una parte importante en la continuidad operativa de nuestros restaurantes.',
     name: 'Francisco Beque',
     company: 'KFC Chile',
     avatar: kfcLogo.src,
@@ -32,7 +32,7 @@ export const testimonials: TestimonialItem[] = [
   },
   {
     quote:
-      'SALAIR se ha hecho cargo de las isntalaciones de cliatización de nuestros centros médicos, brindándonos tranquilidad y respaldo técnico para mantener un ambiente seguro y confortable para nuestros pacientes y personal.',
+      'SALAIR se ha hecho cargo de las instalaciones de climatización de nuestros centros médicos, brindándonos tranquilidad y respaldo técnico para mantener un ambiente seguro y confortable para nuestros pacientes y personal.',
     name: 'Bernabé Calderón',
     company: 'Uno Salud',
     avatar: unoSaludLogo.src,
