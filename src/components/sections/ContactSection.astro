@@ -2,12 +2,17 @@
 import Button from '@atoms/Button.astro';
 import FormField from '@molecules/FormField.astro';
 import FormTextareaField from '@molecules/FormTextareaField.astro';
+import WaveBackground from '@/components/illustrations/WaveBackground.tsx';
 
 const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY?.trim();
 ---
 
-<section id="contacto" class="section-shell">
-  <div class="container justify-items-center">
+<section id="contacto" class="section-shell relative overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-55">
+    <WaveBackground client:visible />
+  </div>
+
+  <div class="container relative z-10 justify-items-center">
     <div class="section-heading">
       <h2 class="section-title">Cuéntanos tu desafío y te damos una solución técnica clara.</h2>
     </div>
