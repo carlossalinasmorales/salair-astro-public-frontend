@@ -3,7 +3,7 @@ const GENERIC_PLAIN_TEXT_MESSAGE =
   'Este campo debe contener solo texto plano. No use HTML ni scripts.';
 const DISALLOWED_CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/;
 const DISALLOWED_INLINE_MARKUP = /<[^>]*>|[<>]/;
-const WEBSITE_CONTACTS_API_PATH = '/api/v1/public/contact-inquiries';
+const WEBSITE_CONTACTS_API_PATH = '/api/v1/public/website-contact';
 const TURNSTILE_RESPONSE_FIELD_NAME = 'cf-turnstile-response';
 
 type FieldName = 'company' | 'firstName' | 'lastName' | 'role' | 'email' | 'message';
